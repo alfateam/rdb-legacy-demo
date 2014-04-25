@@ -1,0 +1,17 @@
+{
+  "name": "rdb-demo",
+  "version": "0.0.1",
+  "main": "index.js",
+  "title": "rdb-demo",
+  "description": "ORM examples for npmjs.org/package/rdb",
+  "keywords": ["orm","sql","postgres","pg","rdb"],
+  "dependencies": {
+    "rdb": "*",
+    "promise": "*",
+		"pg.js": "*"
+  },
+  "repository" : {
+         "type" : "git",
+         "url"  : "git@github.com:alfateam/rdb-demo.git"
+      }
+}
