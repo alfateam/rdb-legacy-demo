@@ -1,6 +1,6 @@
 _rdb-demo_
 ===
-_Examples for ORM, npmjs.org/package/rdb"_. 
+_Examples for ORM, npmjs.org/package/rdb_. 
 
 
 Simple, flexible mapper.  
