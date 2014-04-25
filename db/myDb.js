@@ -1,5 +1,4 @@
 var rdb = require('rdb');
-var table = rdb.table;
 var customer = require('./customer');
 var order = require('./order');
 
