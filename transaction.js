@@ -71,7 +71,7 @@ function onOrders(orders) {
 }
 
 function onOk() {
-    console.log('done');
+    console.log('done. Waiting for connection pool to teardown....');
 }
 
 function onFailed(err) {
