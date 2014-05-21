@@ -17,27 +17,27 @@ function runDbTest() {
     commit = transaction.commit;
     rollback = transaction.rollback;
 
-    transaction.then(getCustomers).then(printAll).then(commit).then(null, rollback).done(onOk, onFailed);
+    transaction.then(getCustomer).then(printCustomer).then(commit).then(null, rollback).then(onOk, onFailed).then(final);
 }
 
-function getCustomers() {
-    return Customer.getMany();
+function getCustomer() {
+    return Customer.getById("100");
 }
 
-function printAll(customers) {
-    var all = [];
-    for (var i = 0; i < customers.length; i++) {        
-        all.push(customers[i].toJSON().then(printCustomer));
-    };
-    return promise.all(all);
+function printCustomer(customer) {
+    return customer.toJSON().then(printJSON);
 }
 
-function printCustomer(json) {    
+function printJSON(json) {    
     console.log(json);
 }
 
 function onOk() {
-    console.log('done. Waiting for connection pool to teardown....');
+    console.log('Success.');
+}
+
+function final() {
+    console.log('Waiting for connection pool to teardown....');
 }
 
 function onFailed(err) {

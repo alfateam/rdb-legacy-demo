@@ -19,7 +19,7 @@ function runDbTest() {
     commit = transaction.commit;
     rollback = transaction.rollback;
 
-    transaction.then(insertOrder).then(getOrders).then(commit).then(null, rollback).done(onOk, onFailed);
+    transaction.then(insertOrder).then(getOrders).then(commit).then(null, rollback).then(onOk, onFailed).then(final);
 }
 
 function insertOrder() {
@@ -48,8 +48,7 @@ function getById() {
 }
 
 function printOrder(order) {
-    var image = order.image;
-    console.log('id: %s, customerId: %s, status: %s, tax: %s, units: %s, regDate: %s, sum: %s, image: %s', order.id, order.customerId, order.status, order.tax, order.units, order.regDate, order.sum, order.image.toJSON());
+    console.log('id: %s, customerId: %s, status: %s, tax: %s, units: %s, regDate: %s, sum: %s, image: %s', order.id, order.customerId, order.status, order.tax, order.units, order.regDate, order.sum, order.image);
 }
 
 function printCustomer(customer) {
@@ -71,7 +70,11 @@ function onOrders(orders) {
 }
 
 function onOk() {
-    console.log('done. Waiting for connection pool to teardown....');
+    console.log('Success.');
+}
+
+function final() {
+    console.log('Waiting for connection pool to teardown....');
 }
 
 function onFailed(err) {

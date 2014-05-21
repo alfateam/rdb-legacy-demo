@@ -5,9 +5,9 @@ var Customer = require('./db/customer');
 
 var commit, rollback;
 
-insertDemoThenGet();
+insertThenGet();
 
-function insertDemoThenGet() {
+function insertThenGet() {
     init(runDbTest, onFailed);
 }
 
@@ -16,16 +16,15 @@ function runDbTest() {
     commit = transaction.commit;
     rollback = transaction.rollback;
 
-    transaction.then(getById).then(printOrder).then(commit).then(null, rollback).then(onOk, onFailed).then(final);
+    transaction.then(getCustomers).then(printAll).then(commit).then(null, rollback).then(onOk, onFailed).then(final);
 }
 
-function getById() {
-    return Order.getById('58d52776-2866-4fbe-8072-cdf13370959b');
+function getCustomers() {
+    return Customer.getMany();
 }
 
-function printOrder(order) {
-    var image = order.image;
-    console.log('id: %s, customerId: %s, status: %s, tax: %s, units: %s, regDate: %s, sum: %s, image: %s', order.id, order.customerId, order.status, order.tax, order.units, order.regDate, order.sum, order.image.toJSON());
+function printAll(customers) {
+    return customers.toJSON().then(printJSON);
 }
 
 function printJSON(json) {    
