@@ -1,34 +1,39 @@
-var init = require('./db/init');
-var db = require('./db/myDb');
-var Order = require('./db/order');
-var Customer = require('./db/customer');
+var rdb = require('rdb'),
+    resetDemo = require('./db/resetDemo');
 
-var commit, rollback;
+var Customer = rdb.table('_customer');
 
-insertDemoThenGet();
+Customer.primaryColumn('oId').guid().as('id');
+Customer.column('oName').string().as('name');
+Customer.column('oBalance').numeric().as('balance');
+Customer.column('oRegdate').date().as('registeredDate');
+Customer.column('oActive').boolean().as('active');
+Customer.column('oPicture').binary().as('picture');
 
-function insertDemoThenGet() {
-    init(runDbTest, onFailed);
-}
+var db = rdb('postgres://postgres:postgres@localhost/test');
 
-function runDbTest() {
-    var transaction = db.transaction();
-    commit = transaction.commit;
-    rollback = transaction.rollback;
+resetDemo()
+    .then(beginTransaction)
+    .then(getById)
+    .then(printCustomer)
+    .then(rdb.commit)
+    .then(null, rdb.rollback)
+    .then(onOk, onFailed)
+    .then(final);
 
-    transaction.then(getById).then(printOrder).then(commit).then(null, rollback).then(onOk, onFailed).then(final);
+function beginTransaction() {
+    return db.transaction();
 }
 
 function getById() {
-    return Order.getById('58d52776-2866-4fbe-8072-cdf13370959b');
+    return Customer.getById('58d52776-2866-4fbe-8072-cdf13370959b');
 }
 
-function printOrder(order) {
-    var image = order.image;
-    console.log('id: %s, customerId: %s, status: %s, tax: %s, units: %s, regDate: %s, sum: %s, image: %s', order.id, order.customerId, order.status, order.tax, order.units, order.regDate, order.sum, order.image.toJSON());
+function printCustomer(customer) {
+    console.log('id: %s, customerId: %s, status: %s, tax: %s, units: %s, regDate: %s, sum: %s, image: %s', Customer.id, Customer.customerId, Customer.status, Customer.tax, Customer.units, Customer.regDate, Customer.sum, Customer.image);
 }
 
-function printJSON(json) {    
+function printJSON(json) {
     console.log(json);
 }
 
