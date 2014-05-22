@@ -1,9 +1,17 @@
 var rdb = require('rdb'),
     resetDemo = require('./db/resetDemo');
 
+var Customer = rdb.table('_customer');
 var Order = rdb.table('_order');
 var OrderLine = rdb.table('_orderLine');
 var DeliveryAddress = rdb.table('_deliveryAddress');
+
+Customer.primaryColumn('cId').guid().as('id');
+Customer.column('cName').string().as('name');
+Customer.column('cBalance').numeric().as('balance');
+Customer.column('cRegdate').date().as('registeredDate');
+Customer.column('cIsActive').boolean().as('isActive');
+Customer.column('cPicture').binary().as('picture');
 
 Order.primaryColumn('oId').guid().as('id');
 Order.column('oOrderNo').string().as('orderNo');
@@ -21,6 +29,8 @@ DeliveryAddress.column('dPostalCode').string().as('postalCode');
 DeliveryAddress.column('dPostalPlace').string().as('postalPlace');
 DeliveryAddress.column('dCountryCode').string().as('countryCode');
 DeliveryAddress.column('dCountry').string().as('country');
+
+Order.join(Customer).by('oCustomerId').as('customer');
 
 var line_order_relation = OrderLine.join(Order).by('lOrderId').as('order');
 Order.hasMany(line_order_relation).as('lines');
@@ -44,9 +54,10 @@ function getOrder() {
 }
 
 function toJSON(order) {
-    return order.toJSON(/*strategy*/);
-    //expands all hasOne and hasMany relations as default strategy
-}
+    var strategy = {customer : null, deliveryAddress : null, lines : null};
+    //alternatively {customer : {}, deliveryAddress : {}, lines : {}};
+    return order.toJSON(strategy);
+    }
 
 function print(json) {
     console.log(json);
