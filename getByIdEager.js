@@ -16,15 +16,16 @@ var db = rdb('postgres://postgres:postgres@localhost/test');
 
 resetDemo()
     .then(db.transaction)
-    .then(getOrder)
+    .then(getOrderWithCustomer)
     .then(printOrder)
     .then(printCustomer)
     .then(rdb.commit)
     .then(null, rdb.rollback)
     .done(onOk, onFailed);
 
-function getOrder() {
-    return Order.getById('a0000000-a000-0000-0000-000000000000');
+function getOrderWithCustomer() {
+    var fetchingStrategy = {customer : null}; //alternatively: {customer : {}} 
+    return Order.getById('a0000000-a000-0000-0000-000000000000', fetchingStrategy);
 }
 
 function printOrder(order) {

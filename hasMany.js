@@ -6,15 +6,13 @@ var OrderLine = rdb.table('_orderLine');
 
 Order.primaryColumn('oId').guid().as('id');
 Order.column('oOrderNo').string().as('orderNo');
-Order.column('oCustomerId').guid().as('customerId');
 
 OrderLine.primaryColumn('lId').guid().as('id');
 OrderLine.column('lOrderId').string().as('orderId');
 OrderLine.column('lProduct').string().as('product');
-var line_order_join = OrderLine.join(Order).by('lOrderId').as('order');
 
-Order.hasMany(line_order_join).as('lines');
-
+var line_order_relation = OrderLine.join(Order).by('lOrderId').as('order');
+Order.hasMany(line_order_relation).as('lines');
 
 var db = rdb('postgres://postgres:postgres@localhost/test');
 
@@ -32,10 +30,10 @@ function getOrder() {
 }
 
 function printOrder(order) {
-    var format = 'Order Id: %s, Order No: %s, Customer Id: %s'; 
-    var args = [format, order.id, order.orderNo, order.customerId];
+    var format = 'Order Id: %s, Order No: %s'; 
+    var args = [format, order.id, order.orderNo];
     console.log.apply(null,args);
-    return order.lines;
+    return order.lines; //this is a promise
 }
 
 function printLines(lines) {
