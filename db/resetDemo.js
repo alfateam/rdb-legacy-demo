@@ -1,18 +1,33 @@
 var fs = require('fs');
+var Promise = require('promise');
+var conString = require('./connectionString');
+var pg = require('pg.js');
 
-var createCustomers = 'DROP TABLE IF EXISTS _customer;CREATE TABLE _customer (cId varchar(40) PRIMARY KEY, cName varchar(40));'
-var createOrders = 'DROP TABLE IF EXISTS _order;CREATE TABLE _order (oId uuid PRIMARY KEY, oCustomerId varchar(40), oStatus integer, oTax boolean, oUnits float, oRegDate timestamp with time zone, oSum numeric, oImage bytea);'
+var drop = "DROP TABLE IF EXISTS _orderLine;DROP TABLE IF EXISTS _order;DROP TABLE IF EXISTS _customer;"
+var createCustomer = "CREATE TABLE _customer (cId uuid PRIMARY KEY, cName varchar(40), cBalance numeric, cRegdate timestamp with time zone, cIsActive boolean, cPicture bytea);"
+var createOrder = "CREATE TABLE _order (oId uuid PRIMARY KEY, oOrderNo varchar(20), oCustomerId uuid  REFERENCES _customer);"
+var createOrderLine = "CREATE TABLE _orderLine (lId uuid PRIMARY KEY, lOrderId uuid REFERENCES _order, lProduct varchar(40));"
 
-var createSql = createCustomers + createOrders;
-
-createBuffers();
-var insertCustomers = "INSERT INTO _customer VALUES ('100','Bill');INSERT INTO _customer VALUES ('200','John');";
-var insertOrders =
-    'INSERT INTO _order VALUES (\'58d52776-2866-4fbe-8072-cdf13370959b\',\'100\', 1, TRUE, 1.21,\'2003-04-12 04:05:06 z\',1344.23,' + buffer + ');' +
-    'INSERT INTO _order VALUES (\'d51137de-8dd9-4520-a6e0-3a61ddc61a99\',\'200\', 2, FALSE, 2.23,\'2014-05-11 06:49:40.297-0200\',34.59944,' + buffer2 + ')';
-var insertSql = insertCustomers + insertOrders;
+var createSql = drop + createCustomer + createOrder + createOrderLine;
 var buffer;
 var buffer2;
+
+createBuffers();
+
+var insertCustomer1 = "INSERT INTO _customer VALUES ('a0000000-0000-0000-0000-000000000000','Bill',177,'2003-04-12 04:05:06 z',false," + buffer +  ");",
+    insertCustomer2 = "INSERT INTO _customer VALUES ('b0000000-0000-0000-0000-000000000000','John',3045,'2014-05-11 06:49:40.297-0200',true," + buffer2 +  ");";
+    insertCustomers = insertCustomer1 + insertCustomer2;
+var insertOrders =
+    "INSERT INTO _order VALUES ('a0000000-a000-0000-0000-000000000000','1000', 'a0000000-0000-0000-0000-000000000000');" +
+    "INSERT INTO _order VALUES ('b0000000-b000-0000-0000-000000000000','1001', 'b0000000-0000-0000-0000-000000000000');";
+var insertOrderLines =
+    "INSERT INTO _orderLine VALUES ('a0000000-a000-1000-0000-000000000000','a0000000-a000-0000-0000-000000000000','Bicycle');" +
+    "INSERT INTO _orderLine VALUES ('a0000000-a000-2000-0000-000000000000','a0000000-a000-0000-0000-000000000000','Skateboard');" +
+    "INSERT INTO _orderLine VALUES ('b0000000-b000-1000-0000-000000000000','b0000000-b000-0000-0000-000000000000','Climbing gear');" +
+    "INSERT INTO _orderLine VALUES ('b0000000-b000-2000-0000-000000000000','b0000000-b000-0000-0000-000000000000','Hiking shoes');" +
+    "INSERT INTO _orderLine VALUES ('b0000000-b000-3000-0000-000000000000','b0000000-b000-0000-0000-000000000000','A big car');";
+    
+var insertSql = insertCustomers + insertOrders + insertOrderLines;
 
 function createBuffers() {
     buffer = newBuffer([1, 2, 3]);
@@ -24,14 +39,8 @@ function createBuffers() {
     }
 }
 
-var dbName = 'test';
-var conString = 'postgres://postgres:postgres@localhost/' + dbName;
-
-var pg = require('pg.js');
-var client = new pg.Client(conString);
-
-
 function insert(onSuccess, onFailed) {
+    var client = new pg.Client(conString);
     client.connect(function(err) {
         if (err) {
             console.log('Error while connecting: ' + err);
@@ -53,4 +62,6 @@ function insert(onSuccess, onFailed) {
 }
 
 
-module.exports = insert;
+module.exports = function() {
+    return new Promise(insert);
+};

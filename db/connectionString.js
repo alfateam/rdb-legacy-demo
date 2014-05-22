@@ -1,0 +1,1 @@
+module.exports = 'postgres://postgres:postgres@localhost/test';
