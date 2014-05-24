@@ -64,6 +64,7 @@ function insert(onSuccess, onFailed) {
 }
 
 
+var resetOnce = new Promise(insert);
 module.exports = function() {
-    return new Promise(insert);
+    return resetOnce;
 };
