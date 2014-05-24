@@ -45,7 +45,7 @@ function getOrder() {
 
 function toJSON(order) {
     return order.toJSON(/*strategy*/);
-    //expands all hasOne and hasMany relations as default strategy
+    //default strategy, expand all hasOne and hasMany relations
 }
 
 function print(json) {
