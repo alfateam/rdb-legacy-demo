@@ -15,7 +15,7 @@ var buffer2;
 
 createBuffers();
 
-var insertCustomer1 = "INSERT INTO _customer VALUES ('a0000000-0000-0000-0000-000000000000','Bill',177,'2003-04-12 04:05:06 z',false," + buffer +  ");",
+var insertCustomer1 = "INSERT INTO _customer VALUES ('a0000000-0000-0000-0000-000000000000','George',177,'2003-04-12 04:05:06 z',false," + buffer +  ");",
     insertCustomer2 = "INSERT INTO _customer VALUES ('b0000000-0000-0000-0000-000000000000','John',3045,'2014-05-11 06:49:40.297-0200',true," + buffer2 +  ");";
     insertCustomers = insertCustomer1 + insertCustomer2;
 var insertOrders =

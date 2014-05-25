@@ -12,3 +12,5 @@ require('./getManyLazy');
 require('./getManyEager');
 require('./manyToJSON');
 require('./manyToJSONWithStrategy');
+require('./update');
+require('./insert');
