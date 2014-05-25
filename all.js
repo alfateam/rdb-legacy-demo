@@ -15,4 +15,5 @@ require('./manyToJSONWithStrategy');
 require('./update');
 require('./insert');
 require('./updateJoin');
+require('./updateHasOne');
 
