@@ -16,4 +16,5 @@ require('./update');
 require('./insert');
 require('./updateJoin');
 require('./updateHasOne');
+require('./updateHasMany');
 

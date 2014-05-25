@@ -9,7 +9,7 @@ Order.primaryColumn('oId').guid().as('id');
 Order.column('oOrderNo').string().as('orderNo');
 
 OrderLine.primaryColumn('lId').guid().as('id');
-OrderLine.column('lOrderId').string().as('orderId');
+OrderLine.column('lOrderId').guid().as('orderId');
 OrderLine.column('lProduct').string().as('product');
 
 var line_order_relation = OrderLine.join(Order).by('lOrderId').as('order');

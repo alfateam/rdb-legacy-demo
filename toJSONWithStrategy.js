@@ -14,7 +14,7 @@ Customer.primaryColumn('cId').guid().as('id');
 Customer.column('cName').string().as('name');
 
 OrderLine.primaryColumn('lId').guid().as('id');
-OrderLine.column('lOrderId').string().as('orderId');
+OrderLine.column('lOrderId').guid().as('orderId');
 OrderLine.column('lProduct').string().as('product');
 
 DeliveryAddress.primaryColumn('dId').guid().as('id');
