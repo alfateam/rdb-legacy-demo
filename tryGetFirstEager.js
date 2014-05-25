@@ -17,14 +17,14 @@ var db = rdb('postgres://postgres:postgres@localhost/test');
 
 resetDemo() 
     .then(db.transaction)
-    .then(tryGetFirst)
+    .then(tryGetFirstOrderWithCustomer)
     .then(printOrder)
     .then(printCustomer)
     .then(rdb.commit)
     .then(null, rdb.rollback)
     .done(onOk, onFailed);
 
-function tryGetFirst() {
+function tryGetFirstOrderWithCustomer() {
     var filter = Order.customer.name.equal('Bill');
     var strategy = {customer : null};
     return Order.tryGetFirst(filter, strategy);

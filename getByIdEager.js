@@ -38,9 +38,7 @@ function printOrder(order) {
 function printCustomer(customer) {
     if (!customer)
         return;
-    var format = 'Customer Id: %s, name: %s'; 
-    var args = [format, customer.id, customer.name];
-    console.log.apply(null,args);
+    console.log('Customer Id: %s, name: %s', customer.id, customer.name);
 }
 
 function onOk() {
