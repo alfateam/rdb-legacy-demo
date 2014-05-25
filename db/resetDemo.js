@@ -3,13 +3,14 @@ var Promise = require('promise');
 var conString = require('./connectionString');
 var pg = require('pg.js');
 
-var drop = "DROP TABLE IF EXISTS _deliveryAddress;DROP TABLE IF EXISTS _orderLine;DROP TABLE IF EXISTS _order;DROP TABLE IF EXISTS _customer;"
+var drop = "DROP TABLE IF EXISTS _compositeOrderLine;DROP TABLE IF EXISTS _deliveryAddress;DROP TABLE IF EXISTS _orderLine;DROP TABLE IF EXISTS _order;DROP TABLE IF EXISTS _customer;"
 var createCustomer = "CREATE TABLE _customer (cId uuid PRIMARY KEY, cName varchar(40), cBalance numeric, cRegdate timestamp with time zone, cIsActive boolean, cPicture bytea);"
 var createOrder = "CREATE TABLE _order (oId uuid PRIMARY KEY, oOrderNo varchar(20), oCustomerId uuid  REFERENCES _customer);"
 var createOrderLine = "CREATE TABLE _orderLine (lId uuid PRIMARY KEY, lOrderId uuid REFERENCES _order, lProduct varchar(40));"
+var createCompositeOrderLine = "CREATE TABLE _compositeOrderLine (lOrderId uuid REFERENCES _order, lLineNo numeric, lProduct varchar(40), PRIMARY KEY (lOrderId, lLineNo));"
 var createDeliveryAddress = "CREATE TABLE _deliveryAddress (dId uuid PRIMARY KEY, dOrderId uuid REFERENCES _order, dName varchar(100), dStreet varchar(200), dPostalCode varchar(50), dPostalPlace varchar(200), dCountryCode varchar(2), dCountry varchar(100));"
 
-var createSql = drop + createCustomer + createOrder + createOrderLine + createDeliveryAddress;
+var createSql = drop + createCustomer + createOrder + createOrderLine + createDeliveryAddress + createCompositeOrderLine;
 var buffer;
 var buffer2;
 

@@ -17,4 +17,9 @@ require('./insert');
 require('./updateJoin');
 require('./updateHasOne');
 require('./updateHasMany');
+/*
+require('./defaultValues');
+require('./dbNull');
+require('./columnDiscriminator');
+require('./formulaDiscriminator');*/
 
