@@ -2,32 +2,40 @@ var rdb = require('rdb'),
     resetDemo = require('./db/resetDemo');
 
 var Customer = rdb.table('_customer');
+var Order = rdb.table('_order');
 
 Customer.primaryColumn('cId').guid().as('id');
 Customer.column('cName').string().as('name');
+
+Order.primaryColumn('oId').guid().as('id');
+Order.column('oOrderNo').string().as('orderNo');
+Order.column('oCustomerId').guid().as('customerId');
+
+Order.join(Customer).by('oCustomerId').as('customer');
 
 var db = rdb('postgres://postgres:postgres@localhost/test');
 
 resetDemo()
     .then(db.transaction)
-    .then(insert)
-    .then(getById) //will use cache
-    .then(verifyInserted)
+    .then(getById)
+    .then(update)
+    .then(verifyUpdated)
     .then(rdb.commit)
     .then(null, rdb.rollback)
     .done(onOk, onFailed);
 
-function insert() {
-    var customer = Customer.insert('abcdef00-0000-0000-0000-000000000000')
-    customer.name = 'Paul';
-}
-
 function getById() {
-    return Customer.getById('abcdef00-0000-0000-0000-000000000000');
+    return Order.getById('b0000000-b000-0000-0000-000000000000');
 }
 
-function verifyInserted(customer) {
-    if (customer.name !== 'Paul')
+function update(order) {
+    var yokoId = '12345678-0000-0000-0000-000000000000';
+    order.customerId = yokoId;
+    return order.customer; 
+}
+
+function verifyUpdated(customer) {
+    if (customer.name !== 'Yoko')
         throw new Error('this will not happen');
 }
 

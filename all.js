@@ -14,3 +14,5 @@ require('./manyToJSON');
 require('./manyToJSONWithStrategy');
 require('./update');
 require('./insert');
+require('./updateJoin');
+
