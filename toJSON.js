@@ -2,12 +2,16 @@ var rdb = require('rdb'),
     resetDemo = require('./db/resetDemo');
 
 var Order = rdb.table('_order');
+var Customer = rdb.table('_customer');
 var OrderLine = rdb.table('_orderLine');
 var DeliveryAddress = rdb.table('_deliveryAddress');
 
 Order.primaryColumn('oId').guid().as('id');
 Order.column('oOrderNo').string().as('orderNo');
 Order.column('oCustomerId').string().as('customerId');
+
+Customer.primaryColumn('cId').guid().as('id');
+Customer.column('cName').string().as('name');
 
 OrderLine.primaryColumn('lId').guid().as('id');
 OrderLine.column('lOrderId').string().as('orderId');
@@ -17,10 +21,8 @@ DeliveryAddress.primaryColumn('dId').guid().as('id');
 DeliveryAddress.column('dOrderId').string().as('orderId');
 DeliveryAddress.column('dName').string().as('name');
 DeliveryAddress.column('dStreet').string().as('street');
-DeliveryAddress.column('dPostalCode').string().as('postalCode');
-DeliveryAddress.column('dPostalPlace').string().as('postalPlace');
-DeliveryAddress.column('dCountryCode').string().as('countryCode');
-DeliveryAddress.column('dCountry').string().as('country');
+
+var order_customer_relation = Order.join(Customer).by('customerId').as('customer');
 
 var line_order_relation = OrderLine.join(Order).by('lOrderId').as('order');
 Order.hasMany(line_order_relation).as('lines');

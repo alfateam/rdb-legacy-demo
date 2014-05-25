@@ -1,2 +1,11 @@
 require('./getById');
 require('./tryGetFirst');
+require('./join');
+require('./hasMany');
+require('./hasOne');
+require('./getByIdEager');
+require('./tryGetFirstEager');
+require('./toJSON');
+require('./toJSONWithStrategy');
+require('./manyToJSON');
+require('./manyToJSONWithStrategy');
