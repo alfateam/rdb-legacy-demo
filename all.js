@@ -7,5 +7,8 @@ require('./getByIdEager');
 require('./tryGetFirstEager');
 require('./toJSON');
 require('./toJSONWithStrategy');
+require('./getMany');
+require('./getManyLazy');
+require('./getManyEager');
 require('./manyToJSON');
 require('./manyToJSONWithStrategy');
