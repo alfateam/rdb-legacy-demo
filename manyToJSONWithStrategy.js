@@ -31,7 +31,6 @@ var deliveryAddress_order_relation = DeliveryAddress.join(Order).by('dOrderId').
 Order.hasOne(deliveryAddress_order_relation).as('deliveryAddress');
 
 var db = rdb('postgres://postgres:postgres@localhost/test');
-
 resetDemo()
     .then(db.transaction)
     .then(getOrders)
