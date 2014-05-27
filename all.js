@@ -3,6 +3,7 @@ require('./tryGetFirst');
 require('./join');
 require('./hasMany');
 require('./hasOne');
+require('./compositeKeys');
 require('./getByIdEager');
 require('./tryGetFirstEager');
 require('./toJSON');
