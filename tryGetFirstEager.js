@@ -25,7 +25,7 @@ resetDemo()
     .then(onOk, onFailed);
 
 function tryGetFirstOrderWithCustomer() {
-    var filter = Order.customer.name.equal('Bill');
+    var filter = Order.customer.name.equal('John');
     var strategy = {customer : null};
     return Order.tryGetFirst(filter, strategy);
 }

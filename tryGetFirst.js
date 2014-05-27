@@ -17,7 +17,7 @@ resetDemo()
     .then(onOk, onFailed);
 
 function tryGetFirst() {
-    var filter = Customer.name.equal('Bill');
+    var filter = Customer.name.equal('John');
     return Customer.tryGetFirst(filter);
 }
 
