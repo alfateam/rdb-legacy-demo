@@ -35,6 +35,8 @@ require('./manyToJSON');
 require('./manyToJSONWithStrategy');
 require('./update');
 require('./insert');
+require('./defaultValues');
+require('./conventions');
 require('./updateJoin');
 require('./updateHasOne');
 require('./updateHasMany');
