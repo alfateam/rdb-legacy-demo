@@ -37,10 +37,10 @@ require('./filtering/and');
 require('./filtering/orAlternative');
 require('./filtering/andAlternative');
 require('./filtering/subFilter');
-/*
-require('./defaultValues');
+require('./filtering/compositeFilter');
+
+/*require('./defaultValues');
 require('./dbNull');
 require('./columnDiscriminator');
-
 require('./formulaDiscriminator');*/
 
