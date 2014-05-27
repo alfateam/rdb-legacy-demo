@@ -21,7 +21,7 @@ resetDemo()
     .then(printCustomer)
     .then(rdb.commit)
     .then(null, rdb.rollback)
-    .done(onOk, onFailed);
+    .then(onOk, onFailed);
 
 function getOrderWithCustomer() {
     var fetchingStrategy = {customer : null}; //alternatively: {customer : {}} 
@@ -48,5 +48,5 @@ function onOk() {
 
 function onFailed(err) {
     console.log('Rollback');
-    throw(err);
+    console.log(err);
 }

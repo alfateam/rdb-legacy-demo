@@ -24,7 +24,7 @@ resetDemo()
     .then(printDeliveryAddress)
     .then(rdb.commit)
     .then(null, rdb.rollback)
-    .done(onOk, onFailed);
+    .then(onOk, onFailed);
 
 function getOrder() {
     return Order.getById('b0000000-b000-0000-0000-000000000000');
@@ -50,5 +50,5 @@ function onOk() {
 
 function onFailed(err) {
     console.log('Rollback');
-    throw(err);
+    console.log(err);
 }

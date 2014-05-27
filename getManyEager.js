@@ -23,7 +23,7 @@ resetDemo()
     .then(printOrders)
     .then(rdb.commit)
     .then(null, rdb.rollback)
-    .done(onOk, onFailed);
+    .then(onOk, onFailed);
 
 function getAllOrders() {
     var emptyFilter;
@@ -61,5 +61,5 @@ function onOk() {
 
 function onFailed(err) {
     console.log('Rollback');
-    throw(err);
+    console.log(err);
 }

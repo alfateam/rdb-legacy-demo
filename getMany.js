@@ -14,7 +14,7 @@ resetDemo()
     .then(printCustomers)
     .then(rdb.commit)
     .then(null, rdb.rollback)
-    .done(onOk, onFailed);
+    .then(onOk, onFailed);
 
 function getAllCustomers() {
     return Customer.getMany();
@@ -39,5 +39,5 @@ function onOk() {
 
 function onFailed(err) {
     console.log('Rollback');
-    throw(err);
+    console.log(err);
 }

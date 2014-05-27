@@ -14,7 +14,7 @@ resetDemo()
     .then(printCustomer)
     .then(rdb.commit)
     .then(null, rdb.rollback)
-    .done(onOk, onFailed);
+    .then(onOk, onFailed);
 
 function tryGetFirst() {
     var filter = Customer.name.equal('Bill');
@@ -36,5 +36,5 @@ function onOk() {
 
 function onFailed(err) {
     console.log('Rollback');
-    throw(err);
+    console.log(err);
 }

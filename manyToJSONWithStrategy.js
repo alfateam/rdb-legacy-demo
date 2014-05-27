@@ -38,7 +38,7 @@ resetDemo()
     .then(print)
     .then(rdb.commit)
     .then(null, rdb.rollback)
-    .done(onOk, onFailed);
+    .then(onOk, onFailed);
 
 function getOrders() {
     return Order.getMany();
@@ -60,5 +60,5 @@ function onOk() {
 
 function onFailed(err) {
     console.log('Rollback');
-    throw(err);
+    console.log(err);
 }
