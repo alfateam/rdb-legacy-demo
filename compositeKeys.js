@@ -54,5 +54,5 @@ function onOk() {
 
 function onFailed(err) {
     console.log('Rollback');
-    throw err;
+    console.log(err);
 }
