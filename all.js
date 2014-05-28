@@ -1,12 +1,12 @@
 require('./filtering/equal');
 require('./filtering/notEqual');
-require('./filtering/not.js');
+require('./filtering/not');
 require('./filtering/lessThan');
 require('./filtering/lessThanOrEqual');
 require('./filtering/greaterThan');
 require('./filtering/greaterThanOrEqual');
 require('./filtering/between');
-require('./filtering/in.js');
+require('./filtering/in');
 require('./filtering/startsWith')
 require('./filtering/endsWith')
 require('./filtering/contains')
