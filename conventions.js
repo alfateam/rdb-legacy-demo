@@ -17,7 +17,7 @@ resetDemo()
     .then(onOk, onFailed);
 
 function insert() {
-    var customer = Customer.insert('abcdef00-0000-0000-0000-000000000000')
+    var customer = Customer.insert('abcdef01-0000-0000-0000-000000000000')
     customer.cName = 'Paul';
     return customer.toJSON();
 }
