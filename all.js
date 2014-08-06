@@ -44,7 +44,8 @@ require('./conventions');
 require('./updateJoin');
 require('./updateHasOne');
 require('./updateHasMany');
-
+require('./delete');
+require('./cascadeDelete');
 //todo
 /*require('./defaultValues');
 require('./dbNull');

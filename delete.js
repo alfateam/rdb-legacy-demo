@@ -20,8 +20,8 @@ resetDemo()
     .then(null, rdb.rollback)
     .then(onOk, onFailed);
 
-function getById() {
-    return Customer.getById('12345678-0000-0000-0000-000000000000');
+function getById() {    
+    return Customer.getById('87654321-0000-0000-0000-000000000000');
 }
 
 function deleteCustomer(customer) {

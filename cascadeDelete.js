@@ -4,6 +4,7 @@ var rdb = require('rdb'),
 var Customer = rdb.table('_customer');
 var Order = rdb.table('_order');
 var OrderLine = rdb.table('_orderLine');
+var DeliveryAddress = rdb.table('_deliveryAddress');
 
 Customer.primaryColumn('cId').guid().as('id');
 Customer.column('cName').string().as('name');
@@ -15,12 +16,17 @@ Order.column('oCustomerId').guid().as('customerId');
 OrderLine.primaryColumn('lId').guid().as('id');
 OrderLine.column('lOrderId').guid().as('orderId');
 
+DeliveryAddress.primaryColumn('dId').guid().as('id');
+DeliveryAddress.column('dOrderId').string().as('orderId');
+
 var orderToCustomer = Order.join(Customer).by('oCustomerId').as('customer');
 Customer.hasMany(orderToCustomer).as('orders');
 
 var line_order_relation = OrderLine.join(Order).by('lOrderId').as('order');
 Order.hasMany(line_order_relation).as('lines');
 
+var deliveryAddress_order_relation = DeliveryAddress.join(Order).by('dOrderId').as('order');
+Order.hasOne(deliveryAddress_order_relation).as('deliveryAddress');
 
 var db = rdb('postgres://postgres:postgres@localhost/test');
 
