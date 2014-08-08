@@ -22,7 +22,6 @@ function getFilteredCustomers() {
 }
 
 function printCustomers(customers) {
-    console.log(customers.length)
     customers.forEach(printCustomer);
 
     function printCustomer(customer) {
