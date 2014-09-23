@@ -1,1 +1,1 @@
-module.exports = 'postgres://postgres:postgres@localhost/test';
+module.exports = 'mysql://root@localhost/rdbDemo?multipleStatements=true';
