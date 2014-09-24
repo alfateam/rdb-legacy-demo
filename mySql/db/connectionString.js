@@ -1,1 +1,1 @@
-module.exports = 'mysql://root@localhost/rdbDemo?multipleStatements=true';
+module.exports = 'mysql://@localhost/rdbDemo?multipleStatements=true';

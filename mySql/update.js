@@ -6,7 +6,7 @@ var Customer = rdb.table('_customer');
 Customer.primaryColumn('cId').guid().as('id');
 Customer.column('cName').string().as('name');
 
-var db = rdb('postgres://postgres:postgres@localhost/test');
+var db = rdb.mySql('mysql://@localhost/rdbDemo?multipleStatements=true');
 
 resetDemo()
     .then(db.transaction)

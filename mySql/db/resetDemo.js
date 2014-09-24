@@ -5,7 +5,7 @@ var mySql = require('mysql');
 
 //var drop = "DROP TABLE IF EXISTS _compositeOrderLine;DROP TABLE IF EXISTS _compositeOrder;DROP TABLE IF EXISTS _deliveryAddress;DROP TABLE IF EXISTS _orderLine;DROP TABLE IF EXISTS _order;DROP TABLE IF EXISTS _customer;"
 var drop = 'drop table if exists _customer;' 
-var createCustomer = "CREATE TABLE _customer (cId varchar(36) PRIMARY KEY, cName varchar(40));"
+var createCustomer = "CREATE TABLE _customer (cId varchar(36) PRIMARY KEY, cName varchar(40), cBalance decimal(10,2));"
 // var createCustomer = "CREATE TABLE _customer (cId varchar(36) PRIMARY KEY, cName varchar(40), cBalance numeric, cRegdate timestamp with time zone, cIsActive boolean, cPicture bytea);"
 var createOrder = "CREATE TABLE _order (oId uuid PRIMARY KEY, oOrderNo varchar(20), oCustomerId uuid  REFERENCES _customer);"
 var createOrderLine = "CREATE TABLE _orderLine (lId uuid PRIMARY KEY, lOrderId uuid REFERENCES _order, lProduct varchar(40));"
@@ -20,7 +20,7 @@ var buffer2;
 
 createBuffers();
 
-var insertCustomer1 = "INSERT INTO _customer VALUES ('a0000000-0000-0000-0000-000000000000','George'" +  ");";
+var insertCustomer1 = "INSERT INTO _customer VALUES ('a0000000-0000-0000-0000-000000000000','George',177" +  ");";
 // var insertCustomer1 = "INSERT INTO _customer VALUES ('a0000000-0000-0000-0000-000000000000','George',177,?'2003-04-12 04:05:06 z',false," + buffer +  ");",
 var    insertCustomer2 = "INSERT INTO _customer VALUES ('b0000000-0000-0000-0000-000000000000','John',3045,'2014-05-11 06:49:40.297-0200',true," + buffer2 +  ");";
     insertCustomer3 = "INSERT INTO _customer VALUES ('12345678-0000-0000-0000-000000000000','Yoko',8765,'2012-02-10 07:00:40.297-0200',false," + buffer2 +  ");";
