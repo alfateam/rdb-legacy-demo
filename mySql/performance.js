@@ -16,7 +16,7 @@ OrderLine.column('lProduct').string().as('product');
 var line_order_relation = OrderLine.join(Order).by('lCompanyId','lOrderNo').as('order');
 Order.hasMany(line_order_relation).as('lines');
 
-var db = rdb('postgres://postgres:postgres@localhost/test');
+var db = rdb.mySql('mysql://root@localhost/rdbDemo?multipleStatements=true');
 var start;
 
 resetDemo()

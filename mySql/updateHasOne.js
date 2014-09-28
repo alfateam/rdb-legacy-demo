@@ -15,7 +15,7 @@ DeliveryAddress.column('dStreet').string().as('street');
 var deliveryAddress_order_relation = DeliveryAddress.join(Order).by('dOrderId').as('order');
 Order.hasOne(deliveryAddress_order_relation).as('deliveryAddress');
 
-var db = rdb('postgres://postgres:postgres@localhost/test');
+var db = rdb.mySql('mysql://root@localhost/rdbDemo?multipleStatements=true');
 
 resetDemo()
     .then(db.transaction)

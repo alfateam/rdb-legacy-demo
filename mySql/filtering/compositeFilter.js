@@ -25,7 +25,7 @@ Order.hasMany(line_order_relation).as('lines');
 
 
 
-var db = rdb('postgres://postgres:postgres@localhost/test');
+var db = rdb.mySql('mysql://root@localhost/rdbDemo?multipleStatements=true');
 
 resetDemo()
     .then(db.transaction)

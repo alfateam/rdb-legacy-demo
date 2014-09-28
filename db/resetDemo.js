@@ -2,6 +2,7 @@ var fs = require('fs');
 var Promise = require('promise');
 var conString = require('./connectionString');
 var pg = require('pg.js');
+var mySql = require('mysql');
 
 //var drop = "DROP TABLE IF EXISTS _compositeOrderLine;DROP TABLE IF EXISTS _compositeOrder;DROP TABLE IF EXISTS _deliveryAddress;DROP TABLE IF EXISTS _orderLine;DROP TABLE IF EXISTS _order;DROP TABLE IF EXISTS _customer;"
 var drop = 'drop schema public cascade;create schema public;'
