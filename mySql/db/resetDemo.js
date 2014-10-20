@@ -65,7 +65,6 @@ function insert(onSuccess, onFailed) {
             onFailed(err);
             return;
         }
-        console.log(createSql + insertSql);
         client.query(createSql + insertSql, onInserted);
 
         function onInserted(err, result) {
