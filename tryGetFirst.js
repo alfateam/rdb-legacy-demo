@@ -8,7 +8,7 @@ Customer.column('cName').string().as('name');
 
 var db = rdb('postgres://postgres:postgres@localhost/test');
 
-resetDemo() 
+module.exports = resetDemo() 
     .then(db.transaction)
     .then(tryGetFirst)
     .then(printCustomer)

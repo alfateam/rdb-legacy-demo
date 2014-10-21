@@ -17,7 +17,7 @@ Order.hasMany(line_order_relation).as('lines');
 var db = rdb('postgres://postgres:postgres@localhost/test');
 var orderIdWithNoLines = 'c0000000-c000-0000-0000-000000000000';
 
-resetDemo()
+module.exports = resetDemo()
     .then(db.transaction)
     .then(insertOrderLine1)
     .then(insertOrderLine2)

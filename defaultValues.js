@@ -24,7 +24,7 @@ Customer.column('cPicture').binary().as('picture').default(buf);
 
 var db = rdb('postgres://postgres:postgres@localhost/test');
 
-resetDemo()
+module.exports = resetDemo()
     .then(db.transaction)
     .then(insert)
     .then(print) 

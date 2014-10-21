@@ -23,7 +23,7 @@ Order.hasMany(line_order_relation).as('lines');
 
 var db = rdb('postgres://postgres:postgres@localhost/test');
 
-resetDemo()
+module.exports = resetDemo()
     .then(db.transaction)
     .then(deleteCustomer)
     .then(rdb.commit)

@@ -24,7 +24,7 @@ Customer.column('cPicture').binary().as('picture').default(buf);
 
 var db = rdb.mySql('mysql://root@localhost/rdbDemo?multipleStatements=true');
 
-resetDemo()
+module.exports = resetDemo()
     .then(db.transaction)
     .then(insert)
     .then(print) 
@@ -48,5 +48,5 @@ function onOk() {
 
 function onFailed(err) {
     console.log('Rollback');
-    console.log(err);
+    console.log(err.stack);
 }

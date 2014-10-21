@@ -16,7 +16,7 @@ Order.hasMany(line_order_relation).as('lines');
 
 var db = rdb.mySql('mysql://root@localhost/rdbDemo?multipleStatements=true');
 
-resetDemo()
+module.exports = resetDemo()
     .then(db.transaction)
     .then(getOrder)
     .then(printOrder)
@@ -53,5 +53,5 @@ function onOk() {
 
 function onFailed(err) {
     console.log('Rollback');
-    console.log(err);
+    console.log(err.stack);
 }

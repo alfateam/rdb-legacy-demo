@@ -1,54 +1,64 @@
-require('./filtering/equal');
-require('./filtering/notEqual');
-require('./filtering/not');
-require('./filtering/lessThan');
-require('./filtering/lessThanOrEqual');
-require('./filtering/greaterThan');
-require('./filtering/greaterThanOrEqual');
-require('./filtering/between');
-require('./filtering/in');
-require('./filtering/startsWith')
-require('./filtering/endsWith')
-require('./filtering/contains')
-require('./filtering/exists');
-require('./filtering/or');
-require('./filtering/and');
-require('./filtering/orAlternative');
-require('./filtering/andAlternative');
-require('./filtering/subFilter');
-require('./filtering/compositeFilter');
+run('./filtering/equal');
+run('./filtering/notEqual');
+run('./filtering/not');
+run('./filtering/lessThan');
+run('./filtering/lessThanOrEqual');
+run('./filtering/greaterThan');
+run('./filtering/greaterThanOrEqual');
+run('./filtering/between');
+run('./filtering/in');
+run('./filtering/startsWith')
+run('./filtering/endsWith')
+run('./filtering/contains')
+run('./filtering/iStartsWith')
+run('./filtering/iEndsWith')
+run('./filtering/iContains')
+run('./filtering/exists');
+run('./filtering/or');
+run('./filtering/and');
+run('./filtering/orAlternative');
+run('./filtering/andAlternative');
+run('./filtering/subFilter');
+run('./filtering/compositeFilter');
 
-require('./getById');
-require('./tryGetFirst');
-require('./join');
-require('./hasMany');
-require('./hasOne');
-require('./compositeKeys');
-require('./getByIdEager');
-require('./tryGetFirstEager');
-require('./toDto');
-require('./toDtoWithStrategy');
-require('./toJSON');
-require('./toJSONWithStrategy');
-require('./getMany');
-require('./getManyLazy');
-require('./getManyEager');
-require('./manyToDto');
-require('./manyToDtoWithStrategy');
-require('./manyToJSON');
-require('./manyToJSONWithStrategy');
-require('./update');
-require('./insert');
-require('./defaultValues');
-require('./conventions');
-require('./updateJoin');
-require('./updateHasOne');
-require('./updateHasMany');
-require('./delete');
-require('./cascadeDelete');
-//todo
-/*require('./defaultValues');
-require('./dbNull');
-require('./columnDiscriminator');
-require('./formulaDiscriminator');*/
+run('./getById');
+run('./tryGetFirst');
+run('./join');
+run('./hasMany');
+run('./hasOne');
+run('./compositeKeys');
+run('./getByIdEager');
+run('./tryGetFirstEager');
+run('./toDto');
+run('./toDtoWithStrategy');
+run('./toJSON');
+run('./toJSONWithStrategy');
+run('./getMany');
+run('./getManyLazy');
+run('./getManyEager');
+run('./manyToDto');
+run('./manyToDtoWithStrategy');
+run('./manyToJSON');
+run('./manyToJSONWithStrategy');
+run('./update');
+run('./insert');
+run('./defaultValues');
+run('./conventions');
+run('./updateJoin');
+run('./updateHasOne');
+run('./updateHasMany');
+run('./delete');
+run('./bulkDelete');
+run('./cascadeDelete');
+run('./bulkCascadeDelete');
 
+var promise;
+
+function run(module) {
+	if (promise) 
+		promise = promise.then(function() {
+			return require(module);
+		});
+	else
+		promise = require(module);
+}

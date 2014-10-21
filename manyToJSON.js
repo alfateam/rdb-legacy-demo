@@ -32,7 +32,7 @@ Order.hasOne(deliveryAddress_order_relation).as('deliveryAddress');
 
 var db = rdb('postgres://postgres:postgres@localhost/test');
 
-resetDemo()
+module.exports = resetDemo()
     .then(db.transaction)
     .then(getOrders)
     .then(toJSON)

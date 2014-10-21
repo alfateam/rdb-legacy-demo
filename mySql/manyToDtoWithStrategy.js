@@ -32,7 +32,7 @@ var deliveryAddress_order_relation = DeliveryAddress.join(Order).by('dOrderId').
 Order.hasOne(deliveryAddress_order_relation).as('deliveryAddress');
 
 var db = rdb.mySql('mysql://root@localhost/rdbDemo?multipleStatements=true');
-resetDemo()
+module.exports = resetDemo()
     .then(db.transaction)
     .then(getOrders)
     .then(toDto)
@@ -61,5 +61,5 @@ function onOk() {
 
 function onFailed(err) {
     console.log('Rollback');
-    console.log(err);
+    console.log(err.stack);
 }

@@ -23,7 +23,7 @@ Order.hasMany(line_order_relation).as('lines');
 
 var db = rdb.mySql('mysql://root@localhost/rdbDemo?multipleStatements=true');
 
-resetDemo()
+module.exports = resetDemo()
     .then(db.transaction)
     .then(getById)
     .then(deleteCustomer)

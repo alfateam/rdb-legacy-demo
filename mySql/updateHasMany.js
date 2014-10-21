@@ -17,7 +17,7 @@ Order.hasMany(line_order_relation).as('lines');
 var db = rdb.mySql('mysql://root@localhost/rdbDemo?multipleStatements=true');
 var orderIdWithNoLines = 'c0000000-c000-0000-0000-000000000000';
 
-resetDemo()
+module.exports = resetDemo()
     .then(db.transaction)
     .then(insertOrderLine1)
     .then(insertOrderLine2)
@@ -56,5 +56,5 @@ function onOk() {
 
 function onFailed(err) {
     console.log('Rollback');
-    console.log(err);
+    console.log(err.stack);
 }

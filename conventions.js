@@ -8,7 +8,7 @@ Customer.column('cName').string(); //property name will also be cName
 
 var db = rdb('postgres://postgres:postgres@localhost/test');
 
-resetDemo()
+module.exports = resetDemo()
     .then(db.transaction)
     .then(insert)
     .then(print) 

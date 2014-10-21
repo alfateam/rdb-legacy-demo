@@ -19,7 +19,7 @@ Order.hasMany(line_order_relation).as('lines');
 var db = rdb.mySql('mysql://root@localhost/rdbDemo?multipleStatements=true');
 var start;
 
-resetDemo()
+module.exports = resetDemo()
     .then(db.transaction)
     .then(insertOrders)
     .then(getOrders)
