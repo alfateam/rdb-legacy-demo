@@ -1,3 +1,4 @@
+run('./connect');
 run('./filtering/equal');
 run('./filtering/notEqual');
 run('./filtering/not');
