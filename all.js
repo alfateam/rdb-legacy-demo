@@ -52,11 +52,6 @@ run('./delete');
 run('./bulkDelete');
 run('./cascadeDelete');
 run('./bulkCascadeDelete');
-promise.then(print);
-
-function print() {
-	console.log(global);
-}
 
 var promise;
 
