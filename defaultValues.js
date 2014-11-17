@@ -1,7 +1,7 @@
 var rdb = require('rdb'),
     resetDemo = require('./db/resetDemo');
 
-buf = new Buffer(10);
+var buf = new Buffer(10);
 buf.write('\u00bd + \u00bc = \u00be', 0);
 
 var Customer = rdb.table('_customer');

@@ -31,7 +31,7 @@ module.exports = resetDemo()
     .then(onOk, onFailed);
 
 function deleteCustomer() {
-    filter =  Customer.id.eq('87654399-0000-0000-0000-000000000000');
+    var filter =  Customer.id.eq('87654399-0000-0000-0000-000000000000');
     Customer.cascadeDelete(filter);
 }
 
