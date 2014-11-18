@@ -33,8 +33,8 @@ function insertOrders() {
         var order = Order.insert(1,i);
         for (var y = 0; y < 20; y++) {
             var line = OrderLine.insert(1,i,y);
-        };
-    };
+        }
+    }
 }
 
 function getOrders() {
@@ -52,14 +52,14 @@ function traverse(orders) {
         console.log(orders[i].orderNo);
         var traversOrder = orders[i].lines.then(onLines);
         all.push(traversOrder);
-    };
+    }
     return promise.all(all)
 }
 
 function onLines(lines) {
-    for (var i = 0; i <  lines.length; i++) {;
+    for (var i = 0; i <  lines.length; i++) {
         var line = lines[i];
-    };
+    }
 }
 
 function onOk() {

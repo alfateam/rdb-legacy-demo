@@ -1,5 +1,5 @@
 var fs = require('fs');
-var Promise = require('promise');
+var promise = require('promise');
 var conString = require('./connectionString');
 var pg = require('pg.js');
 var mySql = require('mysql');
@@ -78,7 +78,7 @@ function insert(onSuccess, onFailed) {
 }
 
 
-var resetOnce = new Promise(insert);
+var resetOnce = new promise(insert);
 module.exports = function() {
     return resetOnce;
 };

@@ -34,7 +34,7 @@ function insertDeliveryAddress() {
 }
 
 function verifyUpdated(order) {
-    return order.deliveryAddress.then(verifyUpdatedAddress);;
+    return order.deliveryAddress.then(verifyUpdatedAddress);
 }
 
 function verifyUpdatedAddress(deliveryAddress) {

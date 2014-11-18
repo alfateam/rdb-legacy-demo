@@ -23,7 +23,7 @@ function tryGetFirst() {
 
 function printCustomer(customer) {
     if (customer) {
-        console.log('Customer Id: %s, name: %s', customer.id, customer.name);;
+        console.log('Customer Id: %s, name: %s', customer.id, customer.name);
     }
     else
         console.log('customer not found');
