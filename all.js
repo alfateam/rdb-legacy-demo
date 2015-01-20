@@ -32,6 +32,7 @@ run('./getByIdEager');
 run('./tryGetFirstEager');
 run('./toDto');
 run('./toDtoWithStrategy');
+run('./serializable');
 run('./toJSON');
 run('./toJSONWithStrategy');
 run('./getMany');
