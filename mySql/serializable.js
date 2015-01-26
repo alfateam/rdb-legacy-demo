@@ -1,7 +1,7 @@
 var rdb = require('rdb'),
     resetDemo = require('./db/resetDemo');
 
-var User = rdb.table('_User');
+var User = rdb.table('_user');
 User.primaryColumn('uId').guid().as('id');
 User.column('uUserId').string().as('userId');
 User.column('uPassword').string().as('password').serializable(false);
