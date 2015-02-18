@@ -1,15 +1,15 @@
 {
     "name": "rdb-demo",
-    "version": "0.3.2",
+    "version": "0.3.3",
     "main": "index.js",
     "title": "rdb-demo",
     "description": "ORM examples for npmjs.org/package/rdb",
     "keywords": ["orm", "sql", "mySql", "mysql", "postgres", "pg", "rdb"],
     "dependencies": {
-        "rdb": "0.4.3",
-        "promise": "5.0.0",
-        "pg.js": "3.1.0",
-        "mysql": "2.5.1"
+        "rdb": "0.4.6",
+        "promise": "6.1.0",
+        "pg": "4.2.0",
+        "mysql": "2.5.4"
     },
     "repository": {
         "type": "git",

@@ -1,7 +1,7 @@
 var fs = require('fs');
 var promise = require('promise');
 var conString = require('./connectionString');
-var pg = require('pg.js');
+var pg = require('pg');
 var mySql = require('mysql');
 
 //var drop = "DROP TABLE IF EXISTS _compositeOrderLine;DROP TABLE IF EXISTS _compositeOrder;DROP TABLE IF EXISTS _deliveryAddress;DROP TABLE IF EXISTS _orderLine;DROP TABLE IF EXISTS _order;DROP TABLE IF EXISTS _customer;"
