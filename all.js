@@ -53,6 +53,9 @@ run('./delete');
 run('./bulkDelete');
 run('./cascadeDelete');
 run('./bulkCascadeDelete');
+run('./poolOptions');
+run('./endPool');
+run('./endAllPools');
 
 var promise;
 
