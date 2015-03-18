@@ -20,6 +20,7 @@ run('./filtering/subFilter');
 run('./filtering/compositeFilter');
 
 run('./getById');
+run('./tryGetById');
 run('./tryGetFirst');
 run('./join');
 run('./hasMany');

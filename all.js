@@ -11,6 +11,7 @@ run('./filtering/in');
 run('./filtering/startsWith')
 run('./filtering/endsWith')
 run('./filtering/contains')
+run('./filtering/iEqual')
 run('./filtering/iStartsWith')
 run('./filtering/iEndsWith')
 run('./filtering/iContains')
@@ -23,6 +24,7 @@ run('./filtering/subFilter');
 run('./filtering/compositeFilter');
 
 run('./getById');
+run('./tryGetById');
 run('./tryGetFirst');
 run('./join');
 run('./hasMany');
