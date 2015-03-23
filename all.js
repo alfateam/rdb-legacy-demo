@@ -22,6 +22,7 @@ run('./filtering/orAlternative');
 run('./filtering/andAlternative');
 run('./filtering/subFilter');
 run('./filtering/compositeFilter');
+run('./filtering/rawSqlFilter');
 
 run('./getById');
 run('./tryGetById');
@@ -58,6 +59,7 @@ run('./bulkCascadeDelete');
 run('./poolOptions');
 run('./endPool');
 run('./endAllPools');
+run('./logging');
 
 var promise;
 
