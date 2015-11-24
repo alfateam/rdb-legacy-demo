@@ -6,7 +6,7 @@
     "description": "ORM examples for npmjs.org/package/rdb",
     "keywords": ["orm", "sql", "mySql", "mysql", "postgres", "pg", "rdb"],
     "dependencies": {
-        "rdb": "1.0.4",
+        "rdb": "1.2.0",
         "promise": "6.1.0",
         "pg": "4.3.0",
         "mysql": "2.5.5"
