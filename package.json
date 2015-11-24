@@ -8,8 +8,8 @@
     "dependencies": {
         "rdb": "1.1.0",
         "promise": "6.1.0",
-        "pg": "4.3.0",
-        "mysql": "2.5.5"
+        "pg": "*",
+        "mysql": "*"
     },
     "repository": {
         "type": "git",
