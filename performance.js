@@ -29,6 +29,7 @@ module.exports = resetDemo()
     .then(onOk, onFailed);
 
 function insertOrders() {
+    start = new Date();
     for (var i = 0; i < 500; i++) {
         var order = Order.insert(1,i);
         for (var y = 0; y < 20; y++) {
@@ -46,7 +47,6 @@ function getOrderById() {
 }
 
 function traverse(orders) {
-    start = new Date();
     var all = [];
     for (var i = 0; i < orders.length; i++) {
         console.log(orders[i].orderNo);
