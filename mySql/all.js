@@ -45,6 +45,7 @@ run('./manyToJSON');
 run('./manyToJSONWithStrategy');
 run('./update');
 run('./insert');
+run('./exclusive');
 run('./defaultValues');
 run('./conventions');
 run('./updateJoin');
@@ -60,6 +61,12 @@ run('./endAllPools');
 run('./streamEager');
 run('./streamJSONEager');
 run('./logging');
+
+promise.then(null,onError);
+
+function onError(e) {
+	console.log(e);
+}
 
 var promise;
 
