@@ -1,18 +1,21 @@
 var rdb = require('rdb'),
     resetDemo = require('./db/resetDemo');
 
-var db = rdb('postgres://postgres:postgres@localhost/test');
+var db = rdb.mySql('mysql://root@localhost/rdbDemo?multipleStatements=true');
 
 module.exports = resetDemo()
     .then(db.transaction)
-    .then(getUniqueCustomerIds)
+    .then(getOrderNos)
     .then(print)
     .then(rdb.commit)
     .then(null, rdb.rollback)
     .then(onOk, onFailed);
 
-function getUniqueCustomerIds() {
-    return rdb.query('SELECT DISTINCT oCustomerId AS "customerId" FROM _order');
+function getOrderNos() {
+    return rdb.query({
+        sql: 'SELECT oOrderNo AS "orderNo" FROM _order WHERE oOrderNo LIKE ?',
+        parameters: ['%04']
+    });
 }
 
 function print(rows) {

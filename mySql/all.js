@@ -43,6 +43,8 @@ run('./manyToDto');
 run('./manyToDtoWithStrategy');
 run('./manyToJSON');
 run('./manyToJSONWithStrategy');
+run('./rawSqlQuery');
+run('./rawSqlQueryWithParameters');
 run('./update');
 run('./insert');
 run('./exclusive');
