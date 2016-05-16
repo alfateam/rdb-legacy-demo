@@ -9,6 +9,7 @@ Customer.column('cBalance').numeric().as('balance');
 Customer.column('cRegdate').date().as('registeredDate');
 Customer.column('cIsActive').boolean().as('isActive');
 Customer.column('cPicture').binary().as('picture');
+Customer.column('cDocument').json().as('document');
 
 var db = rdb.mySql('mysql://root@localhost/rdbDemo?multipleStatements=true');
 
@@ -17,7 +18,7 @@ module.exports = resetDemo()
     .then(getById)
     .then(printCustomer)
     .then(rdb.commit)
-    .then(null, onFailed)
+    .then(null, rdb.rollback)
     .then(onOk, onFailed);
 
 function getById() {
@@ -25,8 +26,8 @@ function getById() {
 }
 
 function printCustomer(customer) {
-    var format = 'Customer Id: %s, name: %s, Balance: %s, Registered Date: %s, Is Active: %s, Picture: %s'; 
-    var args = [format, customer.id, customer.name, customer.balance, customer.registeredDate, customer.isActive, customer.picture];
+    var format = 'Customer Id: %s, name: %s, Balance: %s, Registered Date: %s, Is Active: %s, Picture: %s, , Document: %s'; 
+    var args = [format, customer.id, customer.name, customer.balance, customer.registeredDate, customer.isActive, customer.picture, JSON.stringify(customer.document)];
     console.log.apply(null,args);
 }
 
@@ -37,5 +38,5 @@ function onOk() {
 
 function onFailed(err) {
     console.log('Rollback');
-    console.log(err.stack);
+    console.log(err);
 }
