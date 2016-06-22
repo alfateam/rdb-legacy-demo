@@ -1,0 +1,1275 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"negotiate",
+				"negotiateNextAndFilter	(and.js)"
+			],
+			[
+				"rm",
+				"rm	requireMock"
+			],
+			[
+				"columnd",
+				"columnDiscriminators	(table.js)"
+			],
+			[
+				"rel",
+				"releaseDbClient	(executeWithNoError.js)"
+			],
+			[
+				"rej",
+				"rejectInActiveDomain"
+			],
+			[
+				"e",
+				"exclusive"
+			],
+			[
+				"ex",
+				"exclusive	(sql.js)"
+			],
+			[
+				"get",
+				"getSessionSingleton"
+			],
+			[
+				"newE",
+				"newEncodeSafe"
+			],
+			[
+				"excp",
+				"expectedObject1"
+			],
+			[
+				"actu",
+				"actualColumn2"
+			],
+			[
+				"encod",
+				"encodedDbNull"
+			],
+			[
+				"create",
+				"createReadStream"
+			],
+			[
+				"ori",
+				"originalDomain"
+			],
+			[
+				"og",
+				"originalDomain"
+			],
+			[
+				"query",
+				"queryStream"
+			],
+			[
+				"newq",
+				"newQueryStream"
+			],
+			[
+				"retu",
+				"returned	(whenNew.js)"
+			],
+			[
+				"newQueryS",
+				"newQueryStreamCore	(wrap.js)"
+			],
+			[
+				"newQery",
+				"newQueryStream	(req.js)"
+			],
+			[
+				"sup",
+				"supportUser"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "db/resetDemo.js",
+			"settings":
+			{
+				"buffer_size": 6173,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "getById.js",
+			"settings":
+			{
+				"buffer_size": 1359,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "package.json",
+			"settings":
+			{
+				"buffer_size": 580,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "insert.js",
+			"settings":
+			{
+				"buffer_size": 1012,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "mySql/db/connectionString.js",
+			"settings":
+			{
+				"buffer_size": 92,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "mySql/db/resetDemo.js",
+			"settings":
+			{
+				"buffer_size": 6312,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 96.0,
+		"last_filter": "install pa",
+		"selected_items":
+		[
+			[
+				"install pa",
+				"Package Control: Install Package"
+			],
+			[
+				"install p",
+				"Package Control: Install Package"
+			],
+			[
+				"Install Pac",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 449.0
+	},
+	"console":
+	{
+		"height": 139.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = '2915d1851351e5ee549c20394736b442' + '8bc59f460fa1548d1514676163dafc88'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/home/larsroald/devel/rdb-demo",
+		"/home/larsroald/devel/rdb-demo/mySql",
+		"/home/larsroald/devel/rdb-demo/mySql/db"
+	],
+	"file_history":
+	[
+		"/home/larsroald/devel/rdb-demo/.gitignore",
+		"/home/larsroald/devel/rdb/.gitignore",
+		"/home/larsroald/devel/rdb/table/column/json/newDecode.js",
+		"/home/larsroald/devel/rdb/table/column/json/purify.js",
+		"/home/larsroald/devel/rdb/table/readStream/mySql/newQueryStream.js",
+		"/home/larsroald/devel/rdb/mySql/wrapQueryStream.js",
+		"/home/larsroald/devel/rdb/package.json",
+		"/home/larsroald/devel/rdb-demo/filtering/exists.js",
+		"/home/larsroald/devel/rdb-demo/res.txt",
+		"/home/larsroald/devel/rdb/table/column/negotiateNextAndFilterSpec/notEmpty.js",
+		"/home/larsroald/devel/rdb/table/column/newBoolean.js",
+		"/home/larsroald/devel/rdb/table/column/newColumn.js",
+		"/home/larsroald/devel/rdb/table/column.js",
+		"/home/larsroald/devel/rdb/table/column/newBooleanSpec/new/and.js",
+		"/home/larsroald/devel/rdb/table/column/newBooleanSpec/new.js",
+		"/home/larsroald/devel/rdb/table/column/negotiateRawSqlFilter.js",
+		"/home/larsroald/devel/rdb/table/executeQueries/executeQueriesCore.js",
+		"/home/larsroald/devel/rdb/table/query/newSingleQuery.js",
+		"/home/larsroald/devel/rdb/pg/wrapQuery.js",
+		"/home/larsroald/devel/rdb/pg/newTransaction.js",
+		"/home/larsroald/devel/rdb/table/executeQueries/resolveExecuteQuery.js",
+		"/home/larsroald/devel/rdb/table/executeQueries/executeQuery.js",
+		"/home/larsroald/devel/rdb/table/executeQueries.js",
+		"/home/larsroald/devel/rdb/README.md",
+		"/home/larsroald/devel/rdb/docs/docs.md",
+		"/home/larsroald/devel/rdb/index.js",
+		"/home/larsroald/devel/rdb/table/getMany.js",
+		"/home/larsroald/devel/rdb/table/columnSpec/new/boolean.js",
+		"/home/larsroald/devel/rdb/table/column/boolean.js",
+		"/home/larsroald/devel/rdb/table/column/boolean/newEncode.js",
+		"/home/larsroald/devel/rdb/emptyFilter.js",
+		"/home/larsroald/devel/rdb/pg/replaceParamChar.js",
+		"/home/larsroald/devel/rdb/table/resultToRows.js",
+		"/home/larsroald/devel/rdb/table/resultToRows/dbRowsToRows.js",
+		"/home/larsroald/devel/rdb/table/column/string/iEqualSpec/req/equal.js",
+		"/home/larsroald/devel/rdb/table/column/string/iEqualSpec/req.js",
+		"/home/larsroald/devel/rdb/table/column/string/iEqual.js",
+		"/home/larsroald/devel/rdb/table/column/equal.js",
+		"/home/larsroald/devel/rdb/createDomain.js",
+		"/home/larsroald/devel/tmsx/tmsx.sublime-project",
+		"/home/larsroald/devel/rdb/rdb.sublime-project",
+		"/home/larsroald/devel/rdb/tableSpec/new/whenExclusive.js",
+		"/home/larsroald/devel/rdb/tableSpec/integrationSpec/defineTable.js",
+		"/home/larsroald/devel/rdb/table/column/string.js",
+		"/home/larsroald/devel/rdb/tableSpec/new/exclusive.js",
+		"/home/larsroald/devel/rdb/table.js",
+		"/home/larsroald/devel/rdb-demo/result.txt",
+		"/home/larsroald/devel/rdb/tableSpec/new.js",
+		"/home/larsroald/devel/rdb/tableSpec/new/column.js",
+		"/home/larsroald/devel/rdb/table/promise.js",
+		"/home/larsroald/devel/rdb/table/getById.js",
+		"/home/larsroald/devel/rdb/table/getFromDbById.js",
+		"/home/larsroald/devel/rdb/table/newQuery.js",
+		"/home/larsroald/devel/rdb/table/tryGetFirstFromDb.js",
+		"/home/larsroald/devel/rdb/table/tryGetFromDbById.js",
+		"/home/larsroald/devel/rdb/table/commit.js",
+		"/home/larsroald/devel/rdb/table/rollback.js",
+		"/home/larsroald/devel/rdb/table/query/singleQuery/negotiateExclusive.js",
+		"/home/larsroald/devel/rdb/table/rollbackSpec/req/noDomain/executeWithNoError.js",
+		"/home/larsroald/devel/rdb/table/rollbackSpec/req/noDomain.js",
+		"/home/larsroald/devel/rdb/table/rollbackSpec/req/hasDomain.js",
+		"/home/larsroald/devel/rdb/table/rollbackSpec/req/noDomain/whenExecuteWithNoError.js",
+		"/home/larsroald/devel/rdb/table/rollbackSpec/req/noDomain/execute.js",
+		"/home/larsroald/devel/rdb/table/rollbackSpec/req.js",
+		"/home/larsroald/devel/rdb/table/releaseDbClient.js",
+		"/home/larsroald/devel/rdb/table/rollbackSpec/req/execute.js",
+		"/home/larsroald/devel/rdb/table/rowArray/negotiateNextTickSpec/negotiate.js",
+		"/home/larsroald/devel/rdb/table/commitSpec/req.js",
+		"/home/larsroald/devel/rdb/table/rollbackSpec/req/executeWithNoError.js",
+		"/home/larsroald/devel/rdb/table/rollbackSpec/req/whenExecute.js",
+		"/home/larsroald/devel/rdb/table/rollbackSpec/req/whenExecuteWithNoError.js",
+		"/home/larsroald/devel/rdb/table/rowArray/negotiateNextTick.js",
+		"/home/larsroald/devel/rdb-demo/package.json",
+		"/home/larsroald/devel/rdb/table/newThrow.js",
+		"/home/larsroald/devel/rdb/createDomainSpec/req.js",
+		"/home/larsroald/devel/rdb/createDomainSpec/req/whenInDomain.js",
+		"/home/larsroald/devel/rdb/createDomainSpec/req/whenOutsideDomain.js",
+		"/home/larsroald/devel/rdb/table/commitSpec/req/execute.js",
+		"/home/larsroald/devel/rdb/table/commitSpec/error/execute.js",
+		"/home/larsroald/devel/rdb/table/commitSpec/error/whenExecute.js",
+		"/home/larsroald/devel/rdb/table/commitSpec/req/whenExecute.js",
+		"/home/larsroald/devel/rdb/mySql/newTransactionSpec/new/runDomain/whenResolveSuccess.js",
+		"/home/larsroald/devel/rdb/createDomainSpec/req/outsideDomain.js",
+		"/home/larsroald/devel/rdb/mySql/newTransactionSpec/new.js",
+		"/home/larsroald/devel/rdb/pg/newTransactionSpec/new/runDomain/whenResolveSuccess.js",
+		"/home/larsroald/devel/rdb/mySql/newTransaction.js",
+		"/home/larsroald/devel/rdb/pg/newTransactionSpec/new.js",
+		"/home/larsroald/devel/rdb/createDomainSpec/req/inDomain.js",
+		"/home/larsroald/devel/rdb/table/createReadStreamCore.js",
+		"/home/larsroald/devel/rdb/table/query/newSingleQuerySpec/new/sql.js",
+		"/home/larsroald/devel/rdb/table/query/newSingleQuerySpec/new.js",
+		"/home/larsroald/devel/rdb/table/query/singleQuery/negotiateExlusiveSpec/whenNegotiate.js",
+		"/home/larsroald/devel/rdb/table/query/singleQuery/negotiateExlusiveSpec/negotiate.js",
+		"/home/larsroald/devel/rdb/tableSpec/integrationSpec/defineTable/greaterThan.js",
+		"/home/larsroald/devel/rdb/table/column/date/newEncode.js",
+		"/home/larsroald/devel/rdb/table/column/date/newEncodeSpec/new/execute.js",
+		"/home/larsroald/devel/rdb/streamTest.js",
+		"/home/larsroald/devel/rdb/streamMysqlTest.js",
+		"/home/larsroald/devel/rdb/table/column/date/newEncodeSpec/new/dbSpecial/execute.js",
+		"/home/larsroald/devel/rdb/mySql/newDatabase.js",
+		"/home/larsroald/devel/rdb/table/column/date/newEncodeSpec/new/dbSpecial/whenExecute.js",
+		"/home/larsroald/devel/rdb/mySql/encodeDateSpec/req/whenEncodeString.js",
+		"/home/larsroald/devel/rdb/mySql/encodeDate.js",
+		"/home/larsroald/devel/rdb/mySql/encodeDateSpec/req/encodeString.js",
+		"/home/larsroald/devel/rdb/table/column/date/newEncodeSpec/new.js",
+		"/home/larsroald/devel/rdb/pg/encodeDate.js",
+		"/home/larsroald/devel/rdb/pg/encodeDateSpec/req/encode.js",
+		"/home/larsroald/devel/rdb/pg/encodeDateSpec/req/encodeString.js",
+		"/home/larsroald/devel/rdb/pg/encodeDateSpec/req/whenEncodeString.js",
+		"/home/larsroald/devel/rdb/pg/encodeDateSpec/req.js",
+		"/home/larsroald/devel/rdb/pg/encodeDateSpec/req/whenEncode.js",
+		"/home/larsroald/devel/rdb/mySql/encodeDateSpec/req/encode.js",
+		"/home/larsroald/devel/rdb/table/column/date/purify.js",
+		"/home/larsroald/devel/rdb/table/column/binary/newEncode.js",
+		"/home/larsroald/devel/rdb/pg/encodeBuffer.js",
+		"/home/larsroald/devel/rdb/table/column/encodeFilterArgSpec/hasSafe/whenEncode.js",
+		"/home/larsroald/devel/rdb/table/column/encodeFilterArgSpec/hasNotSafe/whenEncode.js",
+		"/home/larsroald/devel/rdb/table/column/encodeFilterArgSpec/hasNotSafe/encode.js",
+		"/home/larsroald/devel/rdb/table/column/encodeFilterArgSpec/hasSafe/encode.js",
+		"/home/larsroald/devel/rdb/table/column/encodeFilterArgSpec/req.js",
+		"/home/larsroald/devel/rdb/table/column/encodeFilterArg.js",
+		"/home/larsroald/devel/rdb/table/column/newEncodeSafeSpec/new.js",
+		"/home/larsroald/devel/rdb/table/column/newEncodeSafeSpec/new/execute.js",
+		"/home/larsroald/devel/rdb/table/column/date/newEncodeSpec/whenNew.js",
+		"/home/larsroald/devel/rdb/table/column/greaterThan.js",
+		"/home/larsroald/devel/rdb/table/column/lessThanSpec/req/when_lessThan.js",
+		"/home/larsroald/devel/rdb/table/column/notEqual.js",
+		"/home/larsroald/devel/rdb/table/column/notEqualSpec/req/null/notEqual.js"
+	],
+	"find":
+	{
+		"height": 25.0
+	},
+	"find_in_files":
+	{
+		"height": 93.0,
+		"where_history":
+		[
+			"~/devel/rdb/",
+			"~/devel/rdb/table",
+			"~/devel/rdb",
+			"~/devel/rdb-demo/node_modules/rdb",
+			"~/devel/tmsx/client/",
+			"~/devel/tmsx/client/gui/autoSelect",
+			"~/devel/tmsx/client/gui/autoSelect/autoSelect",
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"insertCustomer2",
+			"rol",
+			"query",
+			"And",
+			"tempFilter3",
+			"tempFilter2",
+			"tempFilter",
+			"nextFilter",
+			"anded",
+			"nextFilter",
+			"negotiateNextFilter",
+			"filter",
+			".and",
+			"parameters",
+			"rawsq",
+			"exclusive",
+			"Roll",
+			">>>",
+			"HEAD",
+			"'promise/domains",
+			"'promise",
+			"promise/domains",
+			"head",
+			"by('customerId')",
+			"manyToDto",
+			"toDto",
+			"as",
+			"_relations",
+			"dbName",
+			"_dbName",
+			"table",
+			"call",
+			"getById",
+			"'promise'",
+			"'promise",
+			"resolve",
+			"throwProise",
+			"requireMock",
+			"domainExit",
+			"requireMock",
+			"domainExit",
+			"commitResult",
+			"expected",
+			";\n",
+			"oldDomain",
+			"resolve",
+			"error",
+			"Error",
+			"bind",
+			"encodeDbSpecial",
+			"encodeBuffer",
+			"amock",
+			"{\n",
+			"amock",
+			"expectedObject1",
+			"createJSONReadStream",
+			"extractOrderBy",
+			"orderBy",
+			"OrderBy",
+			"'asc'",
+			"onCompleted",
+			"runQuery",
+			"replace",
+			"Query",
+			"\n    ",
+			"filter",
+			"initialOrderBy",
+			"initialFilter",
+			"filter",
+			"childTable",
+			"filter",
+			"orderBy",
+			"serializable",
+			"_new",
+			"argumen",
+			"OrderTransporter",
+			"console.log(",
+			"promise",
+			"Promise",
+			"wrapQuery",
+			"queryStream",
+			"query",
+			"queries",
+			"c.c.",
+			"requireMock",
+			"executeQuery",
+			"queries",
+			"var",
+			"onSuccess",
+			"joinLegQuery",
+			"oneLegQuery",
+			"sql = c.mock();",
+			"parameterArray",
+			"newParameterized",
+			"newParam(",
+			"encode",
+			"parameters",
+			"sql",
+			"popChanges",
+			"compressChanges",
+			"query",
+			"start",
+			"return new Blob",
+			"new createBlob",
+			"label",
+			".label",
+			"value",
+			"label",
+			".value",
+			"label",
+			"options",
+			"value",
+			"options",
+			"itemsPromise",
+			"options",
+			"value",
+			"core.selectPresenter",
+			"select",
+			"sendRequest",
+			"sql",
+			"console.log",
+			"Rolf",
+			"Vatn",
+			"Rolf",
+			"\"\"",
+			"'",
+			"\"\"",
+			"\n "
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"by('oCustomerId')"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 2,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "db/resetDemo.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 6173,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2857,
+								2857
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 51.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "getById.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1359,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								156,
+								156
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "package.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 580,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "insert.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1012,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								69,
+								69
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": -0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "mySql/db/connectionString.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 92,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								72,
+								72
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "mySql/db/resetDemo.js",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 6312,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 25.0
+	},
+	"input":
+	{
+		"height": 33.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "rdb-demo.sublime-project",
+	"replace":
+	{
+		"height": 46.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"pack",
+				"package.json"
+			],
+			[
+				"mysql/db/",
+				"mySql/db/connectionString.js"
+			],
+			[
+				"insert",
+				"insert.js"
+			],
+			[
+				"getbyi",
+				"getById.js"
+			],
+			[
+				"reset",
+				"db/resetDemo.js"
+			],
+			[
+				"json",
+				"table/column/json.js"
+			],
+			[
+				"stream",
+				"mySql/wrapQueryStream.js"
+			],
+			[
+				"mysql/stre",
+				"table/readStream/mySql/newQueryStream.js"
+			],
+			[
+				"pac",
+				"package.json"
+			],
+			[
+				"json/newde",
+				"table/column/json/newDecode.js"
+			],
+			[
+				"newbool",
+				"table/column/newBoolean.js"
+			],
+			[
+				"readme",
+				"README.md"
+			],
+			[
+				"query.js",
+				"query.js"
+			],
+			[
+				"negnextorf",
+				"table/column/negotiateNextOrFilter.js"
+			],
+			[
+				"newbooleanspec",
+				"table/column/newBooleanSpec/new.js"
+			],
+			[
+				"negnextorfil",
+				"table/column/negotiateNextOrFilter.js"
+			],
+			[
+				"negnextan",
+				"table/column/negotiateNextAndFilter.js"
+			],
+			[
+				"newbol",
+				"table/column/newBoolean.js"
+			],
+			[
+				"newcolum",
+				"table/column/newColumn.js"
+			],
+			[
+				"column.j",
+				"table/column.js"
+			],
+			[
+				"negotiatenextandfilterspec",
+				"table/column/negotiateNextAndFilterSpec/notEmpty.js"
+			],
+			[
+				"negnextandfs",
+				"table/column/negotiateNextAndFilter.js"
+			],
+			[
+				"boolean/newenc",
+				"table/column/boolean/newEncode.js"
+			],
+			[
+				"column/bo",
+				"table/column/boolean.js"
+			],
+			[
+				"columns/boo",
+				"table/columnSpec/new/boolean.js"
+			],
+			[
+				"emptyfi",
+				"emptyFilter.js"
+			],
+			[
+				"index",
+				"index.js"
+			],
+			[
+				"filter",
+				"emptyFilter.js"
+			],
+			[
+				"docs",
+				"docs/docs.md"
+			],
+			[
+				"doc",
+				"docs/docs.md"
+			],
+			[
+				"pg/",
+				"pg/wrapQuery.js"
+			],
+			[
+				"exqu",
+				"table/executeQueries.js"
+			],
+			[
+				"exeqcor",
+				"table/executeQueries/executeQueriesCore.js"
+			],
+			[
+				"resolveqc",
+				"table/executeQueries/resolveExecuteQuery.js"
+			],
+			[
+				"executeqcore",
+				"table/executeQueries/executeQueriesCore.js"
+			],
+			[
+				"newsiq",
+				"table/query/newSingleQuery.js"
+			],
+			[
+				"raws",
+				"table/column/negotiateRawSqlFilter.js"
+			],
+			[
+				"newboo",
+				"table/column/newBoolean.js"
+			],
+			[
+				"newsq",
+				"table/query/newSingleQuery.js"
+			],
+			[
+				"replap",
+				"pg/replaceParamChar.js"
+			],
+			[
+				"replapa",
+				"pg/replaceParamChar.js"
+			],
+			[
+				"pg/wrap",
+				"pg/wrapQuery.js"
+			],
+			[
+				"pg/newtr",
+				"pg/newTransaction.js"
+			],
+			[
+				"resolveeq",
+				"table/executeQueries/resolveExecuteQuery.js"
+			],
+			[
+				"executequery",
+				"table/executeQueries/executeQuery.js"
+			],
+			[
+				"executeqco",
+				"table/executeQueries/executeQueriesCore.js"
+			],
+			[
+				"executequi",
+				"table/executeQueries.js"
+			],
+			[
+				"dbrowsto",
+				"table/resultToRows/dbRowsToRows.js"
+			],
+			[
+				"resulttorows",
+				"table/resultToRows.js"
+			],
+			[
+				"executeq",
+				"table/executeQueries.js"
+			],
+			[
+				"getmany",
+				"table/getMany.js"
+			],
+			[
+				"equal.",
+				"table/column/equal.js"
+			],
+			[
+				"iequal",
+				"table/column/string/iEqual.js"
+			],
+			[
+				"wrapq",
+				"pg/wrapQuery.js"
+			],
+			[
+				"ieq",
+				"table/column/string/iEqual.js"
+			],
+			[
+				"string.",
+				"table/column/string.js"
+			],
+			[
+				"integrat",
+				"tableSpec/integrationSpec/defineTable.js"
+			],
+			[
+				"read",
+				"README.md"
+			],
+			[
+				"table",
+				"table.js"
+			],
+			[
+				"pa",
+				"package.json"
+			],
+			[
+				"romise",
+				"table/promise.js"
+			],
+			[
+				"commi",
+				"table/commit.js"
+			],
+			[
+				"roll",
+				"table/rollback.js"
+			],
+			[
+				"promi",
+				"table/promise.js"
+			],
+			[
+				"table.js",
+				"table.js"
+			],
+			[
+				"tablespec",
+				"tableSpec/new/column.js"
+			],
+			[
+				"negotiatee",
+				"table/query/singleQuery/negotiateExclusive.js"
+			],
+			[
+				"negotiateexclusiv",
+				"table/query/singleQuery/negotiateExclusive.js"
+			],
+			[
+				"newsinglq",
+				"table/query/newSingleQuery.js"
+			],
+			[
+				"newquer",
+				"table/newQuery.js"
+			],
+			[
+				"trygetfirstfromd",
+				"table/tryGetFirstFromDb.js"
+			],
+			[
+				"trygetfromdb",
+				"table/tryGetFromDbById.js"
+			],
+			[
+				"getfromdb",
+				"table/getFromDbById.js"
+			],
+			[
+				"getby",
+				"table/getById.js"
+			],
+			[
+				"exclusi",
+				"table/query/singleQuery/negotiateExclusive.js"
+			],
+			[
+				"rollback/nod",
+				"table/rollbackSpec/req/noDomain/execute.js"
+			],
+			[
+				"rollback",
+				"table/rollback.js"
+			],
+			[
+				"releasedbc",
+				"table/releaseDbClient.js"
+			],
+			[
+				"rollbackspec",
+				"table/rollbackSpec/req.js"
+			],
+			[
+				"rollb",
+				"table/rollback.js"
+			],
+			[
+				"prm",
+				"table/promise.js"
+			],
+			[
+				"commitsp",
+				"table/commitSpec/req.js"
+			],
+			[
+				"newth",
+				"table/newThrow.js"
+			],
+			[
+				"newthrow",
+				"table/newThrow.js"
+			],
+			[
+				"commitspec",
+				"table/commitSpec/req.js"
+			],
+			[
+				"createdomainspec",
+				"createDomainSpec/req.js"
+			],
+			[
+				"create",
+				"createDomain.js"
+			],
+			[
+				"release",
+				"table/releaseDbClient.js"
+			],
+			[
+				"comm",
+				"table/commit.js"
+			],
+			[
+				"commit",
+				"table/commit.js"
+			],
+			[
+				"mysql/new",
+				"mySql/newTransaction.js"
+			],
+			[
+				"pg/newt",
+				"pg/newTransaction.js"
+			],
+			[
+				"newtr",
+				"mySql/newTransaction.js"
+			],
+			[
+				"mysql/newtr",
+				"mySql/newTransaction.js"
+			],
+			[
+				"newtransactionspec",
+				"pg/newTransactionSpec/new.js"
+			],
+			[
+				"newtrans",
+				"pg/newTransaction.js"
+			],
+			[
+				"createdo",
+				"createDomain.js"
+			],
+			[
+				"newtra",
+				"pg/newTransaction.js"
+			],
+			[
+				"created",
+				"createDomain.js"
+			],
+			[
+				"doc.m",
+				"docs/docs.md"
+			],
+			[
+				"exclusive.js",
+				"tableSpec/new/exclusive.js"
+			],
+			[
+				"negexc",
+				"table/query/singleQuery/negotiateExclusive.js"
+			],
+			[
+				"negotexc",
+				"table/query/singleQuery/negotiateExlusiveSpec/negotiateExclusive.js"
+			],
+			[
+				"negotexcv",
+				"table/query/singleQuery/negotiateExclusive.js"
+			],
+			[
+				"table.j",
+				"table.js"
+			],
+			[
+				"newsingleqspec",
+				"table/query/newSingleQuerySpec/new.js"
+			],
+			[
+				"newsel",
+				"table/query/newSingleQuery.js"
+			],
+			[
+				"integr",
+				"tableSpec/integrationSpec/defineTable/greaterThan.js"
+			],
+			[
+				"streamt",
+				"streamTest.js"
+			],
+			[
+				"date/newe",
+				"table/column/date/newEncode.js"
+			],
+			[
+				"dbspeci",
+				"table/column/date/newEncodeSpec/new/dbSpecial/execute.js"
+			],
+			[
+				"mysql/ne",
+				"mySql/newTransaction.js"
+			],
+			[
+				"newencodedat",
+				"table/column/date/newEncodeSpec/new/dbSpecial/execute.js"
+			],
+			[
+				"date/purify",
+				"table/column/date/purify.js"
+			],
+			[
+				"binary/encode",
+				"table/column/binary/newEncode.js"
+			],
+			[
+				"binary/newe",
+				"table/column/binary/newEncode.js"
+			],
+			[
+				"date/newencodespec",
+				"table/column/date/newEncodeSpec/new.js"
+			],
+			[
+				"date/newenco",
+				"table/column/date/newEncode.js"
+			],
+			[
+				"mysql/newda",
+				"mySql/newDatabase.js"
+			],
+			[
+				"encodebu",
+				"pg/encodeBuffer.js"
+			],
+			[
+				"enfa",
+				"table/column/encodeFilterArgSpec/req.js"
+			],
+			[
+				"enfar/",
+				"table/column/encodeFilterArgSpec/req.js"
+			],
+			[
+				"encodefila",
+				"table/column/encodeFilterArg.js"
+			],
+			[
+				"noteq",
+				"table/column/notEqual.js"
+			],
+			[
+				"lesst",
+				"table/column/lessThan.js"
+			],
+			[
+				"lessth",
+				"table/column/lessThan.js"
+			],
+			[
+				"lesstha",
+				"table/column/lessThan.js"
+			],
+			[
+				"lesstor",
+				"table/column/lessThanOrEqual.js"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"",
+				"~/devel/tmsx/tmsx.sublime-project"
+			]
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 336.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
