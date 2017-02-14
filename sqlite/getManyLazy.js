@@ -15,7 +15,7 @@ OrderLine.column('lProduct').string().as('product');
 var line_order_relation = OrderLine.join(Order).by('lOrderId').as('order');
 Order.hasMany(line_order_relation).as('lines');
 
-var db = rdb.mySql('mysql://root@localhost/rdbDemo?multipleStatements=true');
+var db = rdb.sqlite(__dirname + '/db/rdbDemo');
 
 module.exports = resetDemo()
     .then(db.transaction)
@@ -26,9 +26,8 @@ module.exports = resetDemo()
     .then(onOk, onFailed);
 
 function getAllOrders() {
-    var emptyFilter;
-    var strategy = {lines : null};
-    return Order.getMany(emptyFilter, strategy);
+   var filter = Order.orderNo.startsWith('100');
+    return Order.getMany(filter,{limit: 2, orderBy: 'orderNo'});
 }
 
 function printOrders(orders) {
@@ -61,5 +60,5 @@ function onOk() {
 
 function onFailed(err) {
     console.log('Rollback');
-    console.log(err.stack);
+    console.log(err);
 }

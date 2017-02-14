@@ -1,5 +1,4 @@
 var rdb = require('rdb'),
-    promise = require('promise/domains'),
     resetDemo = require('./db/resetDemo');
 
 var Order = rdb.table('_order');
@@ -15,41 +14,41 @@ OrderLine.column('lProduct').string().as('product');
 var line_order_relation = OrderLine.join(Order).by('lOrderId').as('order');
 Order.hasMany(line_order_relation).as('lines');
 
-var db = rdb('postgres://postgres:postgres@localhost/test');
+var db = rdb.sqlite(__dirname + '/db/rdbDemo');
+var orderIdWithNoLines = 'c0000000-c000-0000-0000-000000000000';
 
 module.exports = resetDemo()
     .then(db.transaction)
-    .then(getAllOrders)
-    .then(printOrders)
+    .then(insertOrderLine1)
+    .then(insertOrderLine2)
+    .then(verifyUpdated)
     .then(rdb.commit)
     .then(null, rdb.rollback)
     .then(onOk, onFailed);
 
-function getAllOrders() {
-    return Order.getMany();
+function insertOrderLine1() {
+    var line = OrderLine.insert('eeeeeeee-0001-0000-0000-000000000000');
+    line.orderId = orderIdWithNoLines;
+    line.product = 'Roller blades';
+    return line.order;
 }
 
-function printOrders(orders) {
-    var printAllLines = [];
-    orders.forEach(printOrder);
-
-    function printOrder(order) {
-        var format = 'Order Id: %s, Order No: %s'; 
-        var args = [format, order.id, order.orderNo];
-        console.log.apply(null,args);
-        printAllLines.push(order.lines.then(printLines));
-    }
-    return promise.all(printAllLines);
+function insertOrderLine2() {
+    var line = OrderLine.insert('eeeeeeee-0002-0000-0000-000000000000');
+    line.orderId = orderIdWithNoLines;
+    line.product = 'Helmet';
+    return line.order;
 }
 
-function printLines(lines) {
-    lines.forEach(printLine);
+function verifyUpdated(order) {
+    console.log(order.id);
+    return order.lines.then(verifyUpdatedLines);
+}
 
-    function printLine(line) {
-        var format = 'Line Id: %s, Order Id: %s, Product: %s'; 
-        var args = [format, line.id, line.orderId, line.product];
-        console.log.apply(null,args);
-    }    
+function verifyUpdatedLines(lines) {
+    console.log(lines.length);
+    if (lines.length !== 2)
+        throw new Error('this will not happen');
 }
 
 function onOk() {

@@ -1,6 +1,6 @@
 var rdb = require('rdb'),
     resetDemo = require('./db/resetDemo');
-var promise = require('promise');
+var promise = require('promise/domains');
 
 var Order = rdb.table('_compositeOrder');
 var OrderLine = rdb.table('_compositeOrderLine');

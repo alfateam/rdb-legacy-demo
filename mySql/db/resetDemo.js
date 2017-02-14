@@ -1,5 +1,5 @@
 var fs = require('fs');
-var promise = require('promise');
+var promise = require('promise/domains');
 var conString = require('./connectionString');
 var mySql = require('mysql');
 

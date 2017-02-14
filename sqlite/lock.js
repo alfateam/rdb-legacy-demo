@@ -6,7 +6,7 @@ var Customer = rdb.table('_customer');
 Customer.primaryColumn('cId').guid().as('id');
 Customer.column('cBalance').numeric().as('balance');
 
-var db = rdb('postgres://postgres:postgres@localhost/test');
+var db = rdb.sqlite(__dirname + '/db/rdbDemo');
 
 module.exports = resetDemo()
     .then(showBalance)
@@ -42,8 +42,10 @@ function updateConcurrently() {
 }
 
 function getById() {
-    console.log('....................');
-    return Customer.getById('a0000000-0000-0000-0000-000000000000');
+    // pg_advisory_xact_lock(12345)
+    return db.lock("12345").then(function() {
+        return Customer.getById('a0000000-0000-0000-0000-000000000000');    
+    });    
 }
 
 function increaseBalance(customer) {

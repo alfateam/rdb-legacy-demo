@@ -1,6 +1,6 @@
 var rdb = require('rdb');
 var resetDemo = require('./db/resetDemo');
-var promise = require('promise');
+var promise = require('promise/domains');
 
 var Customer = rdb.table('_customer');
 Customer.primaryColumn('cId').guid().as('id');

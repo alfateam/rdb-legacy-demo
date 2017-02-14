@@ -1,5 +1,4 @@
 var rdb = require('rdb'),
-    promise = require('promise/domains'),
     resetDemo = require('./db/resetDemo');
 
 var Order = rdb.table('_order');
@@ -15,33 +14,26 @@ OrderLine.column('lProduct').string().as('product');
 var line_order_relation = OrderLine.join(Order).by('lOrderId').as('order');
 Order.hasMany(line_order_relation).as('lines');
 
-var db = rdb.mySql('mysql://root@localhost/rdbDemo?multipleStatements=true');
+var db = rdb.sqlite(__dirname + '/db/rdbDemo');
 
 module.exports = resetDemo()
     .then(db.transaction)
-    .then(getAllOrders)
-    .then(printOrders)
+    .then(getOrder)
+    .then(printOrder)
+    .then(printLines)
     .then(rdb.commit)
     .then(null, rdb.rollback)
     .then(onOk, onFailed);
 
-function getAllOrders() {
-    var emptyFilter;
-    var strategy = {lines : null};
-    return Order.getMany(emptyFilter, strategy);
+function getOrder() {
+    return Order.getById('b0000000-b000-0000-0000-000000000000');
 }
 
-function printOrders(orders) {
-    var printAllLines = [];
-    orders.forEach(printOrder);
-
-    function printOrder(order) {
-        var format = 'Order Id: %s, Order No: %s'; 
-        var args = [format, order.id, order.orderNo];
-        console.log.apply(null,args);
-        printAllLines.push(order.lines.then(printLines));
-    }
-    return promise.all(printAllLines);
+function printOrder(order) {
+    var format = 'Order Id: %s, Order No: %s'; 
+    var args = [format, order.id, order.orderNo];
+    console.log.apply(null,args);
+    return order.lines; //this is a promise
 }
 
 function printLines(lines) {
@@ -61,5 +53,5 @@ function onOk() {
 
 function onFailed(err) {
     console.log('Rollback');
-    console.log(err.stack);
+    console.log(err);
 }

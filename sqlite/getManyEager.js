@@ -15,7 +15,7 @@ OrderLine.column('lProduct').string().as('product');
 var line_order_relation = OrderLine.join(Order).by('lOrderId').as('order');
 Order.hasMany(line_order_relation).as('lines');
 
-var db = rdb.mySql('mysql://root@localhost/rdbDemo?multipleStatements=true');
+var db = rdb.sqlite(__dirname + '/db/rdbDemo');
 
 module.exports = resetDemo()
     .then(db.transaction)
@@ -61,5 +61,5 @@ function onOk() {
 
 function onFailed(err) {
     console.log('Rollback');
-    console.log(err.stack);
+    console.log(err);
 }
