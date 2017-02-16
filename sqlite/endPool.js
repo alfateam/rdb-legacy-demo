@@ -1,17 +1,15 @@
-var rdb = require('rdb'),
-    resetDemo = require('./db/resetDemo');
+var rdb = require('rdb');
 
 var db = rdb.sqlite(__dirname + '/db/rdbDemo');
 
-module.exports = resetDemo()
-    .then(db.transaction)
+module.exports = db.transaction()
     .then(rdb.commit)
     .then(null, rdb.rollback)
+    .then(db.end)
     .then(onOk, onFailed);
 
 function onOk() {
-    console.log('Success');
-    console.log('Waiting for connection pool to teardown....');
+    console.log('Pool ended.');
 }
 
 function onFailed(err) {

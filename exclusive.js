@@ -5,6 +5,7 @@ var promise = require('promise/domains');
 var Customer = rdb.table('_customer');
 Customer.primaryColumn('cId').guid().as('id');
 Customer.column('cBalance').numeric().as('balance');
+Customer.exclusive();
 
 var db = rdb('postgres://postgres:postgres@localhost/test');
 

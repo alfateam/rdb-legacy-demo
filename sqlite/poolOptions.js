@@ -1,16 +1,15 @@
-var rdb = require('rdb'),
-    resetDemo = require('./db/resetDemo');
+var rdb = require('rdb');
 
-var db = rdb.sqlite(__dirname + '/db/rdbDemo');
+var poolOptions = {size: 20};
+var db = rdb.sqlite(__dirname + '/db/rdbDemo', poolOptions);
 
-module.exports = resetDemo()
-    .then(db.transaction)
+module.exports = db.transaction()
     .then(rdb.commit)
     .then(null, rdb.rollback)
     .then(onOk, onFailed);
 
 function onOk() {
-    console.log('Success');
+    console.log('Success. Created pool with max 20 connections.');
     console.log('Waiting for connection pool to teardown....');
 }
 

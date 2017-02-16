@@ -1,7 +1,7 @@
 var rdb = require('rdb'),
     resetDemo = require('./db/resetDemo');
 var Customer = rdb.table('_customer');
-rdb.log(console.log);
+
 Customer.primaryColumn('cId').guid().as('id');
 Customer.column('cName').string().as('name');
 Customer.column('cBalance').numeric().as('balance');

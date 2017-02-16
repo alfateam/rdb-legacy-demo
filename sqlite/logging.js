@@ -1,33 +1,27 @@
 var rdb = require('rdb'),
-    resetDemo = require('../db/resetDemo');
-
+    resetDemo = require('./db/resetDemo');
+rdb.log(console.log); //will log sql and parameters
 var Customer = rdb.table('_customer');
 
 Customer.primaryColumn('cId').guid().as('id');
 Customer.column('cName').string().as('name');
 
-var db = rdb.sqlite(__dirname + '/../db/rdbDemo');
-
+var db = rdb.sqlite(__dirname + '/db/rdbDemo');
 
 module.exports = resetDemo()
     .then(db.transaction)
-    .then(getFilteredCustomers)
-    .then(printCustomers)
+    .then(getById)
+    .then(update)
     .then(rdb.commit)
     .then(null, rdb.rollback)
     .then(onOk, onFailed);
 
-function getFilteredCustomers() {
-    var filter = Customer.name.iContains('oHn');
-    return Customer.getMany(filter);
+function getById() {
+    return Customer.getById('a0000000-0000-0000-0000-000000000000');
 }
 
-function printCustomers(customers) {
-    customers.forEach(printCustomer);
-
-    function printCustomer(customer) {
-        console.log('Customer Id: %s, name: %s', customer.id, customer.name);
-    }
+function update(customer) {
+    customer.name = 'Ringo'; 
 }
 
 function onOk() {
