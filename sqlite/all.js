@@ -59,6 +59,8 @@ run('./bulkCascadeDelete');
 run('./poolOptions');
 run('./endPool');
 run('./endAllPools');
+run('./streamEager');
+run('./streamJSONEager');
 run('./logging');
 
 promise.then(null,onError);

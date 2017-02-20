@@ -14,28 +14,18 @@ OrderLine.column('lProduct').string().as('product');
 var line_order_relation = OrderLine.join(Order).by('lOrderId').as('order');
 Order.hasMany(line_order_relation).as('lines');
 
-var db = rdb('postgres://postgres:postgres@localhost/test');
+var db = rdb.sqlite(__dirname + '/db/rdbDemo');
 
 var emptyFilter;
 var strategy = {
     lines: {
         orderBy: ['product']
     },
-    orderBy: ['orderNo']
+    orderBy: ['orderNo'],
+    limit: 5,
 };
 
 module.exports = resetDemo()
     .then(function() {
-        Order.createReadStream(db, emptyFilter, strategy).on('data', printOrder);
+        Order.createJSONReadStream(db, emptyFilter, strategy).pipe(process.stdout);
     });
-
-function printOrder(order) {
-    var format = 'Order Id: %s, Order No: %s';
-    console.log(format, order.id, order.orderNo);
-    order.lines.forEach(printLine);
-}
-
-function printLine(line) {
-    var format = 'Line Id: %s, Order Id: %s, Product: %s';
-    console.log(format, line.id, line.orderId, line.product);
-}
