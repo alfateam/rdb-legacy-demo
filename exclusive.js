@@ -43,7 +43,6 @@ function updateConcurrently() {
 }
 
 function getById() {
-    console.log('....................');
     return Customer.getById('a0000000-0000-0000-0000-000000000000');
 }
 
