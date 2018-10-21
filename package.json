@@ -14,10 +14,10 @@
         "rdb"
     ],
     "dependencies": {
-        "mysql": "^2.13.0",
-        "pg": "^6.1.2",
+        "mysql": "^2.16.0",
+        "pg": "^7.5.0",
         "promise": "^7.1.1",
-        "rdb": "^1.6.9",
+        "rdb": "^1.7.2",
         "sqlite3": "^3.1.8"
     },
     "repository": {

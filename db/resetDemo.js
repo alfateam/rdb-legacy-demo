@@ -4,7 +4,7 @@ var conString = require('./connectionString');
 var pg = require('pg');
 var mySql = require('mysql');
 
-//var drop = "DROP TABLE IF EXISTS _compositeOrderLine;DROP TABLE IF EXISTS _compositeOrder;DROP TABLE IF EXISTS _deliveryAddress;DROP TABLE IF EXISTS _orderLine;DROP TABLE IF EXISTS _order;DROP TABLE IF EXISTS _customer;"
+// var drop = "DROP TABLE IF EXISTS _compositeOrderLine;DROP TABLE IF EXISTS _compositeOrder;DROP TABLE IF EXISTS _deliveryAddress;DROP TABLE IF EXISTS _orderLine;DROP TABLE IF EXISTS _order;DROP TABLE IF EXISTS _customer;"
 var drop = 'drop schema public cascade;create schema public;'
 var createCustomer = "CREATE TABLE _customer (cId uuid PRIMARY KEY, cName varchar(40), cBalance numeric, cRegdate timestamp with time zone, cIsActive boolean, cPicture bytea, cDocument JSON);"
 var createUser = "CREATE TABLE _user (uId uuid PRIMARY KEY, uUserId varchar(40), uPassword varchar(40), uEmail varchar(100));"

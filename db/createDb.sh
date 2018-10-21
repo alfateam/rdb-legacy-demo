@@ -1,0 +1,1 @@
+sudo -u postgres psql -tc "SELECT 1 FROM pg_database WHERE datname = 'rdbdemo'" | grep -q 1 || sudo -u postgres psql -c "CREATE DATABASE rdbdemo;" && sudo -u postgres psql -c  "create user rdb;alter user rdb with superuser password 'rdb';grant all privileges on database rdbdemo to rdb;"  

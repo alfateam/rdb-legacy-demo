@@ -1,7 +1,7 @@
 var rdb = require('rdb'),
     resetDemo = require('./db/resetDemo');
 
-var db = rdb('postgres://postgres:postgres@localhost/test');
+var db = rdb('postgres://test:test@localhost/test');
 //alternatively: var db = rdb.pg('postgres://postgres:postgres@localhost/test');
 
 module.exports = resetDemo()

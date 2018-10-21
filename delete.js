@@ -10,7 +10,7 @@ Customer.column('cRegdate').date().as('registeredDate');
 Customer.column('cIsActive').boolean().as('isActive');
 Customer.column('cPicture').binary().as('picture');
 
-var db = rdb('postgres://postgres:postgres@localhost/test');
+var db = rdb('postgres://test:test@localhost/test');
 
 module.exports = resetDemo()
     .then(db.transaction)

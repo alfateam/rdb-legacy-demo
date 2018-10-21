@@ -21,7 +21,7 @@ Customer.hasMany(orderToCustomer).as('orders');
 var line_order_relation = OrderLine.join(Order).by('lOrderId').as('order');
 Order.hasMany(line_order_relation).as('lines');
 
-var db = rdb('postgres://postgres:postgres@localhost/test');
+var db = rdb('postgres://test:test@localhost/test');
 
 module.exports = resetDemo()
     .then(db.transaction)

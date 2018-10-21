@@ -7,7 +7,7 @@ Customer.primaryColumn('cId').guid().as('id');
 Customer.column('cBalance').numeric().as('balance');
 Customer.exclusive();
 
-var db = rdb('postgres://postgres:postgres@localhost/test');
+var db = rdb('postgres://test:test@localhost/test');
 
 module.exports = resetDemo()
     .then(showBalance)

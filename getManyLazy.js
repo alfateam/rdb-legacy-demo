@@ -1,9 +1,10 @@
-var rdb = require('rdb'),
-    promise = require('promise/domains'),
-    resetDemo = require('./db/resetDemo');
+const rdb = require('rdb');
+const promise = require('promise/domains');
+const resetDemo = require('./db/resetDemo');
+const inspect = require('util').inspect;
 
-var Order = rdb.table('_order');
-var OrderLine = rdb.table('_orderLine');
+const Order = rdb.table('_order');
+const OrderLine = rdb.table('_orderLine');
 
 Order.primaryColumn('oId').guid().as('id');
 Order.column('oOrderNo').string().as('orderNo');
@@ -12,52 +13,22 @@ OrderLine.primaryColumn('lId').guid().as('id');
 OrderLine.column('lOrderId').guid().as('orderId');
 OrderLine.column('lProduct').string().as('product');
 
-var line_order_relation = OrderLine.join(Order).by('lOrderId').as('order');
+const line_order_relation = OrderLine.join(Order).by('lOrderId').as('order');
 Order.hasMany(line_order_relation).as('lines');
 
-var db = rdb('postgres://postgres:postgres@localhost/test');
+const db = rdb('postgres://rdb:rdb@localhost/rdbdemo');
 
-module.exports = resetDemo()
-    .then(db.transaction)
-    .then(getAllOrders)
-    .then(printOrders)
-    .then(rdb.commit)
-    .then(null, rdb.rollback)
-    .then(onOk, onFailed);
-
-function getAllOrders() {
-    return Order.getMany();
-}
-
-function printOrders(orders) {
-    var printAllLines = [];
-    orders.forEach(printOrder);
-
-    function printOrder(order) {
-        var format = 'Order Id: %s, Order No: %s'; 
-        var args = [format, order.id, order.orderNo];
-        console.log.apply(null,args);
-        printAllLines.push(order.lines.then(printLines));
+module.exports = async function() {
+    try {
+        await resetDemo();
+        await db.transaction();
+        let orders = await Order.getMany();
+        let dtos = await orders.toDto();
+        console.log(inspect(dtos, false, 10));
+        await rdb.commit();
+        console.log('Waiting for connection pool to teardown....');
+    } catch (e) {
+        console.log(e.stack);
+        rdb.rollback();
     }
-    return promise.all(printAllLines);
-}
-
-function printLines(lines) {
-    lines.forEach(printLine);
-
-    function printLine(line) {
-        var format = 'Line Id: %s, Order Id: %s, Product: %s'; 
-        var args = [format, line.id, line.orderId, line.product];
-        console.log.apply(null,args);
-    }    
-}
-
-function onOk() {
-    console.log('Success');
-    console.log('Waiting for connection pool to teardown....');
-}
-
-function onFailed(err) {
-    console.log('Rollback');
-    console.log(err);
-}
+}();
