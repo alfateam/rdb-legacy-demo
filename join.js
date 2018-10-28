@@ -20,7 +20,7 @@ module.exports = async function() {
         await db.transaction();
         let order = await Order.getById('a0000000-a000-0000-0000-000000000000');
         let customer = await order.customer;
-        console.log(await order.toJSON({customer: {null}}));
+        console.log(await order.toJSON({customer: null}));
         await rdb.commit();
         console.log('Waiting for connection pool to teardown....');
     } catch (e) {
