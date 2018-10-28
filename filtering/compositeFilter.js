@@ -1,9 +1,10 @@
-var rdb = require('rdb'),
-    resetDemo = require('../db/resetDemo');
+const resetDemo = require('../db/resetDemo');
+const rdb = require('rdb');
+const inspect = require('util').inspect;
 
-var Order = rdb.table('_order');
-var Customer = rdb.table('_customer');
-var OrderLine = rdb.table('_orderLine');
+const Order = rdb.table('_order');
+const Customer = rdb.table('_customer');
+const OrderLine = rdb.table('_orderLine');
 
 Order.primaryColumn('oId').guid().as('id');
 Order.column('oCustomerId').guid().as('customerId');
@@ -20,44 +21,25 @@ OrderLine.column('lProduct').string().as('product');
 
 Order.join(Customer).by('oCustomerId').as('customer');
 
-var line_order_relation = OrderLine.join(Order).by('lOrderId').as('order');
+const line_order_relation = OrderLine.join(Order).by('lOrderId').as('order');
 Order.hasMany(line_order_relation).as('lines');
 
+const db = rdb('postgres://rdb:rdb@localhost/rdbdemo');
 
-
-var db = rdb('postgres://postgres:postgres@localhost/test');
-
-module.exports = resetDemo()
-    .then(db.transaction)
-    .then(getOrders)
-    .then(toJSON)
-    .then(print)
-    .then(rdb.commit)
-    .then(null, rdb.rollback)
-    .then(onOk, onFailed);
-
-function getOrders() {
-    var isActive = Order.customer.isActive.eq(true);
-    var didOrderCar = Order.lines.product.contains('car');
-    var filter = isActive.and(didOrderCar);
-    //alternatively rdb.filter.and(isActive).and(didOrderCar);
-    return Order.getMany(filter);
-}
-
-function toJSON(orders) {
-    return orders.toJSON();
-}
-
-function print(json) {
-    console.log(json);
-}
-
-function onOk() {
-    console.log('Success');
-    console.log('Waiting for connection pool to teardown....');
-}
-
-function onFailed(err) {
-    console.log('Rollback');
-    console.log(err);
-}
+module.exports = async function() {
+    try {
+        await resetDemo();
+        await db.transaction();
+        let isActive = Order.customer.isActive.eq(true);
+        let didOrderCar = Order.lines.product.contains('car');
+        let filter = isActive.and(didOrderCar);
+        //alternatively rdb.filter.and(isActive).and(didOrderCar);
+        let orders = await Order.getMany(filter);
+        console.log(inspect(await orders.toDto(), false, 10));
+        await rdb.commit();
+        console.log('Waiting for connection pool to teardown....');
+    } catch (e) {
+        console.log(e.stack);
+        rdb.rollback();
+    }
+}();

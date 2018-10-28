@@ -15,36 +15,19 @@ DeliveryAddress.column('dStreet').string().as('street');
 var deliveryAddress_order_relation = DeliveryAddress.join(Order).by('dOrderId').as('order');
 Order.hasOne(deliveryAddress_order_relation).as('deliveryAddress');
 
-var db = rdb('postgres://postgres:postgres@localhost/test');
+const db = rdb('postgres://rdb:rdb@localhost/rdbdemo');
 
-module.exports = resetDemo()
-    .then(db.transaction)
-    .then(getOrders)
-    .then(toJSON)
-    .then(print)
-    .then(rdb.commit)
-    .then(null, rdb.rollback)
-    .then(onOk, onFailed);
-
-function getOrders() {
-    var filter = Order.deliveryAddress.street.startsWith('Node');
-    return Order.getMany(filter);
-}
-
-function toJSON(orders) {
-    return orders.toJSON();
-}
-
-function print(json) {
-    console.log(json);
-}
-
-function onOk() {
-    console.log('Success');
-    console.log('Waiting for connection pool to teardown....');
-}
-
-function onFailed(err) {
-    console.log('Rollback');
-    console.log(err);
-}
+module.exports = async function() {
+    try {
+        await resetDemo();
+        await db.transaction();
+        let filter = Order.deliveryAddress.street.startsWith('Node');
+        let orders = await Order.getMany(filter);
+        console.log(await orders.toDto());
+        await rdb.commit();
+        console.log('Waiting for connection pool to teardown....');
+    } catch (e) {
+        console.log(e.stack);
+        rdb.rollback();
+    }
+}();
