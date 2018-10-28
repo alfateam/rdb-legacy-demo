@@ -1,6 +1,6 @@
+const rdb = require('rdb');
+const resetDemo = require('./db/resetDemo');
 const inspect = require('util').inspect;
-const rdb = require('rdb'),
-    resetDemo = require('./db/resetDemo');
 
 const Order = rdb.table('_order');
 const Customer = rdb.table('_customer');
@@ -40,8 +40,7 @@ module.exports = async function() {
         let orders = await Order.getMany();
         let dtos = await orders.toDto( /*strategy*/ );
         //default strategy, expand all hasOne and hasMany relations
-        console.log(JSON.stringify(dtos));
-    console.log(inspect(dtos, false, 10));
+        console.log(inspect(dtos, false, 10));
         rdb.commit();
         console.log('Waiting for connection pool to teardown....');
     } catch (e) {

@@ -1,8 +1,8 @@
-var rdb = require('rdb'),
-    resetDemo = require('./db/resetDemo');
+const rdb = require('rdb');
+const resetDemo = require('./db/resetDemo');
 
-var Order = rdb.table('_compositeOrder');
-var OrderLine = rdb.table('_compositeOrderLine');
+const Order = rdb.table('_compositeOrder');
+const OrderLine = rdb.table('_compositeOrderLine');
 
 Order.primaryColumn('oCompanyId').numeric().as('companyId');
 Order.primaryColumn('oOrderNo').numeric().as('orderNo');
@@ -12,47 +12,24 @@ OrderLine.primaryColumn('lOrderNo').numeric().as('orderNo');
 OrderLine.primaryColumn('lLineNo').numeric().as('lineNo');
 OrderLine.column('lProduct').string().as('product');
 
-var line_order_relation = OrderLine.join(Order).by('lCompanyId', 'lOrderNo').as('order');
+const line_order_relation = OrderLine.join(Order).by('lCompanyId', 'lOrderNo').as('order');
 Order.hasMany(line_order_relation).as('lines');
 
-var db = rdb('postgres://postgres:postgres@localhost/test');
+const db = rdb('postgres://rdb:rdb@localhost/rdbdemo');
 
-module.exports = resetDemo()
-    .then(db.transaction)
-    .then(getOrder)
-    .then(printOrder)
-    .then(printLines)
-    .then(rdb.commit)
-    .then(null, rdb.rollback)
-    .then(onOk, onFailed);
+module.exports = async function() {
+    try {
+        await resetDemo();
+        await db.transaction();
 
-function getOrder() {
-    var companyId = 1,
-        orderId = 1001;
-    return Order.getById(companyId, orderId);
-}
-
-function printOrder(order) {
-    console.log('Company Id: %s, Order No: %s', order.companyId, order.orderNo)
-    return order.lines; //this is a promise
-}
-
-function printLines(lines) {
-    lines.forEach(printLine);
-
-    function printLine(line) {
-        var format = 'Company Id: %s, Order No: %s, Line No: %s, Product: %s'; 
-        var args = [format, line.companyId, line.orderNo, line.lineNo, line.product];
-        console.log.apply(null,args);
-    }    
-}
-
-function onOk() {
-    console.log('Success');
-    console.log('Waiting for connection pool to teardown....');
-}
-
-function onFailed(err) {
-    console.log('Rollback');
-    console.log(err);
-}
+    let companyId = 1;
+    let orderId = 1001;
+    let order = await Order.getById(companyId, orderId);
+    console.log(await order.toDto());
+        await rdb.commit();
+        console.log('Waiting for connection pool to teardown....');
+    } catch (e) {
+        console.log(e.stack);
+        rdb.rollback();
+    }
+}();

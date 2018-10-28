@@ -1,30 +1,35 @@
-var rdb = require('rdb');
+const rdb = require('rdb');
 
-var dbPg = rdb('postgres://postgres:postgres@localhost/test');
-var dbMySql = rdb.mySql('mysql://root@localhost/rdbDemo?multipleStatements=true');
+const dbPg = rdb('postgres://rdb:rdb@localhost/rdbdemo');
+const dbMySql = rdb.mySql('mysql://root@localhost/rdbDemo?multipleStatements=true');
 
-module.exports = connectPg()
-    .then(connectMySql)
-    .then(rdb.end)
-    .then(onOk, onFailed);
+module.exports = async function() {
+    try {
+        await connectPg();
+        await connectMySql();
+        await rdb.end();
+        console.log('Pools ended.');
+    } catch (e) {
+        console.log(e.stack);
+    }
+}();
 
+async function connectPg() {
+    try {
+        await dbPg.transaction();
+        await rdb.commit();
+    } catch (e) {
+        console.log(e.stack);
+        rdb.rollback();
+    }
+};
 
-function connectPg() {
-    return dbPg.transaction()
-        .then(rdb.commit)
-        .then(null, rdb.rollback);
-}
-
-function connectMySql() {
-    return dbMySql.transaction()
-        .then(rdb.commit)
-        .then(null, rdb.rollback);
-}
-
-function onOk() {
-    console.log('Pools ended.');
-}
-
-function onFailed(err) {
-    console.log(err.stack);
-}
+async function connectMySql() {
+    try {
+        await dbMySql.transaction();
+        await rdb.commit();
+    } catch (e) {
+        console.log(e.stack);
+        rdb.rollback();
+    }
+};

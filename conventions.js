@@ -1,37 +1,24 @@
-var rdb = require('rdb'),
-    resetDemo = require('./db/resetDemo');
+const rdb = require('rdb');
+const resetDemo = require('./db/resetDemo');
 
-var Customer = rdb.table('_customer');
+const Customer = rdb.table('_customer');
 
 Customer.primaryColumn('cId').guid(); //property name will also be cId
 Customer.column('cName').string(); //property name will also be cName
 
-var db = rdb('postgres://test:test@localhost/test');
+const db = rdb('postgres://rdb:rdb@localhost/rdbdemo');
 
-module.exports = resetDemo()
-    .then(db.transaction)
-    .then(insert)
-    .then(print) 
-    .then(rdb.commit)
-    .then(null, rdb.rollback)
-    .then(onOk, onFailed);
-
-function insert() {
-    var customer = Customer.insert('abcdef01-0000-0000-0000-000000000000')
-    customer.cName = 'Paul';
-    return customer.toJSON();
-}
-
-function print(json) {
-    console.log(json);
-}
-
-function onOk() {
-    console.log('Success');
-    console.log('Waiting for connection pool to teardown....');
-}
-
-function onFailed(err) {
-    console.log('Rollback');
-    console.log(err);
-}
+module.exports = async function() {
+    try {
+        await resetDemo();
+        await db.transaction();
+        const customer = Customer.insert('abcdef01-0000-0000-0000-000000000000')
+        customer.cName = 'Paul';
+        console.log(await customer.toDto());
+        await rdb.commit();
+        console.log('Waiting for connection pool to teardown....');
+    } catch (e) {
+        console.log(e.stack);
+        rdb.rollback();
+    }
+}();

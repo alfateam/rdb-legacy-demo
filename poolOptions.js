@@ -1,19 +1,17 @@
-var rdb = require('rdb');
+const rdb = require('rdb');
+const resetDemo = require('./db/resetDemo');
+const poolOptions = {size: 20};
 
-var poolOptions = {size: 20};
-var db = rdb('postgres://postgres:postgres@localhost/test', poolOptions);
+const db = rdb('postgres://rdb:rdb@localhost/rdbdemo', poolOptions);
 
-module.exports = db.transaction()
-    .then(rdb.commit)
-    .then(null, rdb.rollback)
-    .then(onOk, onFailed);
-
-function onOk() {
-    console.log('Success. Created pool with max 20 connections.');
-    console.log('Waiting for connection pool to teardown....');
-}
-
-function onFailed(err) {
-    console.log('Rollback');
-    console.log(err);
-}
+module.exports = async function() {
+    try {
+        await resetDemo();
+        await db.transaction();
+        await rdb.commit();
+        console.log('Waiting for connection pool to teardown....');
+    } catch (e) {
+        console.log(e.stack);
+        rdb.rollback();
+    }
+}();

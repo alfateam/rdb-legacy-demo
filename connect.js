@@ -1,21 +1,17 @@
-var rdb = require('rdb'),
-    resetDemo = require('./db/resetDemo');
+const rdb = require('rdb');
+const resetDemo = require('./db/resetDemo');
 
-var db = rdb('postgres://test:test@localhost/test');
+const db = rdb('postgres://rdb:rdb@localhost/rdbdemo');
 //alternatively: var db = rdb.pg('postgres://postgres:postgres@localhost/test');
 
-module.exports = resetDemo()
-    .then(db.transaction)
-    .then(rdb.commit)
-    .then(null, rdb.rollback)
-    .then(onOk, onFailed);
-
-function onOk() {
-    console.log('Success');
-    console.log('Waiting for connection pool to teardown....');
-}
-
-function onFailed(err) {
-    console.log('Rollback');
-    console.log(err);
-}
+module.exports = async function() {
+    try {
+        await resetDemo();
+        await db.transaction();
+        await rdb.commit();
+        console.log('Waiting for connection pool to teardown....');
+    } catch (e) {
+        console.log(e.stack);
+        rdb.rollback();
+    }
+}();

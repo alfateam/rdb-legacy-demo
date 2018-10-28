@@ -1,9 +1,9 @@
-var rdb = require('rdb'),
-    resetDemo = require('./db/resetDemo');
+const rdb = require('rdb');
+const resetDemo = require('./db/resetDemo');
 
-var Customer = rdb.table('_customer');
-var Order = rdb.table('_order');
-var OrderLine = rdb.table('_orderLine');
+const Customer = rdb.table('_customer');
+const Order = rdb.table('_order');
+const OrderLine = rdb.table('_orderLine');
 
 Customer.primaryColumn('cId').guid().as('id');
 Customer.column('cName').string().as('name');
@@ -15,32 +15,24 @@ Order.column('oCustomerId').guid().as('customerId');
 OrderLine.primaryColumn('lId').guid().as('id');
 OrderLine.column('lOrderId').guid().as('orderId');
 
-var orderToCustomer = Order.join(Customer).by('oCustomerId').as('customer');
+const orderToCustomer = Order.join(Customer).by('oCustomerId').as('customer');
 Customer.hasMany(orderToCustomer).as('orders');
 
-var line_order_relation = OrderLine.join(Order).by('lOrderId').as('order');
+const line_order_relation = OrderLine.join(Order).by('lOrderId').as('order');
 Order.hasMany(line_order_relation).as('lines');
 
-var db = rdb('postgres://test:test@localhost/test');
+const db = rdb('postgres://rdb:rdb@localhost/rdbdemo');
 
-module.exports = resetDemo()
-    .then(db.transaction)
-    .then(deleteCustomer)
-    .then(rdb.commit)
-    .then(null, rdb.rollback)
-    .then(onOk, onFailed);
-
-function deleteCustomer() {
-    var filter =  Customer.id.eq('87654399-0000-0000-0000-000000000000');
-    Customer.cascadeDelete(filter);
-}
-
-function onOk() {
-    console.log('Success');
-    console.log('Waiting for connection pool to teardown....');
-}
-
-function onFailed(err) {
-    console.log('Rollback');
-    console.log(err.stack);
-}
+module.exports = async function() {
+    try {
+        await resetDemo();
+        await db.transaction();
+        let filter = Customer.id.eq('87654399-0000-0000-0000-000000000000');
+        await Customer.cascadeDelete(filter);
+        await rdb.commit();
+        console.log('Waiting for connection pool to teardown....');
+    } catch (e) {
+        console.log(e.stack);
+        rdb.rollback();
+    }
+}();

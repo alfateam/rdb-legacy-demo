@@ -1,8 +1,8 @@
-var rdb = require('rdb'),
-    resetDemo = require('./db/resetDemo');
+const rdb = require('rdb');
+const resetDemo = require('./db/resetDemo');
 
-var Customer = rdb.table('_customer');
-var Order = rdb.table('_order');
+const Customer = rdb.table('_customer');
+const Order = rdb.table('_order');
 
 Customer.primaryColumn('cId').guid().as('id');
 Customer.column('cName').string().as('name');
@@ -13,38 +13,22 @@ Order.column('oCustomerId').guid().as('customerId');
 
 Order.join(Customer).by('oCustomerId').as('customer');
 
-var db = rdb('postgres://postgres:postgres@localhost/test');
+const db = rdb('postgres://rdb:rdb@localhost/rdbdemo');
 
-module.exports = resetDemo()
-    .then(db.transaction)
-    .then(getById)
-    .then(update)
-    .then(verifyUpdated)
-    .then(rdb.commit)
-    .then(null, rdb.rollback)
-    .then(onOk, onFailed);
-
-function getById() {
-    return Order.getById('b0000000-b000-0000-0000-000000000000');
-}
-
-function update(order) {
-    var yokoId = '12345678-0000-0000-0000-000000000000';
-    order.customerId = yokoId;
-    return order.customer; 
-}
-
-function verifyUpdated(customer) {
-    if (customer.name !== 'Yoko')
-        throw new Error('this will not happen');
-}
-
-function onOk() {
-    console.log('Success');
-    console.log('Waiting for connection pool to teardown....');
-}
-
-function onFailed(err) {
-    console.log('Rollback');
-    console.log(err);
-}
+module.exports = async function() {
+    try {
+        await resetDemo();
+        await db.transaction();
+        let order = await Order.getById('b0000000-b000-0000-0000-000000000000');
+        let yokoId = '12345678-0000-0000-0000-000000000000';
+        order.customerId = yokoId;
+        let customer = await order.customer;
+        if (customer.name !== 'Yoko')
+            throw new Error('this will not happen');
+        await rdb.commit();
+        console.log('Waiting for connection pool to teardown....');
+    } catch (e) {
+        console.log(e.stack);
+        rdb.rollback();
+    }
+}();

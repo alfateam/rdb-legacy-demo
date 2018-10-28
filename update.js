@@ -1,43 +1,27 @@
-var rdb = require('rdb'),
-    resetDemo = require('./db/resetDemo');
+const rdb = require('rdb');
+const resetDemo = require('./db/resetDemo');
 
-var Customer = rdb.table('_customer');
+const Customer = rdb.table('_customer');
 
 Customer.primaryColumn('cId').guid().as('id');
 Customer.column('cName').string().as('name');
 
-var db = rdb('postgres://test:test@localhost/test');
-rdb.log(console.log);
 
-module.exports = resetDemo()
-    .then(db.transaction)
-    .then(getById)
-    .then(update)
-    .then(getById) //will use cache
-    .then(verifyUpdated)
-    .then(rdb.commit)
-    .then(null, rdb.rollback)
-    .then(onOk, onFailed);
+const db = rdb('postgres://rdb:rdb@localhost/rdbdemo');
 
-function getById() {
-    return Customer.getById('a0000000-0000-0000-0000-000000000000');
-}
-
-function update(customer) {
-    customer.name = 'Ringo'; 
-}
-
-function verifyUpdated(customer) {
-    if (customer.name !== 'Ringo')
-        throw new Error('this will not happen');
-}
-
-function onOk() {
-    console.log('Success');
-    console.log('Waiting for connection pool to teardown....');
-}
-
-function onFailed(err) {
-    console.log('Rollback');
-    console.log(err);
-}
+module.exports = async function() {
+    try {
+        await resetDemo();
+        await db.transaction();
+        let customer = await Customer.getById('a0000000-0000-0000-0000-000000000000');
+        customer.name = 'Ringo';
+        customer = await Customer.getById('a0000000-0000-0000-0000-000000000000');
+        if (customer.name !== 'Ringo')
+            throw new Error('this will not happen');
+        await rdb.commit();
+        console.log('Waiting for connection pool to teardown....');
+    } catch (e) {
+        console.log(e.stack);
+        rdb.rollback();
+    }
+}();

@@ -1,18 +1,15 @@
-var rdb = require('rdb');
+const rdb = require('rdb');
 
-var db = rdb('postgres://postgres:postgres@localhost/test');
+const db = rdb('postgres://rdb:rdb@localhost/rdbdemo');
 
-module.exports = db.transaction()
-    .then(rdb.commit)
-    .then(null, rdb.rollback)
-    .then(db.end)
-    .then(onOk, onFailed);
-
-function onOk() {
-    console.log('Pool ended.');
-}
-
-function onFailed(err) {
-    console.log('Rollback');
-    console.log(err);
-}
+module.exports = async function() {
+    try {
+        await db.transaction();
+        await rdb.commit();
+    	await db.end();
+        console.log('Pool ended.');
+    } catch (e) {
+        console.log(e.stack);
+        rdb.rollback();
+    }
+}();
