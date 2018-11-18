@@ -1,17 +1,17 @@
-var rdb = require('rdb'),
-    resetDemo = require('./db/resetDemo');
+const rdb = require('rdb');
+const resetDemo = require('./db/resetDemo');
 
-var buf = new Buffer(10);
+const buf = new Buffer(10);
 buf.write('\u00bd + \u00bc = \u00be', 0);
 
-var Customer = rdb.table('_customer');
+const Customer = rdb.table('_customer');
 
 /*unless overridden, numeric is default 0, 
 string is default null, 
 guid is default null,
 date is default null,
-binary is default null
-boolean is default false
+binary is default null,
+boolean is default false,
 json is default null
 */                    
 
@@ -23,32 +23,18 @@ Customer.column('cIsActive').boolean().as('isActive').default(true);
 Customer.column('cPicture').binary().as('picture').default(buf);
 Customer.column('cDocument').json().as('document').default({foo: true});
 
+const db = rdb('mysql://root@localhost/rdbDemo?multipleStatements=true');
 
-var db = rdb.mySql('mysql://root@localhost/rdbDemo?multipleStatements=true');
-
-module.exports = resetDemo()
-    .then(db.transaction)
-    .then(insert)
-    .then(print) 
-    .then(rdb.commit)
-    .then(null, rdb.rollback)
-    .then(onOk, onFailed);
-
-function insert() {
-    var customer = Customer.insert('abcdef02-0000-0000-0000-000000000000')
-    return customer.toJSON();
-}
-
-function print(json) {
-    console.log(json);
-}
-
-function onOk() {
-    console.log('Success');
-    console.log('Waiting for connection pool to teardown....');
-}
-
-function onFailed(err) {
-    console.log('Rollback');
-    console.log(err.stack);
-}
+module.exports = async function() {
+    try {
+        await resetDemo();
+        await db.transaction();
+        let customer = Customer.insert('abcdef02-0000-0000-0000-000000000000')
+        console.log(await customer.toDto());
+        await rdb.commit();
+        console.log('Waiting for connection pool to teardown....');
+    } catch (e) {
+        console.log(e.stack);
+        rdb.rollback();
+    }
+}();

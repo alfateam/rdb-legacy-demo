@@ -1,20 +1,17 @@
-var rdb = require('rdb'),
-    resetDemo = require('./db/resetDemo');
+const rdb = require('rdb');
+const resetDemo = require('./db/resetDemo');
+const poolOptions = {size: 20};
 
-var poolOptions = {size: 20};
-var db = rdb.mySql('mysql://root@localhost/rdbDemo?multipleStatements=true', poolOptions);
+const db = rdb('mysql://root@localhost/rdbDemo?multipleStatements=true', poolOptions);
 
-module.exports = db.transaction()
-    .then(rdb.commit)
-    .then(null, rdb.rollback)
-    .then(onOk, onFailed);
-
-function onOk() {
-    console.log('Success. Created pool with max 20 connections.');
-    console.log('Waiting for connection pool to teardown....');
-}
-
-function onFailed(err) {
-    console.log('Rollback');
-    console.log(err);
-}
+module.exports = async function() {
+    try {
+        await resetDemo();
+        await db.transaction();
+        await rdb.commit();
+        console.log('Waiting for connection pool to teardown....');
+    } catch (e) {
+        console.log(e.stack);
+        rdb.rollback();
+    }
+}();

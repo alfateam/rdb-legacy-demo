@@ -1,8 +1,9 @@
-var rdb = require('rdb'),
-    resetDemo = require('./db/resetDemo');
+const rdb = require('rdb');
+const resetDemo = require('./db/resetDemo');
+const inspect = require('util').inspect;
 
-var Customer = rdb.table('_customer');
-var Order = rdb.table('_order');
+const Customer = rdb.table('_customer');
+const Order = rdb.table('_order');
 
 Customer.primaryColumn('cId').guid().as('id');
 Customer.column('cName').string().as('name');
@@ -12,41 +13,21 @@ Order.column('oOrderNo').string().as('orderNo');
 Order.column('oCustomerId').guid().as('customerId');
 Order.join(Customer).by('oCustomerId').as('customer');
 
-var db = rdb.mySql('mysql://root@localhost/rdbDemo?multipleStatements=true');
+const db = rdb('mysql://root@localhost/rdbDemo?multipleStatements=true');
 
-module.exports = resetDemo()
-    .then(db.transaction)
-    .then(getOrderWithCustomer)
-    .then(printOrder)
-    .then(printCustomer)
-    .then(rdb.commit)
-    .then(null, rdb.rollback)
-    .then(onOk, onFailed);
-
-function getOrderWithCustomer() {
-    var fetchingStrategy = {customer : null}; //alternatively: {customer : {}} 
-    return Order.getById('a0000000-a000-0000-0000-000000000000', fetchingStrategy);
-}
-
-function printOrder(order) {
-    var format = 'Order Id: %s, Order No: %s, Customer Id: %s'; 
-    var args = [format, order.id, order.orderNo, order.customerId];
-    console.log.apply(null,args);
-    return order.customer; //this is a promise
-}
-
-function printCustomer(customer) {
-    if (!customer)
-        return;
-    console.log('Customer Id: %s, name: %s', customer.id, customer.name);
-}
-
-function onOk() {
-    console.log('Success');
-    console.log('Waiting for connection pool to teardown....');
-}
-
-function onFailed(err) {
-    console.log('Rollback');
-    console.log(err.stack);
-}
+module.exports = async function() {
+    try {
+        await resetDemo();
+        await db.transaction();
+        let fetchingStrategy = { customer: null }; //alternatively: {customer : {}} 
+        let order = await Order.getById('a0000000-a000-0000-0000-000000000000', fetchingStrategy);
+        console.log(await order.toDto());
+        let customer = await order.customer;
+        console.log(await customer.toDto());
+        await rdb.commit();
+        console.log('Waiting for connection pool to teardown....');
+    } catch (e) {
+        console.log(e.stack);
+        rdb.rollback();
+    }
+}();

@@ -1,30 +1,18 @@
-var rdb = require('rdb'),
-    resetDemo = require('./db/resetDemo');
+const rdb = require('rdb');
+const resetDemo = require('./db/resetDemo');
 
-var db = rdb.mySql('mysql://root@localhost/rdbDemo?multipleStatements=true');
+const db = rdb('mysql://root@localhost/rdbDemo?multipleStatements=true');
 
-module.exports = resetDemo()
-    .then(db.transaction)
-    .then(getUniqueCustomerIds)
-    .then(print)
-    .then(rdb.commit)
-    .then(null, rdb.rollback)
-    .then(onOk, onFailed);
-
-function getUniqueCustomerIds() {
-    return rdb.query('SELECT DISTINCT oCustomerId AS "customerId" FROM _order');
-}
-
-function print(rows) {
-    console.log(rows);
-}
-
-function onOk() {
-    console.log('Success');
-    console.log('Waiting for connection pool to teardown....');
-}
-
-function onFailed(err) {
-    console.log('Rollback');
-    console.log(err);
-}
+module.exports = async function() {
+    try {
+        await resetDemo();
+        await db.transaction();
+        let result = await rdb.query('SELECT DISTINCT oCustomerId AS "customerId" FROM _order');
+        console.log(result);
+        await rdb.commit();
+        console.log('Waiting for connection pool to teardown....');
+    } catch (e) {
+        console.log(e.stack);
+        rdb.rollback();
+    }
+}();

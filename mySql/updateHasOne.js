@@ -1,8 +1,8 @@
-var rdb = require('rdb'),
-    resetDemo = require('./db/resetDemo');
+const rdb = require('rdb');
+const resetDemo = require('./db/resetDemo');
 
-var Order = rdb.table('_order');
-var DeliveryAddress = rdb.table('_deliveryAddress');
+const Order = rdb.table('_order');
+const DeliveryAddress = rdb.table('_deliveryAddress');
 
 Order.primaryColumn('oId').guid().as('id');
 Order.column('oOrderNo').string().as('orderNo');
@@ -12,42 +12,26 @@ DeliveryAddress.column('dOrderId').string().as('orderId');
 DeliveryAddress.column('dName').string().as('name');
 DeliveryAddress.column('dStreet').string().as('street');
 
-var deliveryAddress_order_relation = DeliveryAddress.join(Order).by('dOrderId').as('order');
+const deliveryAddress_order_relation = DeliveryAddress.join(Order).by('dOrderId').as('order');
 Order.hasOne(deliveryAddress_order_relation).as('deliveryAddress');
 
-var db = rdb.mySql('mysql://root@localhost/rdbDemo?multipleStatements=true');
+const db = rdb('mysql://root@localhost/rdbDemo?multipleStatements=true');
 
-module.exports = resetDemo()
-    .then(db.transaction)
-    .then(insertDeliveryAddress)
-    .then(verifyUpdated)
-    .then(rdb.commit)
-    .then(null, rdb.rollback)
-    .then(onOk, onFailed);
-
-function insertDeliveryAddress() {
-    var address = DeliveryAddress.insert('eeeeeeee-0000-0000-0000-000000000000');
-    address.orderId = 'a0000000-a000-0000-0000-000000000000';
-    address.name = 'Sgt. Pepper';
-    address.street = 'L18 Penny Lane';
-    return address.order;
-}
-
-function verifyUpdated(order) {
-    return order.deliveryAddress.then(verifyUpdatedAddress);
-}
-
-function verifyUpdatedAddress(deliveryAddress) {
-    if (deliveryAddress.street !== 'L18 Penny Lane')
-        throw new Error('this will not happen');
-}
-
-function onOk() {
-    console.log('Success');
-    console.log('Waiting for connection pool to teardown....');
-}
-
-function onFailed(err) {
-    console.log('Rollback');
-    console.log(err.stack);
-}
+module.exports = async function() {
+    try {
+        await resetDemo();
+        await db.transaction();
+        let address = DeliveryAddress.insert('eeeeeeee-0000-0000-0000-000000000000');
+        address.orderId = 'a0000000-a000-0000-0000-000000000000';
+        address.name = 'Sgt. Pepper';
+        address.street = 'L18 Penny Lane';
+        let order = await address.order;
+        if ((await order.deliveryAddress).street !== 'L18 Penny Lane')
+            throw new Error('this will not happen');
+        await rdb.commit();
+        console.log('Waiting for connection pool to teardown....');
+    } catch (e) {
+        console.log(e.stack);
+        rdb.rollback();
+    }
+}();

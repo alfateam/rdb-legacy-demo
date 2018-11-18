@@ -1,42 +1,48 @@
-var rdb = require('rdb');
-var resetDemo = require('./db/resetDemo');
-var promise = require('promise/domains');
+const rdb = require('rdb');
+const resetDemo = require('./db/resetDemo');
+const promise = require('promise/domains');
 
-var Customer = rdb.table('_customer');
+const Customer = rdb.table('_customer');
 Customer.primaryColumn('cId').guid().as('id');
 Customer.column('cBalance').numeric().as('balance');
 Customer.exclusive();
 
-var db = rdb.mySql('mysql://root@localhost/rdbDemo?multipleStatements=true');
+const db = rdb('mysql://root@localhost/rdbDemo?multipleStatements=true');
 
-module.exports = resetDemo()
-    .then(showBalance)
-    .then(updateConcurrently)
-    .then(showBalance)
-    .then(onOk, onFailed);
+module.exports = async function() {
+    try {
+        await resetDemo();
+        await showBalance();
+        await updateConcurrently();
+        await showBalance();
+        console.log('Waiting for connection pool to teardown....');
+    } catch (e) {
+        console.log(e.stack);
+        rdb.rollback();
+    }
+}();
 
-function showBalance() {
-    return db.transaction()
-        .then(getById)
-        .then(printBalance)
-        .then(rdb.commit)
-        .then(null, rdb.rollback);
-
-    function printBalance(customer) {
-        console.log('Balance: ' + customer.balance)
+async function showBalance() {
+    try {
+        await db.transaction();
+        let customer = await getById();
+        console.log('Balance: ' + customer.balance);
+        await rdb.commit();
+    } catch (e) {
+        rdb.rollback();
     }
 }
 
 function updateConcurrently() {
     var concurrent1 = db.transaction()
         .then(getById)
-        .then(increaseBalance)
+        .then(increaseBalanceBy100)
         .then(rdb.commit)
         .then(null, rdb.rollback);
 
     var concurrent2 = db.transaction()
         .then(getById)
-        .then(increaseBalance)
+        .then(increaseBalanceBy100)
         .then(rdb.commit)
         .then(null, rdb.rollback);
     return promise.all([concurrent1, concurrent2]);
@@ -46,16 +52,6 @@ function getById() {
     return Customer.getById('a0000000-0000-0000-0000-000000000000');
 }
 
-function increaseBalance(customer) {
+function increaseBalanceBy100(customer) {
     customer.balance += 100;
-}
-
-function onOk() {
-    console.log('Success');
-    console.log('Waiting for connection pool to teardown....');
-}
-
-function onFailed(err) {
-    console.log('Rollback');
-    console.log(err);
 }

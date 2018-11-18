@@ -1,41 +1,26 @@
-var rdb = require('rdb'),
-    resetDemo = require('../db/resetDemo');
+const rdb = require('rdb');
+const resetDemo = require('../db/resetDemo');
 
-var Customer = rdb.table('_customer');
+const Customer = rdb.table('_customer');
 
 Customer.primaryColumn('cId').guid().as('id');
+Customer.column('cIsActive').boolean().as('isActive');
 Customer.column('cBalance').numeric().as('balance');
 Customer.column('cName').string().as('name');
 
-var db = rdb.mySql('mysql://root@localhost/rdbDemo?multipleStatements=true');
+const db = rdb('mysql://root@localhost/rdbDemo?multipleStatements=true');
 
-module.exports = resetDemo()
-    .then(db.transaction)
-    .then(getFilteredCustomers)
-    .then(printCustomers)
-    .then(rdb.commit)
-    .then(null, rdb.rollback)
-    .then(onOk, onFailed);
-
-function getFilteredCustomers() {
-    var filter = Customer.balance.between(3000, 8123);
-    return Customer.getMany(filter);
-}
-
-function printCustomers(customers) {
-    customers.forEach(printCustomer);
-
-    function printCustomer(customer) {
-        console.log('Customer Id: %s, name: %s, balance : %s', customer.id, customer.name, customer.balance);
+module.exports = async function() {
+    try {
+        await resetDemo();
+        await db.transaction();
+        let filter = Customer.balance.between(3000, 8123);
+        let customers = await Customer.getMany(filter);
+        console.log(await customers.toDto());
+        await rdb.commit();
+        console.log('Waiting for connection pool to teardown....');
+    } catch (e) {
+        console.log(e.stack);
+        rdb.rollback();
     }
-}
-
-function onOk() {
-    console.log('Success');
-    console.log('Waiting for connection pool to teardown....');
-}
-
-function onFailed(err) {
-    console.log('Rollback');
-    console.log(err.stack);
-}
+}();

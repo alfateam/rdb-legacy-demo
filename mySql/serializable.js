@@ -1,38 +1,26 @@
-var rdb = require('rdb'),
-    resetDemo = require('./db/resetDemo');
+const rdb = require('rdb');
+const resetDemo = require('./db/resetDemo');
 
-var User = rdb.table('_user');
+const User = rdb.table('_user');
 User.primaryColumn('uId').guid().as('id');
 User.column('uUserId').string().as('userId');
 User.column('uPassword').string().as('password').serializable(false);
 User.column('uEmail').string().as('email');
 
-var db = rdb.mySql('mysql://root@localhost/rdbDemo?multipleStatements=true');
+const db = rdb('mysql://root@localhost/rdbDemo?multipleStatements=true');
 
-module.exports = resetDemo()
-    .then(db.transaction)
-    .then(getUser)
-    .then(toDto)
-    .then(rdb.commit)
-    .then(null, rdb.rollback)
-    .then(onOk, onFailed);
-
-function getUser() {
-    return User.getById('87654400-0000-0000-0000-000000000000');
-}
-
-function toDto(user) {
-    return user.toDto().then(console.log);
-    //will print all properties except password
-    //because it is not serializable
-}
-
-function onOk() {
-    console.log('Success');
-    console.log('Waiting for connection pool to teardown....');
-}
-
-function onFailed(err) {
-    console.log('Rollback');
-    console.log(err);
-}
+module.exports = async function() {
+    try {
+        await resetDemo();
+        await db.transaction();
+        let user = await User.getById('87654400-0000-0000-0000-000000000000');
+        console.log(await user.toDto());
+        //will print all properties except password
+        //because it is not serializable
+        await rdb.commit();
+        console.log('Waiting for connection pool to teardown....');
+    } catch (e) {
+        console.log(e.stack);
+        rdb.rollback();
+    }
+}();

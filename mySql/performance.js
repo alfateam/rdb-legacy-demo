@@ -1,9 +1,9 @@
-var rdb = require('rdb'),
-    resetDemo = require('./db/resetDemo');
-var promise = require('promise/domains');
+const rdb = require('rdb');
+const resetDemo = require('./db/resetDemo');
+const promise = require('promise/domains');
 
-var Order = rdb.table('_compositeOrder');
-var OrderLine = rdb.table('_compositeOrderLine');
+const Order = rdb.table('_compositeOrder');
+const OrderLine = rdb.table('_compositeOrderLine');
 
 Order.primaryColumn('oCompanyId').numeric().as('companyId');
 Order.primaryColumn('oOrderNo').numeric().as('orderNo');
@@ -13,63 +13,44 @@ OrderLine.primaryColumn('lOrderNo').numeric().as('orderNo');
 OrderLine.primaryColumn('lLineNo').numeric().as('lineNo');
 OrderLine.column('lProduct').string().as('product');
 
-var line_order_relation = OrderLine.join(Order).by('lCompanyId','lOrderNo').as('order');
+const line_order_relation = OrderLine.join(Order).by('lCompanyId', 'lOrderNo').as('order');
 Order.hasMany(line_order_relation).as('lines');
 
-var db = rdb.mySql('mysql://root@localhost/rdbDemo?multipleStatements=true');
-var start;
+const db = rdb('mysql://root@localhost/rdbDemo?multipleStatements=true');
 
-module.exports = resetDemo()
-    .then(db.transaction)
-    .then(insertOrders)
-    .then(getOrders)
-    .then(traverse)
-    .then(rdb.commit)
-    .then(null, rdb.rollback)
-    .then(onOk, onFailed);
+module.exports = async function() {
+    try {
+        await resetDemo();
+        await db.transaction();
+        let start = new Date();
+        insertOrders();
+        let orders = await Order.getMany(null, { lines: null });
+        await traverse(orders);
+        await rdb.commit();
+        let elapsed = new Date() - start;
+        console.info("Execution time: %dms", elapsed);
+        console.log('Waiting for connection pool to teardown....');
+    } catch (e) {
+        console.log(e.stack);
+        rdb.rollback();
+    }
+}();
 
 function insertOrders() {
-    for (var i = 0; i < 500; i++) {
-        var order = Order.insert(1,i);
-        for (var y = 0; y < 20; y++) {
-            var line = OrderLine.insert(1,i,y);
+    for (let i = 0; i < 500; i++) {
+        let order = Order.insert(1, i);
+        for (let y = 0; y < 20; y++) {
+            let line = OrderLine.insert(1, i, y);
         }
     }
 }
 
-function getOrders() {
-    return Order.getMany(null, {lines : null});
-}
-
-function getOrderById() {
-    return Order.getById(1,0, {lines : null});
-}
-
-function traverse(orders) {
-    start = new Date();
-    var all = [];
-    for (var i = 0; i < orders.length; i++) {
+async function traverse(orders) {
+    for (let i = 0; i < orders.length; i++) {
         console.log(orders[i].orderNo);
-        var traversOrder = orders[i].lines.then(onLines);
-        all.push(traversOrder);
+        let lines  = await orders[i].lines;
+        for (let i = 0; i < lines.length; i++) {
+            let line = lines[i];
+        }
     }
-    return promise.all(all)
-}
-
-function onLines(lines) {
-    for (var i = 0; i <  lines.length; i++) {
-        var line = lines[i];
-    }
-}
-
-function onOk() {
-    console.log('Success');
-    var end = new Date() - start;
-    console.info("Execution time: %dms", end);
-    console.log('Waiting for connection pool to teardown....');
-}
-
-function onFailed(err) {
-    console.log('Rollback');
-    console.log(err.stack);
 }

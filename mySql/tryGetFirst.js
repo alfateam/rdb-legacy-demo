@@ -1,40 +1,24 @@
-var rdb = require('rdb'),
-    resetDemo = require('./db/resetDemo');
+const rdb = require('rdb');
+const resetDemo = require('./db/resetDemo');
 
-var Customer = rdb.table('_customer');
+const Customer = rdb.table('_customer');
 
 Customer.primaryColumn('cId').guid().as('id');
 Customer.column('cName').string().as('name');
 
-var db = rdb.mySql('mysql://root@localhost/rdbDemo?multipleStatements=true');
+const db = rdb('mysql://root@localhost/rdbDemo?multipleStatements=true');
 
-module.exports = resetDemo() 
-    .then(db.transaction)
-    .then(tryGetFirst)
-    .then(printCustomer)
-    .then(rdb.commit)
-    .then(null, rdb.rollback)
-    .then(onOk, onFailed);
-
-function tryGetFirst() {
-    var filter = Customer.name.equal('John');
-    return Customer.tryGetFirst(filter);
-}
-
-function printCustomer(customer) {
-    if (customer) {
-        console.log('Customer Id: %s, name: %s', customer.id, customer.name);
+module.exports = async function() {
+    try {
+        await resetDemo();
+        await db.transaction();
+        let filter = Customer.name.equal('John');
+        let customer = await Customer.tryGetFirst(filter);
+        console.log(await customer.toDto());
+        await rdb.commit();
+        console.log('Waiting for connection pool to teardown....');
+    } catch (e) {
+        console.log(e.stack);
+        rdb.rollback();
     }
-    else
-        console.log('customer not found');
-}
-
-function onOk() {
-    console.log('Success');
-    console.log('Waiting for connection pool to teardown....');
-}
-
-function onFailed(err) {
-    console.log('Rollback');
-    console.log(err.stack);
-}
+}();
