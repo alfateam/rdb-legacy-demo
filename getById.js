@@ -1,5 +1,5 @@
-const rdb = require('rdb'),
-    resetDemo = require('./db/resetDemo');
+const rdb = require('rdb');
+const resetDemo = require('./db/resetDemo');
 const Customer = rdb.table('_customer');
 
 Customer.primaryColumn('cId').guid().as('id');

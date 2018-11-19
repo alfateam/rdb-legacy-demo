@@ -1,6 +1,5 @@
 const inspect = require('util').inspect;
 const rdb = require('rdb');
-const promise = require('promise/domains');
 const resetDemo = require('./db/resetDemo');
 
 const Order = rdb.table('_order');
