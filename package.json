@@ -1,6 +1,6 @@
 {
     "name": "rdb-demo",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "main": "index.js",
     "title": "rdb-demo",
     "description": "ORM examples for npmjs.org/package/rdb",
@@ -15,7 +15,7 @@
     ],
     "dependencies": {
         "mysql": "^2.13.0",
-        "pg": "^6.1.2",
+        "pg": "^7.4.3",
         "promise": "^7.1.1",
         "rdb": "^1.6.9",
         "sqlite3": "^3.1.8"
