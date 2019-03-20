@@ -13,8 +13,9 @@ var createOrderLine = "CREATE TABLE _orderLine (lId uuid PRIMARY KEY, lOrderId u
 var createCompositeOrder = "CREATE TABLE _compositeOrder (oCompanyId numeric, oOrderNo numeric, oCustomerId uuid  REFERENCES _customer, PRIMARY KEY (oCompanyId,oOrderNo));";
 var createCompositeOrderLine = "CREATE TABLE _compositeOrderLine (lCompanyId numeric, lOrderNo numeric, lLineNo numeric, lProduct varchar(40), PRIMARY KEY (lCompanyId,lOrderNo, lLineNo));";
 var createDeliveryAddress = "CREATE TABLE _deliveryAddress (dId uuid PRIMARY KEY, dOrderId uuid REFERENCES _order, dName varchar(100), dStreet varchar(200), dPostalCode varchar(50), dPostalPlace varchar(200), dCountryCode varchar(2), dCountry varchar(100));";
+var createJsonOrder = "CREATE TABLE _jOrder (oId uuid PRIMARY KEY, oData jsonb);"
 
-var createSql = drop + createCustomer + createOrder + createOrderLine + createDeliveryAddress + createCompositeOrder +  createCompositeOrderLine + createUser;
+var createSql = drop + createCustomer + createOrder + createOrderLine + createDeliveryAddress + createCompositeOrder +  createCompositeOrderLine + createUser + createJsonOrder;
 var buffer;
 var buffer2;
 
@@ -49,8 +50,15 @@ var insertOrderLines =
     "INSERT INTO _compositeOrderLine VALUES (1,1001,1,'Free lunch');" +
     "INSERT INTO _compositeOrderLine VALUES (1,1001,2,'Guide to the galaxy');";
 var insertDeliveryAddress = "INSERT INTO _deliveryAddress values ('dddddddd-0000-0000-0000-000000000000','b0000000-b000-0000-0000-000000000000', 'Lars-Erik Roald', 'Node Street 1', '7030', 'Trondheim', 'NO', 'Norway');"
+
+var insertJsonOrders =
+    "INSERT INTO _jOrder VALUES ('a0000000-a000-0000-0000-000000000000','{\"orderNo\":1000, \"customerId\":\"a0000000-0000-0000-0000-000000000000\"}');" +
+    "INSERT INTO _jOrder VALUES ('b0000000-b000-0000-0000-000000000000','{\"orderNo\":1001, \"customerId\":\"b0000000-0000-0000-0000-000000000000\"}');" +
+    "INSERT INTO _jOrder VALUES ('c0000000-c000-0000-0000-000000000000','{\"orderNo\":200, \"customerId\":null}');" +
+    "INSERT INTO _jOrder VALUES ('b0000000-d000-0000-0000-000000000000','{\"orderNo\":1003, \"customerId\":\"87654399-0000-0000-0000-000000000000\"}');" +
+    "INSERT INTO _jOrder VALUES ('d0000000-e000-0000-0000-000000000000','{\"orderNo\":1004, \"customerId\":\"a0000000-0000-0000-0000-000000000000\"}');" ;
     
-var insertSql = insertCustomers + insertOrders + insertOrderLines + insertDeliveryAddress + insertUsers;
+var insertSql = insertCustomers + insertOrders + insertOrderLines + insertDeliveryAddress + insertUsers + insertJsonOrders;
 
 function createBuffers() {
     buffer = newBuffer([1, 2, 3]);
