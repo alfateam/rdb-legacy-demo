@@ -1,6 +1,6 @@
 {
     "name": "rdb-demo",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "main": "index.js",
     "title": "rdb-demo",
     "description": "ORM examples for npmjs.org/package/rdb",
