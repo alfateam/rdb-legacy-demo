@@ -24,7 +24,7 @@ Customer.column('cPicture').binary().as('picture').default(buf);
 Customer.column('cDocument').json().as('document').default({foo: true});
 
 
-var db = rdb('postgres://postgres:postgres@localhost/test');
+var db = rdb('postgres://rdb:rdb@localhost/rdbdemo');
 
 module.exports = resetDemo()
     .then(db.transaction)

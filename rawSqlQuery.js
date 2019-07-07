@@ -1,7 +1,7 @@
 var rdb = require('rdb'),
     resetDemo = require('./db/resetDemo');
 
-var db = rdb('postgres://postgres:postgres@localhost/test');
+var db = rdb('postgres://rdb:rdb@localhost/rdbdemo');
 
 module.exports = resetDemo()
     .then(db.transaction)

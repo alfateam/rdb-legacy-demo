@@ -7,7 +7,7 @@ User.column('uUserId').string().as('userId');
 User.column('uPassword').string().as('password').serializable(false);
 User.column('uEmail').string().as('email');
 
-var db = rdb('postgres://postgres:postgres@localhost/test');
+var db = rdb('postgres://rdb:rdb@localhost/rdbdemo');
 
 module.exports = resetDemo()
     .then(db.transaction)

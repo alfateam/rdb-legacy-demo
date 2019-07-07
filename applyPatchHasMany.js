@@ -1,3 +1,4 @@
+
 var rdb = require('rdb'),
     resetDemo = require('./db/resetDemo');
 
@@ -19,25 +20,46 @@ var orderIdWithNoLines = 'c0000000-c000-0000-0000-000000000000';
 
 module.exports = resetDemo()
     .then(db.transaction)
-    .then(insertOrderLine1)
-    .then(insertOrderLine2)
+    .then(getById)
+    .then(insertOrderLines)
+    .then(removeOrderLines)
     .then(verifyUpdated)
     .then(rdb.commit)
     .then(null, rdb.rollback)
     .then(onOk, onFailed);
 
-function insertOrderLine1() {
-    var line = OrderLine.insert('eeeeeeee-0001-0000-0000-000000000000');
-    line.orderId = orderIdWithNoLines;
-    line.product = 'Roller blades';
-    return line.order;
+function getById() {
+    return Order.getById(orderIdWithNoLines);
 }
 
-function insertOrderLine2() {
-    var line = OrderLine.insert('eeeeeeee-0002-0000-0000-000000000000');
-    line.orderId = orderIdWithNoLines;
-    line.product = 'Helmet';
-    return line.order;
+async function insertOrderLines(order) {
+    let patch = [{
+        "op": "add",
+        "path": "/lines",
+        "value": {
+            "eeeeeeee-0000-0000-0000-000000000000": {
+                "id": "eeeeeeee-0000-0000-0000-000000000000",
+                "orderId": orderIdWithNoLines,
+                "product": "Roller blades"
+            },
+            "eeeeeeee-0002-0000-0000-000000000000": {
+                "id": "eeeeeeee-0002-0000-0000-000000000000",
+                "orderId": orderIdWithNoLines,
+                "product": "Helmet",
+            }
+        }
+    }];
+    await order.applyPatch(patch);
+    return order;
+}
+
+async function removeOrderLines(order) {
+    let patch = [{
+        "op": "remove",
+        "path": "/lines"
+    }];
+    await order.applyPatch(patch);
+    return order;
 }
 
 function verifyUpdated(order) {
@@ -45,7 +67,11 @@ function verifyUpdated(order) {
 }
 
 function verifyUpdatedLines(lines) {
-    if (lines.length !== 2)
+    // console.log(lines[0].product);
+    // console.log(lines[1].product);
+    console.log('verify updated length')
+    console.log(lines.length)
+    if (lines.length !== 0)
         throw new Error('this will not happen');
 }
 

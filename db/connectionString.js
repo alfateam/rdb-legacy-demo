@@ -1,1 +1,1 @@
-module.exports = 'postgres://postgres:postgres@localhost/test';
+module.exports = 'postgres://rdb:rdb@localhost/rdbdemo';

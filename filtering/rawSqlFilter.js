@@ -16,7 +16,7 @@ Customer.column('cIsActive').boolean().as('isActive');
 var orderCustomerJoin = Order.join(Customer).by('oCustomerId').as('customer');
 Customer.hasMany(orderCustomerJoin).as('orders');
 
-var db = rdb('postgres://postgres:postgres@localhost/test');
+var db = rdb('postgres://rdb:rdb@localhost/rdbdemo');
 
 module.exports = resetDemo()
     .then(db.transaction)

@@ -1,6 +1,6 @@
 var rdb = require('rdb');
 
-var dbPg = rdb('postgres://postgres:postgres@localhost/test');
+var dbPg = rdb('postgres://rdb:rdb@localhost/rdbdemo');
 var dbMySql = rdb.mySql('mysql://root@localhost/rdbDemo?multipleStatements=true');
 var dbSqlite = rdb.sqlite(__dirname + '/db/rdbDemo');
 

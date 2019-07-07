@@ -25,7 +25,7 @@ Order.hasMany(line_order_relation).as('lines');
 
 
 
-var db = rdb('postgres://postgres:postgres@localhost/test');
+var db = rdb('postgres://rdb:rdb@localhost/rdbdemo');
 
 module.exports = resetDemo()
     .then(db.transaction)

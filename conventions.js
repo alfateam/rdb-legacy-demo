@@ -6,7 +6,7 @@ var Customer = rdb.table('_customer');
 Customer.primaryColumn('cId').guid(); //property name will also be cId
 Customer.column('cName').string(); //property name will also be cName
 
-var db = rdb('postgres://postgres:postgres@localhost/test');
+var db = rdb('postgres://rdb:rdb@localhost/rdbdemo');
 
 module.exports = resetDemo()
     .then(db.transaction)

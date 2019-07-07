@@ -18,8 +18,20 @@ module.exports = resetDemo()
     .then(onOk, onFailed);
 
 function insert() {
-    var customer = Customer.insert('abcdef00-0000-0000-0000-000000000000')
-    customer.name = 'Paul';
+    let patch = [{
+            "op": "add",
+            "path": "/abcdef00-0000-0000-0000-000000000000",
+            "value": {
+                "id": 'abcdef00-0000-0000-0000-000000000000'
+            }
+        },
+        {
+            "op": "add",
+            "path": "/abcdef00-0000-0000-0000-000000000000/name",
+            "value": "Paul"
+        }
+    ];
+    return Customer.applyPatch(patch);
 }
 
 function getById() {

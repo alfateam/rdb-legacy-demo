@@ -7,7 +7,7 @@ var Order = rdb.table('_jOrder');
 Order.primaryColumn('oId').guid().as('id');
 Order.column('oData').string().as('data'); // Contains JSON data
 
-var db = rdb('postgres://postgres:postgres@localhost/test');
+var db = rdb('postgres://rdb:rdb@localhost/rdbdemo');
 
 module.exports = resetDemo()
     .then(db.transaction)

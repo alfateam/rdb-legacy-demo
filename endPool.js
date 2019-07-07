@@ -1,6 +1,6 @@
 var rdb = require('rdb');
 
-var db = rdb('postgres://postgres:postgres@localhost/test');
+var db = rdb('postgres://rdb:rdb@localhost/rdbdemo');
 
 module.exports = db.transaction()
     .then(rdb.commit)

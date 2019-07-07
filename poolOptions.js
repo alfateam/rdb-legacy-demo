@@ -1,7 +1,7 @@
 var rdb = require('rdb');
 
 var poolOptions = {size: 20};
-var db = rdb('postgres://postgres:postgres@localhost/test', poolOptions);
+var db = rdb('postgres://rdb:rdb@localhost/rdbdemo', poolOptions);
 
 module.exports = db.transaction()
     .then(rdb.commit)
