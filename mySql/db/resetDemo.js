@@ -36,7 +36,7 @@ var insertUsers = insertUser1 + insertUser2;
 var insertOrders =
     "INSERT INTO _order VALUES ('a0000000-a000-0000-0000-000000000000','1000', 'a0000000-0000-0000-0000-000000000000');" +
     "INSERT INTO _order VALUES ('b0000000-b000-0000-0000-000000000000','1001', 'b0000000-0000-0000-0000-000000000000');" +
-    "INSERT INTO _order VALUES ('c0000000-c000-0000-0000-000000000000','1002', null);" + 
+    "INSERT INTO _order VALUES ('c0000000-c000-0000-0000-000000000000','1002', null);" +
     "INSERT INTO _order VALUES ('b0000000-d000-0000-0000-000000000000','1003', '87654399-0000-0000-0000-000000000000');" +
     "INSERT INTO _compositeOrder VALUES (1,1001, null);";
 var insertOrderLines =
@@ -45,12 +45,12 @@ var insertOrderLines =
     "INSERT INTO _orderLine VALUES ('a0000000-a000-2000-0000-000000000000','a0000000-a000-0000-0000-000000000000','Skateboard');" +
     "INSERT INTO _orderLine VALUES ('b0000000-b000-1000-0000-000000000000','b0000000-b000-0000-0000-000000000000','Climbing gear');" +
     "INSERT INTO _orderLine VALUES ('b0000000-b000-2000-0000-000000000000','b0000000-b000-0000-0000-000000000000','Hiking shoes');" +
-    "INSERT INTO _orderLine VALUES ('b0000000-b000-3000-0000-000000000000','b0000000-b000-0000-0000-000000000000','A big car');" + 
-    "INSERT INTO _orderLine VALUES ('b0000000-b000-3100-0000-000000000000','b0000000-d000-0000-0000-000000000000','A yellow submarine');" + 
+    "INSERT INTO _orderLine VALUES ('b0000000-b000-3000-0000-000000000000','b0000000-b000-0000-0000-000000000000','A big car');" +
+    "INSERT INTO _orderLine VALUES ('b0000000-b000-3100-0000-000000000000','b0000000-d000-0000-0000-000000000000','A yellow submarine');" +
     "INSERT INTO _compositeOrderLine VALUES (1,1001,1,'Free lunch');" +
     "INSERT INTO _compositeOrderLine VALUES (1,1001,2,'Guide to the galaxy');";
 var insertDeliveryAddress = "INSERT INTO _deliveryAddress values ('dddddddd-0000-0000-0000-000000000000','b0000000-b000-0000-0000-000000000000', 'Lars-Erik Roald', 'Node Street 1', '7030', 'Trondheim', 'NO', 'Norway');"
-    
+
 var insertSql = insertCustomers + insertOrders + insertOrderLines + insertDeliveryAddress + insertUsers;
 
 function createBuffers() {
@@ -58,7 +58,7 @@ function createBuffers() {
     buffer2 = newBuffer([4, 5]);
 
     function newBuffer(contents) {
-        var buffer = new Buffer(contents);
+        var buffer = Buffer.from(contents);
         return mySql.escape(buffer);
     }
 }

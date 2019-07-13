@@ -1,19 +1,19 @@
 const rdb = require('rdb');
 const resetDemo = require('./db/resetDemo');
 
-const buf = new Buffer(10);
+const buf = Buffer.from(10);
 buf.write('\u00bd + \u00bc = \u00be', 0);
 
 const Customer = rdb.table('_customer');
 
-/*unless overridden, numeric is default 0, 
-string is default null, 
+/*unless overridden, numeric is default 0,
+string is default null,
 guid is default null,
 date is default null,
 binary is default null,
 boolean is default false,
 json is default null
-*/                    
+*/
 
 Customer.primaryColumn('cId').guid().as('id').default(null);
 Customer.column('cName').string().as('name').default('default name');

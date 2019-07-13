@@ -56,8 +56,8 @@ var insertSql = [].concat(insertOrders, insertOrderLines, insertDeliveryAddress,
 // var queries = [].concat(createSql);
 
 function createBuffers() {
-    buffer = new Buffer([1, 2, 3]);
-    buffer2 = new Buffer([4, 5]);
+    buffer = Buffer.from([1, 2, 3]);
+    buffer2 = Buffer.from([4, 5]);
 }
 
 function insert(onSuccess, onFailed) {
@@ -85,7 +85,7 @@ function insert(onSuccess, onFailed) {
         // client.run("delete from _orderLine where _orderLine.rowId in (SELECT _2.rowId FROM _orderLine _2 where EXISTS (SELECT _1.oId FROM _order AS _1 INNER JOIN _customer _customer ON (_1.oCustomerId=_customer.cId) WHERE _2.lOrderId=_1.oId AND _customer.cId='87654399-0000-0000-0000-000000000000'))", onLastQueryDone)
     });
 
-    function onLastQueryDone(e,e2) {        
+    function onLastQueryDone(e,e2) {
         if (e)
             console.log(e.stack);
         // console.log(e)

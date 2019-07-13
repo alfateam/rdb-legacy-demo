@@ -1,19 +1,19 @@
 var rdb = require('rdb'),
     resetDemo = require('./db/resetDemo');
 
-var buf = new Buffer(10);
+var buf = Buffer.from(10);
 buf.write('\u00bd + \u00bc = \u00be', 0);
 
 var Customer = rdb.table('_customer');
 
-/*unless overridden, numeric is default 0, 
-string is default null, 
+/*unless overridden, numeric is default 0,
+string is default null,
 guid is default null,
 date is default null,
 binary is default null,
 boolean is default false,
 json is default null
-*/                    
+*/
 
 Customer.primaryColumn('cId').guid().as('id').default(null);
 Customer.column('cName').string().as('name').default('default name');
@@ -29,7 +29,7 @@ var db = rdb.sqlite(__dirname + '/db/rdbDemo');
 module.exports = resetDemo()
     .then(db.transaction)
     .then(insert)
-    .then(print) 
+    .then(print)
     .then(rdb.commit)
     .then(null, rdb.rollback)
     .then(onOk, onFailed);
