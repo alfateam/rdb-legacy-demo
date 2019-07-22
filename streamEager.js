@@ -28,7 +28,6 @@ module.exports = async function() {
             orderBy: ['orderNo']
         };
         await Order.createReadStream(db, emptyFilter, strategy).on('data', printOrder);
-        console.log('Waiting for connection pool to teardown....');
     } catch (e) {
         console.log(e.stack);
     }

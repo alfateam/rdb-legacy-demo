@@ -23,7 +23,7 @@ DeliveryAddress.column('dOrderId').string().as('orderId');
 DeliveryAddress.column('dName').string().as('name');
 DeliveryAddress.column('dStreet').string().as('street');
 
-const order_customer_relation = Order.join(Customer).by('oCustomerId').as('customer');
+Order.join(Customer).by('oCustomerId').as('customer');
 
 const line_order_relation = OrderLine.join(Order).by('lOrderId').as('order');
 Order.hasMany(line_order_relation).as('lines');
@@ -36,15 +36,13 @@ const db = rdb('postgres://rdb:rdb@localhost/rdbdemo');
 module.exports = async function() {
     try {
         await resetDemo();
-        await db.transaction();
-        let orders = await Order.getMany();
-        let dtos = await orders.toDto( /*strategy*/ );
-        //default strategy, expand all hasOne and hasMany relations
-        console.log(inspect(dtos, false, 10));
-        rdb.commit();
-        console.log('Waiting for connection pool to teardown....');
+        await db.transaction(async () => {
+            let orders = await Order.getMany();
+            let dtos = await orders.toDto( /*strategy*/ );
+            //default strategy, expand all hasOne and hasMany relations
+            console.log(inspect(dtos, false, 10));
+        });
     } catch (e) {
         console.log(e.stack);
-        rdb.rollback();
     }
 }();

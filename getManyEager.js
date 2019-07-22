@@ -17,19 +17,19 @@ Order.hasMany(line_order_relation).as('lines');
 
 const db = rdb('postgres://rdb:rdb@localhost/rdbdemo');
 
-module.exports = async function() {
+module.exports = async function () {
     try {
         await resetDemo();
-        await db.transaction();
-        let emptyFilter;
-        let strategy = {lines : null};
-        let orders = await Order.getMany(emptyFilter, strategy);
-        let dtos = await orders.toDto();
-        console.log(inspect(dtos, false, 10));
-        await rdb.commit();
-        console.log('Waiting for connection pool to teardown....');
+        await db.transaction(async () => {
+            let emptyFilter;
+            let strategy = {
+                lines: null
+            };
+            let orders = await Order.getMany(emptyFilter, strategy);
+            let dtos = await orders.toDto();
+            console.log(inspect(dtos, false, 10));
+        });
     } catch (e) {
         console.log(e.stack);
-        rdb.rollback();
     }
 }();

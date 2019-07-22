@@ -12,15 +12,13 @@ const db = rdb('postgres://rdb:rdb@localhost/rdbdemo');
 module.exports = async function() {
     try {
         await resetDemo();
-        await db.transaction();
-        let user = await User.getById('87654400-0000-0000-0000-000000000000');
-        console.log(await user.toDto());
-        //will print all properties except password
-        //because it is not serializable
-        await rdb.commit();
-        console.log('Waiting for connection pool to teardown....');
+        await db.transaction(async () => {
+            let user = await User.getById('87654400-0000-0000-0000-000000000000');
+            console.log(await user.toDto());
+            //will print all properties except password
+            //because it is not serializable
+        });
     } catch (e) {
         console.log(e.stack);
-        rdb.rollback();
     }
 }();

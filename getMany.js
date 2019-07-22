@@ -8,16 +8,15 @@ Customer.column('cName').string().as('name');
 
 const db = rdb('postgres://rdb:rdb@localhost/rdbdemo');
 
-module.exports = function () {
-    resetDemo().then(db.transaction).then(getCustomers).then(rdb.commit).then(null, () => {
+module.exports = async function() {
+    try {
+        await resetDemo();
+        await db.transaction(async () => {
+            let customers = await Customer.getMany();
+            let dtos = await customers.toDto();
+            console.log(dtos);
+        });
+    } catch (e) {
         console.log(e.stack);
-        rdb.rollback;
-    });
+    }
 }();
-
-async function getCustomers() {
-    let customers = await Customer.getMany();
-    let dtos = await customers.toDto();
-    console.log(dtos);
-    await rdb.commit();
-}

@@ -1,26 +1,24 @@
-const rdb = require('rdb');
-const resetDemo = require('../db/resetDemo');
+let rdb = require('rdb');
+let resetDemo = require('../db/resetDemo');
 
-const Customer = rdb.table('_customer');
+let Customer = rdb.table('_customer');
 
 Customer.primaryColumn('cId').guid().as('id');
 Customer.column('cBalance').numeric().as('balance');
 Customer.column('cName').string().as('name');
 
-const db = rdb('postgres://rdb:rdb@localhost/rdbdemo');
+let db = rdb('postgres://rdb:rdb@localhost/rdbdemo');
 
 module.exports = async function() {
     try {
         await resetDemo();
-        await db.transaction();
-        const filter = Customer.balance.greaterThanOrEqual(8123);
-        //same as Customer.balance.ge(8123);   
-        let customers = await Customer.getMany(filter);
-        console.log(await customers.toDto());
-        await rdb.commit();
-        console.log('Waiting for connection pool to teardown....');
+        await db.transaction(async () => {
+            let filter = Customer.balance.greaterThanOrEqual(8123);
+            //same as Customer.balance.ge(8123);
+            let customers = await Customer.getMany(filter);
+            console.log(await customers.toDto());
+        });
     } catch (e) {
         console.log(e.stack);
-        rdb.rollback();
     }
 }();

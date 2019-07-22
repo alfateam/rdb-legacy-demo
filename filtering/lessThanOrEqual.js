@@ -12,15 +12,13 @@ const db = rdb('postgres://rdb:rdb@localhost/rdbdemo');
 module.exports = async function() {
     try {
         await resetDemo();
-        await db.transaction();
-        var filter = Customer.balance.lessThanOrEqual(8123);
-        //same as Customer.balance.le(8123);   
-        let customers = await Customer.getMany(filter);
-        console.log(await customers.toDto());
-        await rdb.commit();
-        console.log('Waiting for connection pool to teardown....');
+        await db.transaction(async () => {
+            var filter = Customer.balance.lessThanOrEqual(8123);
+            //same as Customer.balance.le(8123);
+            let customers = await Customer.getMany(filter);
+            console.log(await customers.toDto());
+        });
     } catch (e) {
         console.log(e.stack);
-        rdb.rollback();
     }
 }();

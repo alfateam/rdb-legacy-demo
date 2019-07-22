@@ -1,10 +1,10 @@
-const resetDemo = require('../db/resetDemo');
-const rdb = require('rdb');
-const inspect = require('util').inspect;
+let resetDemo = require('../db/resetDemo');
+let rdb = require('rdb');
+let inspect = require('util').inspect;
 
-const Order = rdb.table('_order');
-const Customer = rdb.table('_customer');
-const OrderLine = rdb.table('_orderLine');
+let Order = rdb.table('_order');
+let Customer = rdb.table('_customer');
+let OrderLine = rdb.table('_orderLine');
 
 Order.primaryColumn('oId').guid().as('id');
 Order.column('oCustomerId').guid().as('customerId');
@@ -21,25 +21,23 @@ OrderLine.column('lProduct').string().as('product');
 
 Order.join(Customer).by('oCustomerId').as('customer');
 
-const line_order_relation = OrderLine.join(Order).by('lOrderId').as('order');
+let line_order_relation = OrderLine.join(Order).by('lOrderId').as('order');
 Order.hasMany(line_order_relation).as('lines');
 
-const db = rdb('postgres://rdb:rdb@localhost/rdbdemo');
+let db = rdb('postgres://rdb:rdb@localhost/rdbdemo');
 
 module.exports = async function() {
     try {
         await resetDemo();
-        await db.transaction();
-        let isActive = Order.customer.isActive.eq(true);
-        let didOrderCar = Order.lines.product.contains('car');
-        let filter = isActive.and(didOrderCar);
-        //alternatively rdb.filter.and(isActive).and(didOrderCar);
-        let orders = await Order.getMany(filter);
-        console.log(inspect(await orders.toDto(), false, 10));
-        await rdb.commit();
-        console.log('Waiting for connection pool to teardown....');
+        await db.transaction(async () => {
+            let isActive = Order.customer.isActive.eq(true);
+            let didOrderCar = Order.lines.product.contains('car');
+            let filter = isActive.and(didOrderCar);
+            //alternatively rdb.filter.and(isActive).and(didOrderCar);
+            let orders = await Order.getMany(filter);
+            console.log(inspect(await orders.toDto(), false, 10));
+        });
     } catch (e) {
         console.log(e.stack);
-        rdb.rollback();
     }
 }();

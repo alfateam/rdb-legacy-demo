@@ -7,12 +7,12 @@ const db = rdb('postgres://rdb:rdb@localhost/rdbdemo');
 module.exports = async function() {
     try {
         await resetDemo();
-        await db.transaction({schema: ['mySchema', 'otherSchema']}); 
-        //or use string for single schema );
-        await rdb.commit();
-        console.log('Waiting for connection pool to teardown....');
+        await db.transaction();
+        await db.transaction({schema: ['mySchema', 'otherSchema']}, async () => {
+            //or use string for single schema );
+            //transaction will commit after this function
+        });
     } catch (e) {
         console.log(e.stack);
-        rdb.rollback();
     }
 }();

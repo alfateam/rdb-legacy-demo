@@ -1,5 +1,4 @@
 const rdb = require('rdb');
-const promise = require('promise/domains');
 const resetDemo = require('./db/resetDemo');
 const inspect = require('util').inspect;
 
@@ -21,14 +20,12 @@ const db = rdb('postgres://rdb:rdb@localhost/rdbdemo');
 module.exports = async function() {
     try {
         await resetDemo();
-        await db.transaction();
-        let orders = await Order.getMany();
-        let dtos = await orders.toDto();
-        console.log(inspect(dtos, false, 10));
-        await rdb.commit();
-        console.log('Waiting for connection pool to teardown....');
+        await db.transaction(async () => {
+            let orders = await Order.getMany();
+            let dtos = await orders.toDto();
+            console.log(inspect(dtos, false, 10));
+        });
     } catch (e) {
         console.log(e.stack);
-        rdb.rollback();
     }
 }();

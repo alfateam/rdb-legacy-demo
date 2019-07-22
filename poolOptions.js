@@ -7,11 +7,10 @@ const db = rdb('postgres://rdb:rdb@localhost/rdbdemo', poolOptions);
 module.exports = async function() {
     try {
         await resetDemo();
-        await db.transaction();
-        await rdb.commit();
-        console.log('Waiting for connection pool to teardown....');
+        await db.transaction(async () => {
+            //transaction will commit after this function
+        });
     } catch (e) {
         console.log(e.stack);
-        rdb.rollback();
     }
 }();

@@ -18,17 +18,14 @@ const db = rdb('postgres://rdb:rdb@localhost/rdbdemo');
 module.exports = async function() {
     try {
         await resetDemo();
-        await db.transaction();
-        let order = await Order.getById('b0000000-b000-0000-0000-000000000000');
-        let yokoId = '12345678-0000-0000-0000-000000000000';
-        order.customerId = yokoId;
-        let customer = await order.customer;
-        if (customer.name !== 'Yoko')
-            throw new Error('this will not happen');
-        await rdb.commit();
-        console.log('Waiting for connection pool to teardown....');
+        await db.transaction(async () => {
+            let order = await Order.getById('b0000000-b000-0000-0000-000000000000');
+            let yokoId = '12345678-0000-0000-0000-000000000000';
+            order.customerId = yokoId;
+            let customer = await order.customer;
+            console.log(customer.name);
+        });
     } catch (e) {
         console.log(e.stack);
-        rdb.rollback();
     }
 }();

@@ -28,7 +28,6 @@ module.exports = async function() {
 			limit: 5,
 		};
 		await Order.createJSONReadStream(db, emptyFilter, strategy).pipe(process.stdout);
-		console.log('Waiting for connection pool to teardown....');
 	} catch (e) {
 		console.log(e.stack);
 	}

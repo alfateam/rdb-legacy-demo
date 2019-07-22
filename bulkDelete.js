@@ -15,13 +15,11 @@ const db = rdb('postgres://rdb:rdb@localhost/rdbdemo');
 module.exports = async function() {
     try {
         await resetDemo();
-        await db.transaction();
-        let filter = Customer.id.eq('87654321-0000-0000-0000-000000000000');
-        await Customer.delete(filter);
-        await rdb.commit();
-        console.log('Waiting for connection pool to teardown....');
+        await db.transaction(async () => {
+            let filter = Customer.id.eq('87654321-0000-0000-0000-000000000000');
+            await Customer.delete(filter);
+        });
     } catch (e) {
         console.log(e.stack);
-        rdb.rollback();
     }
 }();
