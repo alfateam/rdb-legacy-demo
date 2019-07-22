@@ -1,7 +1,7 @@
-var rdb = require('rdb'),
+let rdb = require('rdb'),
     resetDemo = require('./db/resetDemo');
 
-var db = rdb.sqlite(__dirname + '/db/rdbDemo');
+let db = rdb.sqlite(__dirname + '/db/rdbDemo');
 
 module.exports = resetDemo()
     .then(db.transaction)

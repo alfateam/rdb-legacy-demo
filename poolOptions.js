@@ -1,8 +1,8 @@
-const rdb = require('rdb');
-const resetDemo = require('./db/resetDemo');
-const poolOptions = {size: 20};
+let rdb = require('rdb');
+let resetDemo = require('./db/resetDemo');
+let poolOptions = {size: 20};
 
-const db = rdb('postgres://rdb:rdb@localhost/rdbdemo', poolOptions);
+let db = rdb('postgres://rdb:rdb@localhost/rdbdemo', poolOptions);
 
 module.exports = async function() {
     try {

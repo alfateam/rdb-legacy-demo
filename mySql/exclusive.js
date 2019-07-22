@@ -1,13 +1,13 @@
-const rdb = require('rdb');
-const resetDemo = require('./db/resetDemo');
-const promise = require('promise/domains');
+let rdb = require('rdb');
+let resetDemo = require('./db/resetDemo');
+let promise = require('promise/domains');
 
-const Customer = rdb.table('_customer');
+let Customer = rdb.table('_customer');
 Customer.primaryColumn('cId').guid().as('id');
 Customer.column('cBalance').numeric().as('balance');
 Customer.exclusive();
 
-const db = rdb('mysql://root@localhost/rdbDemo?multipleStatements=true');
+let db = rdb('mysql://root@localhost/rdbDemo?multipleStatements=true');
 
 module.exports = async function() {
     try {
@@ -34,13 +34,13 @@ async function showBalance() {
 }
 
 function updateConcurrently() {
-    var concurrent1 = db.transaction()
+    let concurrent1 = db.transaction()
         .then(getById)
         .then(increaseBalanceBy100)
         .then(rdb.commit)
         .then(null, rdb.rollback);
 
-    var concurrent2 = db.transaction()
+    let concurrent2 = db.transaction()
         .then(getById)
         .then(increaseBalanceBy100)
         .then(rdb.commit)

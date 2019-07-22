@@ -1,9 +1,9 @@
-const rdb = require('rdb');
-const resetDemo = require('./db/resetDemo');
+let rdb = require('rdb');
+let resetDemo = require('./db/resetDemo');
 
-const Customer = rdb.table('_customer');
-const Order = rdb.table('_order');
-const OrderLine = rdb.table('_orderLine');
+let Customer = rdb.table('_customer');
+let Order = rdb.table('_order');
+let OrderLine = rdb.table('_orderLine');
 
 Customer.primaryColumn('cId').guid().as('id');
 Customer.column('cName').string().as('name');
@@ -15,13 +15,13 @@ Order.column('oCustomerId').guid().as('customerId');
 OrderLine.primaryColumn('lId').guid().as('id');
 OrderLine.column('lOrderId').guid().as('orderId');
 
-const orderToCustomer = Order.join(Customer).by('oCustomerId').as('customer');
+let orderToCustomer = Order.join(Customer).by('oCustomerId').as('customer');
 Customer.hasMany(orderToCustomer).as('orders');
 
-const line_order_relation = OrderLine.join(Order).by('lOrderId').as('order');
+let line_order_relation = OrderLine.join(Order).by('lOrderId').as('order');
 Order.hasMany(line_order_relation).as('lines');
 
-const db = rdb('mysql://root@localhost/rdbDemo?multipleStatements=true');
+let db = rdb('mysql://root@localhost/rdbDemo?multipleStatements=true');
 
 module.exports = async function() {
     try {

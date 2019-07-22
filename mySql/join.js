@@ -1,8 +1,8 @@
-const rdb = require('rdb');
-const resetDemo = require('./db/resetDemo');
+let rdb = require('rdb');
+let resetDemo = require('./db/resetDemo');
 
-const Customer = rdb.table('_customer');
-const Order = rdb.table('_order');
+let Customer = rdb.table('_customer');
+let Order = rdb.table('_order');
 
 Customer.primaryColumn('cId').guid().as('id');
 Customer.column('cName').string().as('name');
@@ -12,7 +12,7 @@ Order.column('oOrderNo').string().as('orderNo');
 Order.column('oCustomerId').guid().as('customerId');
 Order.join(Customer).by('oCustomerId').as('customer');
 
-const db = rdb('mysql://root@localhost/rdbDemo?multipleStatements=true');
+let db = rdb('mysql://root@localhost/rdbDemo?multipleStatements=true');
 
 module.exports = async function() {
     try {

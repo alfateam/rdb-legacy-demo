@@ -15,7 +15,7 @@ DeliveryAddress.column('dStreet').string().as('street');
 let deliveryAddress_order_relation = DeliveryAddress.join(Order).by('dOrderId').as('order');
 Order.hasOne(deliveryAddress_order_relation).as('deliveryAddress');
 
-const db = rdb('postgres://rdb:rdb@localhost/rdbdemo');
+let db = rdb('postgres://rdb:rdb@localhost/rdbdemo');
 
 module.exports = async function() {
     try {

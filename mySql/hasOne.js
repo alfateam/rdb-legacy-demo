@@ -1,9 +1,9 @@
-const rdb = require('rdb');
-const resetDemo = require('./db/resetDemo');
-const {inspect} = require('util');
+let rdb = require('rdb');
+let resetDemo = require('./db/resetDemo');
+let {inspect} = require('util');
 
-const Order = rdb.table('_order');
-const DeliveryAddress = rdb.table('_deliveryAddress');
+let Order = rdb.table('_order');
+let DeliveryAddress = rdb.table('_deliveryAddress');
 
 Order.primaryColumn('oId').guid().as('id');
 Order.column('oOrderNo').string().as('orderNo');
@@ -13,10 +13,10 @@ DeliveryAddress.column('dOrderId').string().as('orderId');
 DeliveryAddress.column('dName').string().as('name');
 DeliveryAddress.column('dStreet').string().as('street');
 
-const deliveryAddress_order_relation = DeliveryAddress.join(Order).by('dOrderId').as('order');
+let deliveryAddress_order_relation = DeliveryAddress.join(Order).by('dOrderId').as('order');
 Order.hasOne(deliveryAddress_order_relation).as('deliveryAddress');
 
-const db = rdb('mysql://root@localhost/rdbDemo?multipleStatements=true');
+let db = rdb('mysql://root@localhost/rdbDemo?multipleStatements=true');
 
 module.exports = async function() {
     try {

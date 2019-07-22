@@ -1,7 +1,7 @@
-const rdb = require('rdb');
-const resetDemo = require('./db/resetDemo');
+let rdb = require('rdb');
+let resetDemo = require('./db/resetDemo');
 
-const Customer = rdb.table('_customer');
+let Customer = rdb.table('_customer');
 
 Customer.primaryColumn('cId').guid().as('id');
 Customer.column('cName').string().as('name');
@@ -10,7 +10,7 @@ Customer.column('cRegdate').date().as('registeredDate');
 Customer.column('cIsActive').boolean().as('isActive');
 Customer.column('cPicture').binary().as('picture');
 
-const db = rdb('postgres://rdb:rdb@localhost/rdbdemo');
+let db = rdb('postgres://rdb:rdb@localhost/rdbdemo');
 
 module.exports = async function() {
     try {

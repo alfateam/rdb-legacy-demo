@@ -1,8 +1,8 @@
-var rdb = require('rdb');
+let rdb = require('rdb');
 
-var dbPg = rdb('postgres://postgres:postgres@localhost/test');
-var dbMySql = rdb.mySql('mysql://root@localhost/rdbDemo?multipleStatements=true');
-var dbSqlite = rdb.sqlite(__dirname + '/db/rdbDemo');
+let dbPg = rdb('postgres://postgres:postgres@localhost/test');
+let dbMySql = rdb.mySql('mysql://root@localhost/rdbDemo?multipleStatements=true');
+let dbSqlite = rdb.sqlite(__dirname + '/db/rdbDemo');
 
 module.exports = connectPg()
     .then(connectMySql)

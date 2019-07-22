@@ -1,9 +1,9 @@
-var rdb = require('rdb'),
+let rdb = require('rdb'),
     resetDemo = require('./db/resetDemo');
 
-var Customer = rdb.table('_customer');
-var Order = rdb.table('_order');
-var OrderLine = rdb.table('_orderLine');
+let Customer = rdb.table('_customer');
+let Order = rdb.table('_order');
+let OrderLine = rdb.table('_orderLine');
 
 Customer.primaryColumn('cId').guid().as('id');
 Customer.column('cName').string().as('name');
@@ -15,13 +15,13 @@ Order.column('oCustomerId').guid().as('customerId');
 OrderLine.primaryColumn('lId').guid().as('id');
 OrderLine.column('lOrderId').guid().as('orderId');
 
-var orderToCustomer = Order.join(Customer).by('oCustomerId').as('customer');
+let orderToCustomer = Order.join(Customer).by('oCustomerId').as('customer');
 Customer.hasMany(orderToCustomer).as('orders');
 
-var line_order_relation = OrderLine.join(Order).by('lOrderId').as('order');
+let line_order_relation = OrderLine.join(Order).by('lOrderId').as('order');
 Order.hasMany(line_order_relation).as('lines');
 
-var db = rdb.sqlite(__dirname + '/db/rdbDemo');
+let db = rdb.sqlite(__dirname + '/db/rdbDemo');
 rdb.log(console.log);
 
 module.exports = resetDemo()

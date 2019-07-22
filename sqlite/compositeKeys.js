@@ -1,8 +1,8 @@
-var rdb = require('rdb'),
+let rdb = require('rdb'),
     resetDemo = require('./db/resetDemo');
 
-var Order = rdb.table('_compositeOrder');
-var OrderLine = rdb.table('_compositeOrderLine');
+let Order = rdb.table('_compositeOrder');
+let OrderLine = rdb.table('_compositeOrderLine');
 
 Order.primaryColumn('oCompanyId').numeric().as('companyId');
 Order.primaryColumn('oOrderNo').numeric().as('orderNo');
@@ -12,10 +12,10 @@ OrderLine.primaryColumn('lOrderNo').numeric().as('orderNo');
 OrderLine.primaryColumn('lLineNo').numeric().as('lineNo');
 OrderLine.column('lProduct').string().as('product');
 
-var line_order_relation = OrderLine.join(Order).by('lCompanyId', 'lOrderNo').as('order');
+let line_order_relation = OrderLine.join(Order).by('lCompanyId', 'lOrderNo').as('order');
 Order.hasMany(line_order_relation).as('lines');
 
-var db = rdb.sqlite(__dirname + '/db/rdbDemo');
+let db = rdb.sqlite(__dirname + '/db/rdbDemo');
 
 module.exports = resetDemo()
     .then(db.transaction)
@@ -27,7 +27,7 @@ module.exports = resetDemo()
     .then(onOk, onFailed);
 
 function getOrder() {
-    var companyId = 1,
+    let companyId = 1,
         orderId = 1001;
     return Order.getById(companyId, orderId);
 }
@@ -41,10 +41,10 @@ function printLines(lines) {
     lines.forEach(printLine);
 
     function printLine(line) {
-        var format = 'Company Id: %s, Order No: %s, Line No: %s, Product: %s'; 
-        var args = [format, line.companyId, line.orderNo, line.lineNo, line.product];
+        let format = 'Company Id: %s, Order No: %s, Line No: %s, Product: %s';
+        let args = [format, line.companyId, line.orderNo, line.lineNo, line.product];
         console.log.apply(null,args);
-    }    
+    }
 }
 
 function onOk() {

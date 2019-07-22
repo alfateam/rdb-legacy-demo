@@ -1,9 +1,9 @@
-var rdb = require('rdb'),
+let rdb = require('rdb'),
     resetDemo = require('../db/resetDemo');
 
-var Order = rdb.table('_order');
-var Customer = rdb.table('_customer');
-var OrderLine = rdb.table('_orderLine');
+let Order = rdb.table('_order');
+let Customer = rdb.table('_customer');
+let OrderLine = rdb.table('_orderLine');
 
 Order.primaryColumn('oId').guid().as('id');
 Order.column('oCustomerId').guid().as('customerId');
@@ -20,11 +20,11 @@ OrderLine.column('lProduct').string().as('product');
 
 Order.join(Customer).by('oCustomerId').as('customer');
 
-var line_order_relation = OrderLine.join(Order).by('lOrderId').as('order');
+let line_order_relation = OrderLine.join(Order).by('lOrderId').as('order');
 Order.hasMany(line_order_relation).as('lines');
 
 
-var db = rdb.sqlite(__dirname + '/../db/rdbDemo');
+let db = rdb.sqlite(__dirname + '/../db/rdbDemo');
 
 
 module.exports = resetDemo()
@@ -37,9 +37,9 @@ module.exports = resetDemo()
     .then(onOk, onFailed);
 
 function getOrders() {
-    var isActive = Order.customer.isActive.eq(true);
-    var didOrderCar = Order.lines.product.contains('car');
-    var filter = isActive.and(didOrderCar);
+    let isActive = Order.customer.isActive.eq(true);
+    let didOrderCar = Order.lines.product.contains('car');
+    let filter = isActive.and(didOrderCar);
     //alternatively rdb.filter.and(isActive).and(didOrderCar);
     return Order.getMany(filter);
 }

@@ -1,7 +1,7 @@
-const rdb = require('rdb');
+let rdb = require('rdb');
 
-const dbPg = rdb('postgres://rdb:rdb@localhost/rdbdemo');
-const dbMySql = rdb.mySql('mysql://root@localhost/rdbDemo?multipleStatements=true');
+let dbPg = rdb('postgres://rdb:rdb@localhost/rdbdemo');
+let dbMySql = rdb.mySql('mysql://root@localhost/rdbDemo?multipleStatements=true');
 
 module.exports = async function() {
     try {

@@ -1,12 +1,12 @@
-var rdb = require('rdb'),
+let rdb = require('rdb'),
     resetDemo = require('./db/resetDemo');
 
-var Customer = rdb.table('_customer');
+let Customer = rdb.table('_customer');
 
 Customer.primaryColumn('cId').guid().as('id');
 Customer.column('cName').string().as('name');
 
-var db = rdb.sqlite(__dirname + '/db/rdbDemo');
+let db = rdb.sqlite(__dirname + '/db/rdbDemo');
 
 module.exports = resetDemo()
     .then(db.transaction)
@@ -17,9 +17,9 @@ module.exports = resetDemo()
     .then(null, rdb.rollback)
     .then(onOk, onFailed);
 
-function insert() {    
-    var customer = Customer.insert('abcdef00-0000-0000-0000-000000000000')
-    customer.name = 'Paul';        
+function insert() {
+    let customer = Customer.insert('abcdef00-0000-0000-0000-000000000000')
+    customer.name = 'Paul';
 }
 
 function getById() {

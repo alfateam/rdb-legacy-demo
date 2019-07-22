@@ -1,6 +1,6 @@
-const rdb = require('rdb');
+let rdb = require('rdb');
 
-const db = rdb('mysql://root@localhost/rdbDemo?multipleStatements=true');
+let db = rdb('mysql://root@localhost/rdbDemo?multipleStatements=true');
 
 module.exports = async function() {
     try {

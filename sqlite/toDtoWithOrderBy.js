@@ -1,8 +1,8 @@
-var rdb = require('rdb'),
+let rdb = require('rdb'),
     resetDemo = require('./db/resetDemo');
 
-var Order = rdb.table('_order');
-var OrderLine = rdb.table('_orderLine');
+let Order = rdb.table('_order');
+let OrderLine = rdb.table('_orderLine');
 
 Order.primaryColumn('oId').guid().as('id');
 Order.column('oOrderNo').string().as('orderNo');
@@ -11,10 +11,10 @@ OrderLine.primaryColumn('lId').guid().as('id');
 OrderLine.column('lOrderId').string().as('orderId');
 OrderLine.column('lProduct').string().as('product');
 
-var line_order_relation = OrderLine.join(Order).by('lOrderId').as('order');
+let line_order_relation = OrderLine.join(Order).by('lOrderId').as('order');
 Order.hasMany(line_order_relation).as('lines');
 
-var db = rdb.sqlite(__dirname + '/db/rdbDemo');
+let db = rdb.sqlite(__dirname + '/db/rdbDemo');
 
 module.exports = resetDemo()
     .then(db.transaction)
@@ -30,9 +30,9 @@ function getOrder() {
 }
 
 function toDto(order) {
-    var strategy = {
+    let strategy = {
         lines: {
-            orderBy: ['product'] 
+            orderBy: ['product']
             //alternative: orderBy: ['product asc']
         }
     };

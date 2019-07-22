@@ -1,12 +1,12 @@
-var rdb = require('rdb'),
+let rdb = require('rdb'),
     resetDemo = require('../db/resetDemo');
 
-var Customer = rdb.table('_customer');
+let Customer = rdb.table('_customer');
 
 Customer.primaryColumn('cId').guid().as('id');
 Customer.column('cName').string().as('name');
 
-var db = rdb.sqlite(__dirname + '/../db/rdbDemo');
+let db = rdb.sqlite(__dirname + '/../db/rdbDemo');
 
 
 module.exports = resetDemo()
@@ -18,9 +18,9 @@ module.exports = resetDemo()
     .then(onOk, onFailed);
 
 function getFilteredCustomers() {
-    var john = Customer.name.equal('John');
-    var yoko = Customer.name.equal('Yoko');
-    var filter = john.or(yoko);
+    let john = Customer.name.equal('John');
+    let yoko = Customer.name.equal('Yoko');
+    let filter = john.or(yoko);
 
     return Customer.getMany(filter);
 }

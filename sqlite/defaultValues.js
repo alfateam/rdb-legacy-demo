@@ -1,10 +1,10 @@
-var rdb = require('rdb'),
+let rdb = require('rdb'),
     resetDemo = require('./db/resetDemo');
 
-var buf = Buffer.from(10);
+let buf = Buffer.from(10);
 buf.write('\u00bd + \u00bc = \u00be', 0);
 
-var Customer = rdb.table('_customer');
+let Customer = rdb.table('_customer');
 
 /*unless overridden, numeric is default 0,
 string is default null,
@@ -24,7 +24,7 @@ Customer.column('cPicture').binary().as('picture').default(buf);
 Customer.column('cDocument').json().as('document').default({foo: true});
 
 
-var db = rdb.sqlite(__dirname + '/db/rdbDemo');
+let db = rdb.sqlite(__dirname + '/db/rdbDemo');
 
 module.exports = resetDemo()
     .then(db.transaction)
@@ -35,7 +35,7 @@ module.exports = resetDemo()
     .then(onOk, onFailed);
 
 function insert() {
-    var customer = Customer.insert('abcdef02-0000-0000-0000-000000000000')
+    let customer = Customer.insert('abcdef02-0000-0000-0000-000000000000')
     return customer.toJSON();
 }
 

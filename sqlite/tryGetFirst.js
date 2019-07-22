@@ -1,14 +1,14 @@
-var rdb = require('rdb'),
+let rdb = require('rdb'),
     resetDemo = require('./db/resetDemo');
 
-var Customer = rdb.table('_customer');
+let Customer = rdb.table('_customer');
 
 Customer.primaryColumn('cId').guid().as('id');
 Customer.column('cName').string().as('name');
 
-var db = rdb.sqlite(__dirname + '/db/rdbDemo');
+let db = rdb.sqlite(__dirname + '/db/rdbDemo');
 
-module.exports = resetDemo() 
+module.exports = resetDemo()
     .then(db.transaction)
     .then(tryGetFirst)
     .then(printCustomer)
@@ -17,7 +17,7 @@ module.exports = resetDemo()
     .then(onOk, onFailed);
 
 function tryGetFirst() {
-    var filter = Customer.name.equal('John');
+    let filter = Customer.name.equal('John');
     return Customer.tryGetFirst(filter);
 }
 

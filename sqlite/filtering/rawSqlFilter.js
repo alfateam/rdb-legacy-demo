@@ -1,22 +1,22 @@
-var inspect = require('util').inspect;
-var rdb = require('rdb'),
+let inspect = require('util').inspect;
+let rdb = require('rdb'),
     resetDemo = require('../db/resetDemo');
 
-var Order = rdb.table('_order');
+let Order = rdb.table('_order');
 Order.primaryColumn('oId').guid().as('id');
 Order.column('oOrderNo').string().as('orderNo');
 Order.column('oCustomerId').guid().as('customerId');
 
-var Customer = rdb.table('_customer');
+let Customer = rdb.table('_customer');
 Customer.primaryColumn('cid').guid().as('id');
 Customer.column('cName').string().as('name');
 Customer.column('cBalance').string().as('balance');
 Customer.column('cIsActive').boolean().as('isActive');
 
-var orderCustomerJoin = Order.join(Customer).by('oCustomerId').as('customer');
+let orderCustomerJoin = Order.join(Customer).by('oCustomerId').as('customer');
 Customer.hasMany(orderCustomerJoin).as('orders');
 
-var db = rdb.sqlite(__dirname + '/../db/rdbDemo');
+let db = rdb.sqlite(__dirname + '/../db/rdbDemo');
 
 
 module.exports = resetDemo()
@@ -28,7 +28,7 @@ module.exports = resetDemo()
     .then(onOk, console.log);
 
 function getOrders() {
-    var filter = {
+    let filter = {
         sql: 'exists (select 1 from _customer where _customer.cId = oCustomerId and _customer.cBalance > 3000 and _customer.cName LIKE ?)',
         parameters: ['%o%']
     };
@@ -36,7 +36,7 @@ function getOrders() {
 }
 
 function printOrders(orders) {
-    var strategy = {customer: null}
+    let strategy = {customer: null}
     return orders.toDto(strategy).then(printDtos);
 }
 

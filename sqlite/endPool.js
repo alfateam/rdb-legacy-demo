@@ -1,6 +1,6 @@
-var rdb = require('rdb');
+let rdb = require('rdb');
 
-var db = rdb.sqlite(__dirname + '/db/rdbDemo');
+let db = rdb.sqlite(__dirname + '/db/rdbDemo');
 
 module.exports = db.transaction()
     .then(rdb.commit)

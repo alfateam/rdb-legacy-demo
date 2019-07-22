@@ -1,14 +1,14 @@
-var rdb = require('rdb'),
+let rdb = require('rdb'),
     resetDemo = require('../db/resetDemo');
 
-var Customer = rdb.table('_customer');
+let Customer = rdb.table('_customer');
 
 Customer.primaryColumn('cId').guid().as('id');
 Customer.column('cIsActive').boolean().as('isActive');
 Customer.column('cBalance').numeric().as('balance');
 Customer.column('cName').string().as('name');
 
-var db = rdb.sqlite(__dirname + '/../db/rdbDemo');
+let db = rdb.sqlite(__dirname + '/../db/rdbDemo');
 
 
 module.exports = resetDemo()
@@ -20,9 +20,9 @@ module.exports = resetDemo()
     .then(onOk, onFailed);
 
 function getFilteredCustomers() {
-    var isActive = Customer.isActive.equal(true);
-    var highBalance = Customer.balance.greaterThan(8000);
-    var filter = isActive.and(highBalance);
+    let isActive = Customer.isActive.equal(true);
+    let highBalance = Customer.balance.greaterThan(8000);
+    let filter = isActive.and(highBalance);
     return Customer.getMany(filter);
 }
 

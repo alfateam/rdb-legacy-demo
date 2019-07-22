@@ -1,8 +1,8 @@
-var rdb = require('rdb'),
+let rdb = require('rdb'),
     resetDemo = require('./db/resetDemo');
 
-var Order = rdb.table('_order');
-var OrderLine = rdb.table('_orderLine');
+let Order = rdb.table('_order');
+let OrderLine = rdb.table('_orderLine');
 
 Order.primaryColumn('oId').guid().as('id');
 Order.column('oOrderNo').string().as('orderNo');
@@ -11,13 +11,13 @@ OrderLine.primaryColumn('lId').guid().as('id');
 OrderLine.column('lOrderId').guid().as('orderId');
 OrderLine.column('lProduct').string().as('product');
 
-var line_order_relation = OrderLine.join(Order).by('lOrderId').as('order');
+let line_order_relation = OrderLine.join(Order).by('lOrderId').as('order');
 Order.hasMany(line_order_relation).as('lines');
 
-var db = rdb.sqlite(__dirname + '/db/rdbDemo');
+let db = rdb.sqlite(__dirname + '/db/rdbDemo');
 
-var emptyFilter;
-var strategy = {
+let emptyFilter;
+let strategy = {
     lines: {
         orderBy: ['product']
     },
@@ -30,12 +30,12 @@ module.exports = resetDemo()
     });
 
 function printOrder(order) {
-    var format = 'Order Id: %s, Order No: %s';
+    let format = 'Order Id: %s, Order No: %s';
     console.log(format, order.id, order.orderNo);
     order.lines.forEach(printLine);
 }
 
 function printLine(line) {
-    var format = 'Line Id: %s, Order Id: %s, Product: %s';
+    let format = 'Line Id: %s, Order Id: %s, Product: %s';
     console.log(format, line.id, line.orderId, line.product);
 }

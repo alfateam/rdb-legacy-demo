@@ -1,23 +1,23 @@
-var rdb = require('rdb'),
+let rdb = require('rdb'),
     resetDemo = require('./db/resetDemo');
 
-var Customer = rdb.table('_customer');
+let Customer = rdb.table('_customer');
 
 Customer.primaryColumn('cId').guid(); //property name will also be cId
 Customer.column('cName').string(); //property name will also be cName
 
-var db = rdb.sqlite(__dirname + '/db/rdbDemo');
+let db = rdb.sqlite(__dirname + '/db/rdbDemo');
 
 module.exports = resetDemo()
     .then(db.transaction)
     .then(insert)
-    .then(print) 
+    .then(print)
     .then(rdb.commit)
     .then(null, rdb.rollback)
     .then(onOk, onFailed);
 
 function insert() {
-    var customer = Customer.insert('abcdef01-0000-0000-0000-000000000000')
+    let customer = Customer.insert('abcdef01-0000-0000-0000-000000000000')
     customer.cName = 'Paul';
     return customer.toJSON();
 }

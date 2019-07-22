@@ -1,8 +1,8 @@
-var rdb = require('rdb'),
+let rdb = require('rdb'),
     resetDemo = require('../db/resetDemo');
 
-var Order = rdb.table('_order');
-var DeliveryAddress = rdb.table('_deliveryAddress');
+let Order = rdb.table('_order');
+let DeliveryAddress = rdb.table('_deliveryAddress');
 
 Order.primaryColumn('oId').guid().as('id');
 Order.column('oOrderNo').string().as('orderNo');
@@ -12,10 +12,10 @@ DeliveryAddress.column('dOrderId').string().as('orderId');
 DeliveryAddress.column('dName').string().as('name');
 DeliveryAddress.column('dStreet').string().as('street');
 
-var deliveryAddress_order_relation = DeliveryAddress.join(Order).by('dOrderId').as('order');
+let deliveryAddress_order_relation = DeliveryAddress.join(Order).by('dOrderId').as('order');
 Order.hasOne(deliveryAddress_order_relation).as('deliveryAddress');
 
-var db = rdb.sqlite(__dirname + '/../db/rdbDemo');
+let db = rdb.sqlite(__dirname + '/../db/rdbDemo');
 
 
 module.exports = resetDemo()
@@ -28,7 +28,7 @@ module.exports = resetDemo()
     .then(onOk, onFailed);
 
 function getOrders() {
-    var filter = Order.deliveryAddress.exists();
+    let filter = Order.deliveryAddress.exists();
     return Order.getMany(filter);
 }
 

@@ -1,8 +1,8 @@
-const rdb = require('rdb');
-const resetDemo = require('./db/resetDemo');
+let rdb = require('rdb');
+let resetDemo = require('./db/resetDemo');
 
-const db = rdb('postgres://rdb:rdb@localhost/rdbdemo');
-//alternatively: var db = rdb.pg('postgres://postgres:postgres@localhost/test');
+let db = rdb('postgres://rdb:rdb@localhost/rdbdemo');
+//alternatively: let db = rdb.pg('postgres://postgres:postgres@localhost/test');
 
 module.exports = async function() {
     try {

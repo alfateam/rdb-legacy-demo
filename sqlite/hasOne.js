@@ -1,8 +1,8 @@
-var rdb = require('rdb'),
+let rdb = require('rdb'),
     resetDemo = require('./db/resetDemo');
 
-var Order = rdb.table('_order');
-var DeliveryAddress = rdb.table('_deliveryAddress');
+let Order = rdb.table('_order');
+let DeliveryAddress = rdb.table('_deliveryAddress');
 
 Order.primaryColumn('oId').guid().as('id');
 Order.column('oOrderNo').string().as('orderNo');
@@ -12,10 +12,10 @@ DeliveryAddress.column('dOrderId').string().as('orderId');
 DeliveryAddress.column('dName').string().as('name');
 DeliveryAddress.column('dStreet').string().as('street');
 
-var deliveryAddress_order_relation = DeliveryAddress.join(Order).by('dOrderId').as('order');
+let deliveryAddress_order_relation = DeliveryAddress.join(Order).by('dOrderId').as('order');
 Order.hasOne(deliveryAddress_order_relation).as('deliveryAddress');
 
-var db = rdb.sqlite(__dirname + '/db/rdbDemo');
+let db = rdb.sqlite(__dirname + '/db/rdbDemo');
 
 module.exports = resetDemo()
     .then(db.transaction)
@@ -31,15 +31,15 @@ function getOrder() {
 }
 
 function printOrder(order) {
-    var format = 'Order Id: %s, Order No: %s'; 
-    var args = [format, order.id, order.orderNo];
+    let format = 'Order Id: %s, Order No: %s';
+    let args = [format, order.id, order.orderNo];
     console.log.apply(null,args);
     return order.deliveryAddress; //this is a promise
 }
 
 function printDeliveryAddress(address) {
-    var format = 'DeliveryAddress Id: %s, Order Id: %s, %s'; 
-    var args = [format, address.id, address.orderId, address.name, address.street];
+    let format = 'DeliveryAddress Id: %s, Order Id: %s, %s';
+    let args = [format, address.id, address.orderId, address.name, address.street];
     console.log.apply(null,args);
 }
 

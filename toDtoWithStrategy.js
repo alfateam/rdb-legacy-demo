@@ -1,10 +1,10 @@
-const rdb = require('rdb');
-const resetDemo = require('./db/resetDemo');
+let rdb = require('rdb');
+let resetDemo = require('./db/resetDemo');
 
-const Order = rdb.table('_order');
-const Customer = rdb.table('_customer');
-const OrderLine = rdb.table('_orderLine');
-const DeliveryAddress = rdb.table('_deliveryAddress');
+let Order = rdb.table('_order');
+let Customer = rdb.table('_customer');
+let OrderLine = rdb.table('_orderLine');
+let DeliveryAddress = rdb.table('_deliveryAddress');
 
 Order.primaryColumn('oId').guid().as('id');
 Order.column('oOrderNo').string().as('orderNo');
@@ -24,14 +24,14 @@ DeliveryAddress.column('dStreet').string().as('street');
 
 Order.join(Customer).by('oCustomerId').as('customer');
 
-const line_order_relation = OrderLine.join(Order).by('lOrderId').as('order');
+let line_order_relation = OrderLine.join(Order).by('lOrderId').as('order');
 Order.hasMany(line_order_relation).as('lines');
 
-const deliveryAddress_order_relation = DeliveryAddress.join(Order).by('dOrderId').as('order');
+let deliveryAddress_order_relation = DeliveryAddress.join(Order).by('dOrderId').as('order');
 Order.hasOne(deliveryAddress_order_relation).as('deliveryAddress');
 
 
-const db = rdb('postgres://rdb:rdb@localhost/rdbdemo');
+let db = rdb('postgres://rdb:rdb@localhost/rdbdemo');
 
 module.exports = async function() {
     try {

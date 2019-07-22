@@ -1,8 +1,8 @@
-var rdb = require('rdb'),
+let rdb = require('rdb'),
     resetDemo = require('./db/resetDemo');
 
-var Customer = rdb.table('_customer');
-var Order = rdb.table('_order');
+let Customer = rdb.table('_customer');
+let Order = rdb.table('_order');
 
 Customer.primaryColumn('cId').guid().as('id');
 Customer.column('cName').string().as('name');
@@ -13,9 +13,9 @@ Order.column('oCustomerId').guid().as('customerId');
 
 Order.join(Customer).by('oCustomerId').as('customer');
 
-var db = rdb.sqlite(__dirname + '/db/rdbDemo');
+let db = rdb.sqlite(__dirname + '/db/rdbDemo');
 
-module.exports = resetDemo() 
+module.exports = resetDemo()
     .then(db.transaction)
     .then(tryGetFirstOrderWithCustomer)
     .then(printOrder)
@@ -25,8 +25,8 @@ module.exports = resetDemo()
     .then(onOk, onFailed);
 
 function tryGetFirstOrderWithCustomer() {
-    var filter = Order.customer.name.equal('John');
-    var strategy = {customer : null};
+    let filter = Order.customer.name.equal('John');
+    let strategy = {customer : null};
     return Order.tryGetFirst(filter, strategy);
 }
 
@@ -35,14 +35,14 @@ function printOrder(order) {
         console.log('order not found');
         return;
     }
-    var format = 'Order Id: %s, Order No: %s, Customer Id: %s'; 
-    var args = [format, order.id, order.orderNo, order.customerId];
+    let format = 'Order Id: %s, Order No: %s, Customer Id: %s';
+    let args = [format, order.id, order.orderNo, order.customerId];
     console.log.apply(null,args);
     return order.customer;
 }
 
 function printCustomer(customer) {
-    if (!customer) 
+    if (!customer)
         return;
     console.log('Customer Id: %s, name: %s', customer.id, customer.name);
 }

@@ -1,11 +1,11 @@
-var inspect = require('util').inspect;
-var rdb = require('rdb'),
+let inspect = require('util').inspect;
+let rdb = require('rdb'),
     resetDemo = require('./db/resetDemo');
 
-var Order = rdb.table('_order');
-var Customer = rdb.table('_customer');
-var OrderLine = rdb.table('_orderLine');
-var DeliveryAddress = rdb.table('_deliveryAddress');
+let Order = rdb.table('_order');
+let Customer = rdb.table('_customer');
+let OrderLine = rdb.table('_orderLine');
+let DeliveryAddress = rdb.table('_deliveryAddress');
 
 Order.primaryColumn('oId').guid().as('id');
 Order.column('oOrderNo').string().as('orderNo');
@@ -23,15 +23,15 @@ DeliveryAddress.column('dOrderId').string().as('orderId');
 DeliveryAddress.column('dName').string().as('name');
 DeliveryAddress.column('dStreet').string().as('street');
 
-var order_customer_relation = Order.join(Customer).by('oCustomerId').as('customer');
+let order_customer_relation = Order.join(Customer).by('oCustomerId').as('customer');
 
-var line_order_relation = OrderLine.join(Order).by('lOrderId').as('order');
+let line_order_relation = OrderLine.join(Order).by('lOrderId').as('order');
 Order.hasMany(line_order_relation).as('lines');
 
-var deliveryAddress_order_relation = DeliveryAddress.join(Order).by('dOrderId').as('order');
+let deliveryAddress_order_relation = DeliveryAddress.join(Order).by('dOrderId').as('order');
 Order.hasOne(deliveryAddress_order_relation).as('deliveryAddress');
 
-var db = rdb.sqlite(__dirname + '/db/rdbDemo');
+let db = rdb.sqlite(__dirname + '/db/rdbDemo');
 
 module.exports = resetDemo()
     .then(db.transaction)

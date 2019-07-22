@@ -69,10 +69,10 @@ function onError(e) {
 	console.log(e);
 }
 
-var promise;
+let promise;
 
 function run(module) {
-	if (promise) 
+	if (promise)
 		promise = promise.then(function() {
 			return require(module);
 		});

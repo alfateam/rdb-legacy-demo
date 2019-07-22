@@ -1,10 +1,10 @@
-const rdb = require('rdb');
-const resetDemo = require('./db/resetDemo');
+let rdb = require('rdb');
+let resetDemo = require('./db/resetDemo');
 
-const buf = Buffer.alloc(10);
+let buf = Buffer.alloc(10);
 buf.write('\u00bd + \u00bc = \u00be', 0);
 
-const Customer = rdb.table('_customer');
+let Customer = rdb.table('_customer');
 
 /*unless overridden, numeric is default 0,
 string is default null,
@@ -23,7 +23,7 @@ Customer.column('cIsActive').boolean().as('isActive').default(true);
 Customer.column('cPicture').binary().as('picture').default(buf);
 Customer.column('cDocument').json().as('document').default({foo: true});
 
-const db = rdb('postgres://rdb:rdb@localhost/rdbdemo');
+let db = rdb('postgres://rdb:rdb@localhost/rdbdemo');
 
 module.exports = async function() {
     try {

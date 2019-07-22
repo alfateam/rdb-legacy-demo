@@ -1,9 +1,9 @@
-const rdb = require('rdb');
-const resetDemo = require('./db/resetDemo');
-const promise = require('promise/domains');
+let rdb = require('rdb');
+let resetDemo = require('./db/resetDemo');
+let promise = require('promise/domains');
 
-const Order = rdb.table('_compositeOrder');
-const OrderLine = rdb.table('_compositeOrderLine');
+let Order = rdb.table('_compositeOrder');
+let OrderLine = rdb.table('_compositeOrderLine');
 
 Order.primaryColumn('oCompanyId').numeric().as('companyId');
 Order.primaryColumn('oOrderNo').numeric().as('orderNo');
@@ -13,10 +13,10 @@ OrderLine.primaryColumn('lOrderNo').numeric().as('orderNo');
 OrderLine.primaryColumn('lLineNo').numeric().as('lineNo');
 OrderLine.column('lProduct').string().as('product');
 
-const line_order_relation = OrderLine.join(Order).by('lCompanyId', 'lOrderNo').as('order');
+let line_order_relation = OrderLine.join(Order).by('lCompanyId', 'lOrderNo').as('order');
 Order.hasMany(line_order_relation).as('lines');
 
-const db = rdb('postgres://rdb:rdb@localhost/rdbdemo');
+let db = rdb('postgres://rdb:rdb@localhost/rdbdemo');
 
 module.exports = async function() {
     try {

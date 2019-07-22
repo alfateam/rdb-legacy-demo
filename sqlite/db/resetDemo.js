@@ -1,37 +1,37 @@
-var fs = require('fs');
-var promise = require('promise/domains');
-var conString = require('./connectionString');
-// var conString = ':memory:';
-var sqlite = require('sqlite3');
+let fs = require('fs');
+let promise = require('promise/domains');
+let conString = require('./connectionString');
+// let conString = ':memory:';
+let sqlite = require('sqlite3');
 
-var drop = ["DROP TABLE IF EXISTS _compositeOrderLine", "DROP TABLE IF EXISTS _compositeOrder", "DROP TABLE IF EXISTS _deliveryAddress", "DROP TABLE IF EXISTS _orderLine", "DROP TABLE IF EXISTS _order", "DROP TABLE IF EXISTS _customer", "DROP TABLE IF EXISTS _user"]
-var createCustomer = ["CREATE TABLE _customer (cId TEXT PRIMARY KEY, cName TEXT, cBalance NUMERIC, cRegdate TEXT, cIsActive INTEGER, cPicture BLOB, cDocument TEXT)"]
-var createUser = ["CREATE TABLE _user (uId TEXT PRIMARY KEY, uUserId TEXT, uPassword TEXT, uEmail TEXT)"]
-var createOrder = ["CREATE TABLE _order (oId TEXT PRIMARY KEY, oOrderNo TEXT, oCustomerId TEXT  REFERENCES _customer)"]
-var createOrderLine = ["CREATE TABLE _orderLine (lId TEXT PRIMARY KEY, lOrderId TEXT REFERENCES _order, lProduct TEXT)"]
-var createCompositeOrder = ["CREATE TABLE _compositeOrder (oCompanyId NUMERIC, oOrderNo NUMERIC, oCustomerId TEXT  REFERENCES _customer, PRIMARY KEY (oCompanyId,oOrderNo))"];
-var createCompositeOrderLine = ["CREATE TABLE _compositeOrderLine (lCompanyId NUMERIC, lOrderNo NUMERIC, lLineNo NUMERIC, lProduct TEXT, PRIMARY KEY (lCompanyId,lOrderNo, lLineNo))"];
-var createDeliveryAddress = ["CREATE TABLE _deliveryAddress (dId TEXT PRIMARY KEY, dOrderId TEXT REFERENCES _order, dName TEXT, dStreet TEXT, dPostalCode TEXT, dPostalPlace TEXT, dCountryCode TEXT, dCountry TEXT)"];
+let drop = ["DROP TABLE IF EXISTS _compositeOrderLine", "DROP TABLE IF EXISTS _compositeOrder", "DROP TABLE IF EXISTS _deliveryAddress", "DROP TABLE IF EXISTS _orderLine", "DROP TABLE IF EXISTS _order", "DROP TABLE IF EXISTS _customer", "DROP TABLE IF EXISTS _user"]
+let createCustomer = ["CREATE TABLE _customer (cId TEXT PRIMARY KEY, cName TEXT, cBalance NUMERIC, cRegdate TEXT, cIsActive INTEGER, cPicture BLOB, cDocument TEXT)"]
+let createUser = ["CREATE TABLE _user (uId TEXT PRIMARY KEY, uUserId TEXT, uPassword TEXT, uEmail TEXT)"]
+let createOrder = ["CREATE TABLE _order (oId TEXT PRIMARY KEY, oOrderNo TEXT, oCustomerId TEXT  REFERENCES _customer)"]
+let createOrderLine = ["CREATE TABLE _orderLine (lId TEXT PRIMARY KEY, lOrderId TEXT REFERENCES _order, lProduct TEXT)"]
+let createCompositeOrder = ["CREATE TABLE _compositeOrder (oCompanyId NUMERIC, oOrderNo NUMERIC, oCustomerId TEXT  REFERENCES _customer, PRIMARY KEY (oCompanyId,oOrderNo))"];
+let createCompositeOrderLine = ["CREATE TABLE _compositeOrderLine (lCompanyId NUMERIC, lOrderNo NUMERIC, lLineNo NUMERIC, lProduct TEXT, PRIMARY KEY (lCompanyId,lOrderNo, lLineNo))"];
+let createDeliveryAddress = ["CREATE TABLE _deliveryAddress (dId TEXT PRIMARY KEY, dOrderId TEXT REFERENCES _order, dName TEXT, dStreet TEXT, dPostalCode TEXT, dPostalPlace TEXT, dCountryCode TEXT, dCountry TEXT)"];
 
-var createSql = drop.concat(createCustomer, createOrder, createOrderLine, createDeliveryAddress, createCompositeOrder, createCompositeOrderLine, createUser);
-var buffer = new Buffer([1, 2, 3]);
-var buffer2 = new Buffer([4, 5]);
+let createSql = drop.concat(createCustomer, createOrder, createOrderLine, createDeliveryAddress, createCompositeOrder, createCompositeOrderLine, createUser);
+let buffer = new Buffer([1, 2, 3]);
+let buffer2 = new Buffer([4, 5]);
 
 createBuffers();
 
-var insertCustomer1 = "INSERT INTO _customer VALUES ('a0000000-0000-0000-0000-000000000000','George',177,'2003-04-12 04:05:06',0,?, '[\"foo\", 1, {\"bar\": true}]')";
-var insertCustomer1 = "INSERT INTO _customer VALUES ('a0000000-0000-0000-0000-000000000000','George',177,'2003-04-12 04:05:06',0,?, '[\"foo\", 1, {\"bar\": true}]')";
-var insertCustomer2 = "INSERT INTO _customer VALUES ('b0000000-0000-0000-0000-000000000000','John',3045,'2014-05-11 06:49:40.297',1,?,null)";
-var insertCustomer3 = "INSERT INTO _customer VALUES ('12345678-0000-0000-0000-000000000000','Yoko',8765,'2012-02-10 07:00:40.297',0,?,null)";
-var insertCustomer4 = "INSERT INTO _customer VALUES ('87654321-0000-0000-0000-000000000000','Johnny',8123,'2011-03-11 06:00:40.297',1,?,null)";
-var insertCustomer5 = "INSERT INTO _customer VALUES ('87654399-0000-0000-0000-000000000000','Paul',8125,'2011-04-11 06:00:40.297',1,?,null)";
-// var insertCustomers = insertCustomer1.concat(insertCustomer2, insertCustomer3, insertCustomer4, insertCustomer5);
+let insertCustomer1 = "INSERT INTO _customer VALUES ('a0000000-0000-0000-0000-000000000000','George',177,'2003-04-12 04:05:06',0,?, '[\"foo\", 1, {\"bar\": true}]')";
+let insertCustomer1 = "INSERT INTO _customer VALUES ('a0000000-0000-0000-0000-000000000000','George',177,'2003-04-12 04:05:06',0,?, '[\"foo\", 1, {\"bar\": true}]')";
+let insertCustomer2 = "INSERT INTO _customer VALUES ('b0000000-0000-0000-0000-000000000000','John',3045,'2014-05-11 06:49:40.297',1,?,null)";
+let insertCustomer3 = "INSERT INTO _customer VALUES ('12345678-0000-0000-0000-000000000000','Yoko',8765,'2012-02-10 07:00:40.297',0,?,null)";
+let insertCustomer4 = "INSERT INTO _customer VALUES ('87654321-0000-0000-0000-000000000000','Johnny',8123,'2011-03-11 06:00:40.297',1,?,null)";
+let insertCustomer5 = "INSERT INTO _customer VALUES ('87654399-0000-0000-0000-000000000000','Paul',8125,'2011-04-11 06:00:40.297',1,?,null)";
+// let insertCustomers = insertCustomer1.concat(insertCustomer2, insertCustomer3, insertCustomer4, insertCustomer5);
 
-var insertUser1 = ["INSERT INTO _user VALUES ('87654400-0000-0000-0000-000000000000','paul','secretPassword','paul@mccartney.net')"];
-var insertUser2 = ["INSERT INTO _user VALUES ('97654400-0000-0000-0000-000000000000','john','myPassword','john@lennon.net')"];
-var insertUsers = insertUser1.concat(insertUser2);
+let insertUser1 = ["INSERT INTO _user VALUES ('87654400-0000-0000-0000-000000000000','paul','secretPassword','paul@mccartney.net')"];
+let insertUser2 = ["INSERT INTO _user VALUES ('97654400-0000-0000-0000-000000000000','john','myPassword','john@lennon.net')"];
+let insertUsers = insertUser1.concat(insertUser2);
 
-var insertOrders = [
+let insertOrders = [
     "INSERT INTO _order VALUES ('a0000000-a000-0000-0000-000000000000','1000', 'a0000000-0000-0000-0000-000000000000')",
     "INSERT INTO _order VALUES ('b0000000-b000-0000-0000-000000000000','1001', 'b0000000-0000-0000-0000-000000000000')",
     "INSERT INTO _order VALUES ('c0000000-c000-0000-0000-000000000000','1002', null)",
@@ -39,7 +39,7 @@ var insertOrders = [
     "INSERT INTO _order VALUES ('d0000000-e000-0000-0000-000000000000','1004', 'a0000000-0000-0000-0000-000000000000')",
     "INSERT INTO _compositeOrder VALUES (1,1001, null)"
 ];
-var insertOrderLines = [
+let insertOrderLines = [
     "INSERT INTO _orderLine VALUES ('a0000000-a000-1000-0000-000000000000','a0000000-a000-0000-0000-000000000000','Bicycle')",
     "INSERT INTO _orderLine VALUES ('a0000000-a000-1001-0000-000000000000','a0000000-a000-0000-0000-000000000000','A small car')",
     "INSERT INTO _orderLine VALUES ('a0000000-a000-2000-0000-000000000000','a0000000-a000-0000-0000-000000000000','Skateboard')",
@@ -50,10 +50,10 @@ var insertOrderLines = [
     "INSERT INTO _compositeOrderLine VALUES (1,1001,1,'Free lunch')",
     "INSERT INTO _compositeOrderLine VALUES (1,1001,2,'Guide to the galaxy')"
 ];
-var insertDeliveryAddress = ["INSERT INTO _deliveryAddress values ('dddddddd-0000-0000-0000-000000000000','b0000000-b000-0000-0000-000000000000', 'Lars-Erik Roald', 'Node Street 1', '7030', 'Trondheim', 'NO', 'Norway')"]
+let insertDeliveryAddress = ["INSERT INTO _deliveryAddress values ('dddddddd-0000-0000-0000-000000000000','b0000000-b000-0000-0000-000000000000', 'Lars-Erik Roald', 'Node Street 1', '7030', 'Trondheim', 'NO', 'Norway')"]
 
-var insertSql = [].concat(insertOrders, insertOrderLines, insertDeliveryAddress, insertUsers);
-// var queries = [].concat(createSql);
+let insertSql = [].concat(insertOrders, insertOrderLines, insertDeliveryAddress, insertUsers);
+// let queries = [].concat(createSql);
 
 function createBuffers() {
     buffer = Buffer.from([1, 2, 3]);
@@ -61,10 +61,10 @@ function createBuffers() {
 }
 
 function insert(onSuccess, onFailed) {
-    var client = new sqlite.Database(conString);
+    let client = new sqlite.Database(conString);
 
     client.serialize(function() {
-        for (var i = 0; i < createSql.length; i++) {
+        for (let i = 0; i < createSql.length; i++) {
             client.run(createSql[i]);
         }
 
@@ -73,8 +73,8 @@ function insert(onSuccess, onFailed) {
         client.run(insertCustomer3, buffer2);
         client.run(insertCustomer4, buffer2);
         client.run(insertCustomer5, buffer2);
-        var query;
-        for (var i = 0; i < insertSql.length; i++) {
+        let query;
+        for (let i = 0; i < insertSql.length; i++) {
             if (i === insertSql.length - 1)
                 // client.run(insertSql[i], onLastQueryDone);
                 client.run("select order_0.lId as sorder_00,order_0.lproduct as sorder_01,order_0.lOrderId as sorder_02 from _orderLine order_0 where order_0.lOrderId IN (select * from (select _order.oid as sorder0 from _order _order where _order.oorderno like '%00%' order by _order.oCustomerId desc limit 3) sub);", onLastQueryDone);
@@ -95,7 +95,7 @@ function insert(onSuccess, onFailed) {
 }
 // insert(onOk, onError);
 
-// var resetOnce = new promise(insert);
+// let resetOnce = new promise(insert);
 // resetOnce.then(onOk,onError);
 
 // function onOk() {
@@ -111,7 +111,7 @@ function insert(onSuccess, onFailed) {
 //     return resetOnce;
 // };
 
-var resetOnce = new promise(insert);
+let resetOnce = new promise(insert);
 // resetOnce.then(onOk, onError);
 
 function onOk(row) {

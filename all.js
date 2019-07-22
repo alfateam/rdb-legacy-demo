@@ -1,3 +1,5 @@
+let promise;
+
 run('./connect');
 run('./filtering/equal');
 run('./filtering/notEqual');
@@ -74,10 +76,9 @@ function onError(e) {
 	console.log(e);
 }
 
-var promise;
 
 function run(module) {
-	if (promise) 
+	if (promise)
 		promise = promise.then(function() {
 			return require(module);
 		});

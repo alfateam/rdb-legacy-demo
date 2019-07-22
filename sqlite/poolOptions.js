@@ -1,7 +1,7 @@
-var rdb = require('rdb');
+let rdb = require('rdb');
 
-var poolOptions = {size: 20};
-var db = rdb.sqlite(__dirname + '/db/rdbDemo', poolOptions);
+let poolOptions = {size: 20};
+let db = rdb.sqlite(__dirname + '/db/rdbDemo', poolOptions);
 
 module.exports = db.transaction()
     .then(rdb.commit)

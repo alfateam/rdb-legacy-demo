@@ -1,13 +1,13 @@
-var rdb = require('rdb'),
+let rdb = require('rdb'),
     resetDemo = require('../db/resetDemo');
 
-var Customer = rdb.table('_customer');
+let Customer = rdb.table('_customer');
 
 Customer.primaryColumn('cId').guid().as('id');
 Customer.column('cBalance').numeric().as('balance');
 Customer.column('cName').string().as('name');
 
-var db = rdb.sqlite(__dirname + '/../db/rdbDemo');
+let db = rdb.sqlite(__dirname + '/../db/rdbDemo');
 
 
 module.exports = resetDemo()
@@ -19,7 +19,7 @@ module.exports = resetDemo()
     .then(onOk, onFailed);
 
 function getFilteredCustomers() {
-    var filter = Customer.balance.between(3000, 8123);
+    let filter = Customer.balance.between(3000, 8123);
     return Customer.getMany(filter);
 }
 

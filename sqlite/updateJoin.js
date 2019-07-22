@@ -1,8 +1,8 @@
-var rdb = require('rdb'),
+let rdb = require('rdb'),
     resetDemo = require('./db/resetDemo');
 
-var Customer = rdb.table('_customer');
-var Order = rdb.table('_order');
+let Customer = rdb.table('_customer');
+let Order = rdb.table('_order');
 
 Customer.primaryColumn('cId').guid().as('id');
 Customer.column('cName').string().as('name');
@@ -13,7 +13,7 @@ Order.column('oCustomerId').guid().as('customerId');
 
 Order.join(Customer).by('oCustomerId').as('customer');
 
-var db = rdb.sqlite(__dirname + '/db/rdbDemo');
+let db = rdb.sqlite(__dirname + '/db/rdbDemo');
 
 module.exports = resetDemo()
     .then(db.transaction)
@@ -29,9 +29,9 @@ function getById() {
 }
 
 function update(order) {
-    var yokoId = '12345678-0000-0000-0000-000000000000';
+    let yokoId = '12345678-0000-0000-0000-000000000000';
     order.customerId = yokoId;
-    return order.customer; 
+    return order.customer;
 }
 
 function verifyUpdated(customer) {

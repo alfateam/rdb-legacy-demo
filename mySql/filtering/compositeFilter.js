@@ -1,10 +1,10 @@
-const resetDemo = require('../db/resetDemo');
-const rdb = require('rdb');
-const inspect = require('util').inspect;
+let resetDemo = require('../db/resetDemo');
+let rdb = require('rdb');
+let inspect = require('util').inspect;
 
-const Order = rdb.table('_order');
-const Customer = rdb.table('_customer');
-const OrderLine = rdb.table('_orderLine');
+let Order = rdb.table('_order');
+let Customer = rdb.table('_customer');
+let OrderLine = rdb.table('_orderLine');
 
 Order.primaryColumn('oId').guid().as('id');
 Order.column('oCustomerId').guid().as('customerId');
@@ -21,10 +21,10 @@ OrderLine.column('lProduct').string().as('product');
 
 Order.join(Customer).by('oCustomerId').as('customer');
 
-const line_order_relation = OrderLine.join(Order).by('lOrderId').as('order');
+let line_order_relation = OrderLine.join(Order).by('lOrderId').as('order');
 Order.hasMany(line_order_relation).as('lines');
 
-const db = rdb('mysql://root@localhost/rdbDemo?multipleStatements=true');
+let db = rdb('mysql://root@localhost/rdbDemo?multipleStatements=true');
 
 module.exports = async function() {
     try {

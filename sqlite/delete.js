@@ -1,7 +1,7 @@
-var rdb = require('rdb'),
+let rdb = require('rdb'),
     resetDemo = require('./db/resetDemo');
 
-var Customer = rdb.table('_customer');
+let Customer = rdb.table('_customer');
 
 Customer.primaryColumn('cId').guid().as('id');
 Customer.column('cName').string().as('name');
@@ -10,7 +10,7 @@ Customer.column('cRegdate').date().as('registeredDate');
 Customer.column('cIsActive').boolean().as('isActive');
 Customer.column('cPicture').binary().as('picture');
 
-var db = rdb.sqlite(__dirname + '/db/rdbDemo');
+let db = rdb.sqlite(__dirname + '/db/rdbDemo');
 rdb.log(console.log);
 module.exports = resetDemo()
     .then(db.transaction)
@@ -20,7 +20,7 @@ module.exports = resetDemo()
     .then(null, rdb.rollback)
     .then(onOk, onFailed);
 
-function getById() {    
+function getById() {
     return Customer.getById('87654321-0000-0000-0000-000000000000');
 }
 
