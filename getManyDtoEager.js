@@ -1,9 +1,9 @@
-var rdb = require('rdb'),
-    inspect = require('util').inspect;
+let rdb = require('rdb'),
     resetDemo = require('./db/resetDemo');
+let inspect = require('util').inspect;
 
-var Order = rdb.table('_order');
-var OrderLine = rdb.table('_orderLine');
+let Order = rdb.table('_order');
+let OrderLine = rdb.table('_orderLine');
 
 Order.primaryColumn('oId').guid().as('id');
 Order.column('oOrderNo').string().as('orderNo');
@@ -12,35 +12,21 @@ OrderLine.primaryColumn('lId').guid().as('id');
 OrderLine.column('lOrderId').guid().as('orderId');
 OrderLine.column('lProduct').string().as('product');
 
-var line_order_relation = OrderLine.join(Order).by('lOrderId').as('order');
+let line_order_relation = OrderLine.join(Order).by('lOrderId').as('order');
 Order.hasMany(line_order_relation).as('lines');
 
-var db = rdb('postgres://rdb:rdb@localhost/rdbdemo');
+let db = rdb('postgres://rdb:rdb@localhost/rdbdemo');
 
-module.exports = resetDemo()
-    .then(db.transaction)
-    .then(getAllOrders)
-    .then(printOrders)
-    .then(rdb.commit)
-    .then(null, rdb.rollback)
-    .then(onOk, onFailed);
-
-function getAllOrders() {
-    var emptyFilter;
-    var strategy = {lines : null};
-    return Order.getManyDto(emptyFilter, strategy);
-}
-
-function printOrders(orders) {
-    console.log(inspect(orders, false, 10));    
-}
-
-function onOk() {
-    console.log('Success');
-    console.log('Waiting for connection pool to teardown....');
-}
-
-function onFailed(err) {
-    console.log('Rollback');
-    console.log(err);
-}
+module.exports = async function() {
+    try {
+        await resetDemo();
+        await db.transaction(async () => {
+            let emptyFilter;
+            let strategy = {lines : null};
+            let orders = await Order.getManyDto(emptyFilter, strategy);
+            console.log(inspect(orders, false, 10));
+        });
+    } catch (e) {
+        console.log(e.stack);
+    }
+}();
