@@ -1,46 +1,28 @@
-var rdb = require('rdb'),
+let rdb = require('rdb'),
     resetDemo = require('./db/resetDemo');
-rdb.log(console.log);
 
-var Order = rdb.table('_jOrder');
+let Order = rdb.table('_jOrder');
 
 Order.primaryColumn('oId').guid().as('id');
-Order.column('oData').string().as('data'); // Contains JSON data
+Order.column('oData').json().as('data');
 
-var db = rdb('postgres://rdb:rdb@localhost/rdbdemo');
+let db = rdb('postgres://rdb:rdb@localhost/rdbdemo');
 
-module.exports = resetDemo()
-    .then(db.transaction)
-    .then(getOrder)
-    .then(printOrders)
-    .then(rdb.commit)
-    .then(null, rdb.rollback)
-    .then(onOk, onFailed);
+module.exports = async function() {
+    try {
 
-function getOrder() {
-    var strategy = {
-        orderBy: ['data->\'orderNo\''] 
-        //alternative: orderBy: ['data->>\'orderId\' asc']
-    };
-    return Order.getMany(null, strategy);
-}
-
-function printOrders(orders) {
-    orders.forEach(printOrder);
-
-    function printOrder(order) {
-        var format = 'Order Id: %s, Order Data: %s'; 
-        var args = [format, order.id, JSON.stringify(order.data)];
-        console.log.apply(null,args);
+        await resetDemo();
+        await db.transaction(async () => {
+            let strategy = {
+                orderBy: ['data->\'orderNo\'']
+                //alternative: orderBy: ['data->>\'orderId\' asc']
+            };
+            let orders = await Order.getMany(null, strategy);
+            let dtos = await orders.toDto();
+            console.log(dtos);
+        });
     }
-}
-
-function onOk() {
-    console.log('Success');
-    console.log('Waiting for connection pool to teardown....');
-}
-
-function onFailed(err) {
-    console.log('Rollback');
-    console.log(err);
-}
+    catch (e) {
+        console.log(e.stack);
+    }
+}();

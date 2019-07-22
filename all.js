@@ -44,6 +44,8 @@ run('./toJSON');
 run('./toJSONWithStrategy');
 run('./getMany');
 run('./getManyDto');
+run('./getManyWithOrderByJsonb');
+run('./getManyWithOrderByJsonbDesc');
 run('./getManyLazy');
 run('./getManyEager');
 run('./getManyDtoEager');
