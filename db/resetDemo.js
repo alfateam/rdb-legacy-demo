@@ -4,19 +4,23 @@ let conString = require('./connectionString');
 let pg = require('pg');
 let mySql = require('mysql');
 
-// let drop = "DROP TABLE IF EXISTS _compositeOrderLine;DROP TABLE IF EXISTS _compositeOrder;DROP TABLE IF EXISTS _deliveryAddress;DROP TABLE IF EXISTS _orderLine;DROP TABLE IF EXISTS _order;DROP TABLE IF EXISTS _customer;"
-let drop = 'drop schema public cascade;create schema public;'
-let createCustomer = "CREATE TABLE _customer (cId uuid PRIMARY KEY, cName varchar(40), cBalance numeric, cRegdate timestamp with time zone, cIsActive boolean, cPicture bytea, cDocument JSON);"
-let createUser = "CREATE TABLE _user (uId uuid PRIMARY KEY, uUserId varchar(40), uPassword varchar(40), uEmail varchar(100));"
-let createOrder = "CREATE TABLE _order (oId uuid PRIMARY KEY, oOrderNo varchar(20), oCustomerId uuid  REFERENCES _customer);"
-let createOrderLine = "CREATE TABLE _orderLine (lId uuid PRIMARY KEY, lOrderId uuid REFERENCES _order, lProduct varchar(40));"
-let createCompositeOrder = "CREATE TABLE _compositeOrder (oCompanyId numeric, oOrderNo numeric, oCustomerId uuid  REFERENCES _customer, PRIMARY KEY (oCompanyId,oOrderNo));";
-let createCompositeOrderLine = "CREATE TABLE _compositeOrderLine (lCompanyId numeric, lOrderNo numeric, lLineNo numeric, lProduct varchar(40), PRIMARY KEY (lCompanyId,lOrderNo, lLineNo));";
-let createDeliveryAddress = "CREATE TABLE _deliveryAddress (dId uuid PRIMARY KEY, dOrderId uuid REFERENCES _order, dName varchar(100), dStreet varchar(200), dPostalCode varchar(50), dPostalPlace varchar(200), dCountryCode varchar(2), dCountry varchar(100));";
+//var drop = "DROP TABLE IF EXISTS _compositeOrderLine;DROP TABLE IF EXISTS _compositeOrder;DROP TABLE IF EXISTS _deliveryAddress;DROP TABLE IF EXISTS _orderLine;DROP TABLE IF EXISTS _order;DROP TABLE IF EXISTS _customer;"
+//sudo su postgres
+//psql
+//alter role rdb with superuser;
+var drop = 'drop schema public cascade;create schema public;'
+var createCustomer = "CREATE TABLE _customer (cId uuid PRIMARY KEY, cName varchar(40), cBalance numeric, cRegdate timestamp with time zone, cIsActive boolean, cPicture bytea, cDocument JSON);"
+var createUser = "CREATE TABLE _user (uId uuid PRIMARY KEY, uUserId varchar(40), uPassword varchar(40), uEmail varchar(100));"
+var createOrder = "CREATE TABLE _order (oId uuid PRIMARY KEY, oOrderNo varchar(20), oCustomerId uuid  REFERENCES _customer);"
+var createOrderLine = "CREATE TABLE _orderLine (lId uuid PRIMARY KEY, lOrderId uuid REFERENCES _order, lProduct varchar(40));"
+var createCompositeOrder = "CREATE TABLE _compositeOrder (oCompanyId numeric, oOrderNo numeric, oCustomerId uuid  REFERENCES _customer, PRIMARY KEY (oCompanyId,oOrderNo));";
+var createCompositeOrderLine = "CREATE TABLE _compositeOrderLine (lCompanyId numeric, lOrderNo numeric, lLineNo numeric, lProduct varchar(40), PRIMARY KEY (lCompanyId,lOrderNo, lLineNo));";
+var createDeliveryAddress = "CREATE TABLE _deliveryAddress (dId uuid PRIMARY KEY, dOrderId uuid REFERENCES _order, dName varchar(100), dStreet varchar(200), dPostalCode varchar(50), dPostalPlace varchar(200), dCountryCode varchar(2), dCountry varchar(100));";
+var createJsonOrder = "CREATE TABLE _jOrder (oId uuid PRIMARY KEY, oData jsonb);"
 
-let createSql = drop + createCustomer + createOrder + createOrderLine + createDeliveryAddress + createCompositeOrder +  createCompositeOrderLine + createUser;
-let buffer;
-let buffer2;
+var createSql = drop + createCustomer + createOrder + createOrderLine + createDeliveryAddress + createCompositeOrder +  createCompositeOrderLine + createUser + createJsonOrder;
+var buffer;
+var buffer2;
 
 createBuffers();
 
@@ -48,9 +52,16 @@ let insertOrderLines =
     "INSERT INTO _orderLine VALUES ('b0000000-b000-3100-0000-000000000000','b0000000-d000-0000-0000-000000000000','A yellow submarine');" +
     "INSERT INTO _compositeOrderLine VALUES (1,1001,1,'Free lunch');" +
     "INSERT INTO _compositeOrderLine VALUES (1,1001,2,'Guide to the galaxy');";
-let insertDeliveryAddress = "INSERT INTO _deliveryAddress values ('dddddddd-0000-0000-0000-000000000000','b0000000-b000-0000-0000-000000000000', 'Lars-Erik Roald', 'Node Street 1', '7030', 'Trondheim', 'NO', 'Norway');"
+var insertDeliveryAddress = "INSERT INTO _deliveryAddress values ('dddddddd-0000-0000-0000-000000000000','b0000000-b000-0000-0000-000000000000', 'Lars-Erik Roald', 'Node Street 1', '7030', 'Trondheim', 'NO', 'Norway');"
 
-let insertSql = insertCustomers + insertOrders + insertOrderLines + insertDeliveryAddress + insertUsers;
+var insertJsonOrders =
+    "INSERT INTO _jOrder VALUES ('a0000000-a000-0000-0000-000000000000','{\"orderNo\":1000, \"customerId\":\"a0000000-0000-0000-0000-000000000000\"}');" +
+    "INSERT INTO _jOrder VALUES ('b0000000-b000-0000-0000-000000000000','{\"orderNo\":1001, \"customerId\":\"b0000000-0000-0000-0000-000000000000\"}');" +
+    "INSERT INTO _jOrder VALUES ('c0000000-c000-0000-0000-000000000000','{\"orderNo\":200, \"customerId\":null}');" +
+    "INSERT INTO _jOrder VALUES ('b0000000-d000-0000-0000-000000000000','{\"orderNo\":1003, \"customerId\":\"87654399-0000-0000-0000-000000000000\"}');" +
+    "INSERT INTO _jOrder VALUES ('d0000000-e000-0000-0000-000000000000','{\"orderNo\":1004, \"customerId\":\"a0000000-0000-0000-0000-000000000000\"}');" ;
+
+var insertSql = insertCustomers + insertOrders + insertOrderLines + insertDeliveryAddress + insertUsers + insertJsonOrders;
 
 function createBuffers() {
     buffer = newBuffer([1, 2, 3]);
