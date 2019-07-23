@@ -1,7 +1,7 @@
 let rdb = require('rdb');
 
 let dbPg = rdb('postgres://rdb:rdb@localhost/rdbdemo');
-let dbMySql = rdb.mySql('mysql://root@localhost/rdbDemo?multipleStatements=true');
+let dbMySql = rdb('mysql://root@localhost/rdbDemo?multipleStatements=true');
 
 module.exports = async function () {
     try {

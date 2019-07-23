@@ -13,13 +13,11 @@ let db = rdb('mysql://root@localhost/rdbDemo?multipleStatements=true');
 module.exports = async function() {
     try {
         await resetDemo();
-        await db.transaction();
-        let customer = await Customer.getById('a0000000-0000-0000-0000-000000000000');
-        customer.name = 'Ringo';
-        rdb.commit();
-        console.log('Waiting for connection pool to teardown....');
+        await db.transaction(async () => {
+            let customer = await Customer.getById('a0000000-0000-0000-0000-000000000000');
+            customer.name = 'Ringo';
+        });
     } catch (e) {
         console.log(e.stack);
-        rdb.rollback();
     }
 }();

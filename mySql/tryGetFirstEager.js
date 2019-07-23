@@ -18,16 +18,14 @@ let db = rdb('mysql://root@localhost/rdbDemo?multipleStatements=true');
 module.exports = async function() {
     try {
         await resetDemo();
-        await db.transaction();
-        let filter = Order.customer.name.equal('John');
-        let strategy = { customer: null };
-        let order = await Order.tryGetFirst(filter, strategy);
-        if (order)
-            console.log(await order.toDto());
-        await rdb.commit();
-        console.log('Waiting for connection pool to teardown....');
+        await db.transaction(async () => {
+            let filter = Order.customer.name.equal('John');
+            let strategy = { customer: null };
+            let order = await Order.tryGetFirst(filter, strategy);
+            if (order)
+                console.log(await order.toDto());
+        });
     } catch (e) {
         console.log(e.stack);
-        rdb.rollback();
     }
 }();

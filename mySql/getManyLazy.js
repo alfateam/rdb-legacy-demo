@@ -1,5 +1,4 @@
 let rdb = require('rdb');
-let promise = require('promise/domains');
 let resetDemo = require('./db/resetDemo');
 let inspect = require('util').inspect;
 
@@ -21,14 +20,12 @@ let db = rdb('mysql://root@localhost/rdbDemo?multipleStatements=true');
 module.exports = async function() {
     try {
         await resetDemo();
-        await db.transaction();
-        let orders = await Order.getMany();
-        let dtos = await orders.toDto();
-        console.log(inspect(dtos, false, 10));
-        await rdb.commit();
-        console.log('Waiting for connection pool to teardown....');
+        await db.transaction(async () => {
+            let orders = await Order.getMany();
+            let dtos = await orders.toDto();
+            console.log(inspect(dtos, false, 10));
+        });
     } catch (e) {
         console.log(e.stack);
-        rdb.rollback();
     }
 }();

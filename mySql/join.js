@@ -17,14 +17,11 @@ let db = rdb('mysql://root@localhost/rdbDemo?multipleStatements=true');
 module.exports = async function() {
     try {
         await resetDemo();
-        await db.transaction();
-        let order = await Order.getById('a0000000-a000-0000-0000-000000000000');
-        let customer = await order.customer;
-        console.log(await order.toJSON({customer: null}));
-        await rdb.commit();
-        console.log('Waiting for connection pool to teardown....');
+        await db.transaction(async () => {
+            let order = await Order.getById('a0000000-a000-0000-0000-000000000000');
+            console.log(await order.toJSON({customer: null}));
+        });
     } catch (e) {
         console.log(e.stack);
-        rdb.rollback();
     }
 }();

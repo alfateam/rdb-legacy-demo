@@ -22,7 +22,7 @@ DeliveryAddress.column('dOrderId').string().as('orderId');
 DeliveryAddress.column('dName').string().as('name');
 DeliveryAddress.column('dStreet').string().as('street');
 
-let order_customer_relation = Order.join(Customer).by('oCustomerId').as('customer');
+Order.join(Customer).by('oCustomerId').as('customer');
 
 let line_order_relation = OrderLine.join(Order).by('lOrderId').as('order');
 Order.hasMany(line_order_relation).as('lines');
@@ -35,20 +35,18 @@ let db = rdb('mysql://root@localhost/rdbDemo?multipleStatements=true');
 module.exports = async function() {
     try {
         await resetDemo();
-        await db.transaction();
-        let order = await Order.getById('b0000000-b000-0000-0000-000000000000');
-        let strategy = {
-            lines: {
-                orderBy: ['product']
-                //alternative: orderBy: ['product asc']
-            }
-        };
-        let dto = await order.toDto(strategy);
-        console.log(dto);
-        await rdb.commit();
-        console.log('Waiting for connection pool to teardown....');
+        await db.transaction(async () => {
+            let order = await Order.getById('b0000000-b000-0000-0000-000000000000');
+            let strategy = {
+                lines: {
+                    orderBy: ['product']
+                    //alternative: orderBy: ['product asc']
+                }
+            };
+            let dto = await order.toDto(strategy);
+            console.log(dto);
+        });
     } catch (e) {
         console.log(e.stack);
-        rdb.rollback();
     }
 }();

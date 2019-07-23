@@ -29,17 +29,15 @@ let db = rdb('mysql://root@localhost/rdbDemo?multipleStatements=true');
 module.exports = async function() {
     try {
         await resetDemo();
-        await db.transaction();
-        let isActive = Order.customer.isActive.eq(true);
-        let didOrderCar = Order.lines.product.contains('car');
-        let filter = isActive.and(didOrderCar);
-        //alternatively rdb.filter.and(isActive).and(didOrderCar);
-        let orders = await Order.getMany(filter);
-        console.log(inspect(await orders.toDto(), false, 10));
-        await rdb.commit();
-        console.log('Waiting for connection pool to teardown....');
+        await db.transaction(async () => {
+            let isActive = Order.customer.isActive.eq(true);
+            let didOrderCar = Order.lines.product.contains('car');
+            let filter = isActive.and(didOrderCar);
+            //alternatively rdb.filter.and(isActive).and(didOrderCar);
+            let orders = await Order.getMany(filter);
+            console.log(inspect(await orders.toDto(), false, 10));
+        });
     } catch (e) {
         console.log(e.stack);
-        rdb.rollback();
     }
 }();

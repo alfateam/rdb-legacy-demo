@@ -1,5 +1,5 @@
-let rdb = require('rdb');
-let resetDemo = require('./db/resetDemo');
+let rdb = require('rdb'),
+    resetDemo = require('./db/resetDemo');
 let inspect = require('util').inspect;
 
 let Order = rdb.table('_order');
@@ -20,19 +20,13 @@ let db = rdb('mysql://root@localhost/rdbDemo?multipleStatements=true');
 module.exports = async function() {
     try {
         await resetDemo();
-        let emptyFilter;
-        let strategy = {
-            lines: {
-                orderBy: ['product']
-            },
-            orderBy: ['orderNo']
-        };
-        await Order.createReadStream(db, emptyFilter, strategy).on('data', printOrder);
+        await db.transaction(async () => {
+            let emptyFilter;
+            let strategy = {lines : null};
+            let orders = await Order.getManyDto(emptyFilter, strategy);
+            console.log(inspect(orders, false, 10));
+        });
     } catch (e) {
         console.log(e.stack);
     }
 }();
-
-function printOrder(order) {
-    console.log(inspect(order, false, 10));
-}

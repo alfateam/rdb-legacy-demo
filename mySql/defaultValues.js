@@ -1,7 +1,7 @@
 let rdb = require('rdb');
 let resetDemo = require('./db/resetDemo');
 
-let buf = Buffer.from(10);
+let buf = Buffer.alloc(10);
 buf.write('\u00bd + \u00bc = \u00be', 0);
 
 let Customer = rdb.table('_customer');
@@ -28,13 +28,11 @@ let db = rdb('mysql://root@localhost/rdbDemo?multipleStatements=true');
 module.exports = async function() {
     try {
         await resetDemo();
-        await db.transaction();
-        let customer = Customer.insert('abcdef02-0000-0000-0000-000000000000')
-        console.log(await customer.toDto());
-        await rdb.commit();
-        console.log('Waiting for connection pool to teardown....');
+        await db.transaction(async () => {
+            let customer = Customer.insert('abcdef02-0000-0000-0000-000000000000')
+            console.log(await customer.toDto());
+        });
     } catch (e) {
         console.log(e.stack);
-        rdb.rollback();
     }
 }();

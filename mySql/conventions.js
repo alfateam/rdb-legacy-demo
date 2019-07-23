@@ -11,14 +11,12 @@ let db = rdb('mysql://root@localhost/rdbDemo?multipleStatements=true');
 module.exports = async function() {
     try {
         await resetDemo();
-        await db.transaction();
-        let customer = Customer.insert('abcdef01-0000-0000-0000-000000000000')
-        customer.cName = 'Paul';
-        console.log(await customer.toDto());
-        await rdb.commit();
-        console.log('Waiting for connection pool to teardown....');
+        await db.transaction(async () => {
+            let customer = Customer.insert('abcdef01-0000-0000-0000-000000000000')
+            customer.cName = 'Paul';
+            console.log(await customer.toDto());
+        });
     } catch (e) {
         console.log(e.stack);
-        rdb.rollback();
     }
 }();

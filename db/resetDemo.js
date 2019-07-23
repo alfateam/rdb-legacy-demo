@@ -2,7 +2,6 @@ let fs = require('fs');
 let promise = require('promise/domains');
 let conString = require('./connectionString');
 let pg = require('pg');
-let mySql = require('mysql');
 
 //var drop = "DROP TABLE IF EXISTS _compositeOrderLine;DROP TABLE IF EXISTS _compositeOrder;DROP TABLE IF EXISTS _deliveryAddress;DROP TABLE IF EXISTS _orderLine;DROP TABLE IF EXISTS _order;DROP TABLE IF EXISTS _customer;"
 //sudo su postgres

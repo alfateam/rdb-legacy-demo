@@ -1,6 +1,5 @@
 let rdb = require('rdb');
 let resetDemo = require('./db/resetDemo');
-let promise = require('promise/domains');
 
 let Customer = rdb.table('_customer');
 Customer.primaryColumn('cId').guid().as('id');
@@ -15,43 +14,28 @@ module.exports = async function() {
         await showBalance();
         await updateConcurrently();
         await showBalance();
-        console.log('Waiting for connection pool to teardown....');
     } catch (e) {
         console.log(e.stack);
-        rdb.rollback();
     }
 }();
 
-async function showBalance() {
-    try {
-        await db.transaction();
-        let customer = await getById();
+function showBalance() {
+    return db.transaction(async () => {
+        let customer = await Customer.getById('a0000000-0000-0000-0000-000000000000');
         console.log('Balance: ' + customer.balance);
-        await rdb.commit();
-    } catch (e) {
-        rdb.rollback();
-    }
+    });
 }
 
 function updateConcurrently() {
-    let concurrent1 = db.transaction()
-        .then(getById)
-        .then(increaseBalanceBy100)
-        .then(rdb.commit)
-        .then(null, rdb.rollback);
+    let concurrent1 = db.transaction(async () => {
+        let customer = await Customer.getById('a0000000-0000-0000-0000-000000000000');
+        customer.balance += 100;
+    });
 
-    let concurrent2 = db.transaction()
-        .then(getById)
-        .then(increaseBalanceBy100)
-        .then(rdb.commit)
-        .then(null, rdb.rollback);
-    return promise.all([concurrent1, concurrent2]);
-}
+    let concurrent2 = db.transaction(async () => {
+        let customer = await Customer.getById('a0000000-0000-0000-0000-000000000000');
+        customer.balance += 100;
+    });
 
-function getById() {
-    return Customer.getById('a0000000-0000-0000-0000-000000000000');
-}
-
-function increaseBalanceBy100(customer) {
-    customer.balance += 100;
+    return Promise.all([concurrent1, concurrent2]);
 }

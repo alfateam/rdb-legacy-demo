@@ -39,8 +39,12 @@ run('./serializable');
 run('./toJSON');
 run('./toJSONWithStrategy');
 run('./getMany');
+run('./getManyDto');
+run('./getManyWithOrderByJsonb');
+run('./getManyWithOrderByJsonbDesc');
 run('./getManyLazy');
 run('./getManyEager');
+run('./getManyDtoEager');
 run('./manyToDto');
 run('./manyToDtoWithStrategy');
 run('./manyToJSON');
@@ -71,6 +75,7 @@ promise.then(null,onError);
 function onError(e) {
 	console.log(e);
 }
+
 
 function run(module) {
 	if (promise)
