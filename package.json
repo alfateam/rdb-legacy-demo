@@ -13,6 +13,7 @@
         "pg",
         "rdb"
     ],
+    "license": "ISC",
     "dependencies": {
         "mysql": "^2.17.1",
         "pg": "^7.10.0",
