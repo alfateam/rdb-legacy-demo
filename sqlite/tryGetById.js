@@ -1,5 +1,5 @@
-let rdb = require('rdb'),
-    resetDemo = require('./db/resetDemo');
+let rdb = require('rdb');
+let resetDemo = require('./db/resetDemo');
 
 let Customer = rdb.table('_customer');
 
@@ -12,33 +12,14 @@ Customer.column('cPicture').binary().as('picture');
 
 let db = rdb.sqlite(__dirname + '/db/rdbDemo');
 
-module.exports = resetDemo()
-    .then(db.transaction)
-    .then(tryGetById)
-    .then(printCustomer)
-    .then(rdb.commit)
-    .then(null, rdb.rollback)
-    .then(onOk, onFailed);
-
-function tryGetById() {
-    return Customer.tryGetById('a0000000-0000-0000-0000-000000000000');
-}
-
-function printCustomer(customer) {
-    if (customer) {
-
-        let format = 'Customer Id: %s, name: %s, Balance: %s, Registered Date: %s, Is Active: %s, Picture: %s';
-        let args = [format, customer.id, customer.name, customer.balance, customer.registeredDate, customer.isActive, customer.picture];
-        console.log.apply(null, args);
+module.exports = async function() {
+    try {
+        await resetDemo();
+        await db.transaction(async () => {
+            let customer = await Customer.tryGetById('a0000000-0000-0000-0000-000000000000');
+            console.log(await customer.toDto());
+        });
+    } catch (e) {
+        console.log(e.stack);
     }
-}
-
-function onOk() {
-    console.log('Success');
-    console.log('Waiting for connection pool to teardown....');
-}
-
-function onFailed(err) {
-    console.log('Rollback');
-    console.log(err);
-}
+}();

@@ -1,5 +1,5 @@
-let rdb = require('rdb'),
-    resetDemo = require('./db/resetDemo');
+let rdb = require('rdb');
+let resetDemo = require('./db/resetDemo');
 
 let Customer = rdb.table('_customer');
 
@@ -12,24 +12,14 @@ Customer.column('cPicture').binary().as('picture');
 
 let db = rdb.sqlite(__dirname + '/db/rdbDemo');
 
-module.exports = resetDemo()
-    .then(db.transaction)
-    .then(deleteCustomer)
-    .then(rdb.commit)
-    .then(null, rdb.rollback)
-    .then(onOk, onFailed);
-
-function deleteCustomer() {
-    let filter = Customer.id.eq('87654321-0000-0000-0000-000000000000');
-    return Customer.delete(filter);
-}
-
-function onOk() {
-    console.log('Success');
-    console.log('Waiting for connection pool to teardown....');
-}
-
-function onFailed(err) {
-    console.log('Rollback');
-    console.log(err.stack);
-}
+module.exports = async function() {
+    try {
+        await resetDemo();
+        await db.transaction(async () => {
+            let filter = Customer.id.eq('87654321-0000-0000-0000-000000000000');
+            await Customer.delete(filter);
+        });
+    } catch (e) {
+        console.log(e.stack);
+    }
+}();

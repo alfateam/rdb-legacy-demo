@@ -1,5 +1,5 @@
-let rdb = require('rdb'),
-    resetDemo = require('../db/resetDemo');
+let rdb = require('rdb');
+let resetDemo = require('../db/resetDemo');
 
 let Customer = rdb.table('_customer');
 
@@ -10,36 +10,17 @@ Customer.column('cName').string().as('name');
 
 let db = rdb.sqlite(__dirname + '/../db/rdbDemo');
 
-
-module.exports = resetDemo()
-    .then(db.transaction)
-    .then(getFilteredCustomers)
-    .then(printCustomers)
-    .then(rdb.commit)
-    .then(null, rdb.rollback)
-    .then(onOk, onFailed);
-
-function getFilteredCustomers() {
-    let isActive = Customer.isActive.equal(true);
-    let highBalance = Customer.balance.greaterThan(8000);
-    let filter = isActive.and(highBalance);
-    return Customer.getMany(filter);
-}
-
-function printCustomers(customers) {
-    customers.forEach(printCustomer);
-
-    function printCustomer(customer) {
-        console.log('Customer Id: %s, name: %s', customer.id, customer.name);
+module.exports = async function() {
+    try {
+        await resetDemo();
+        await db.transaction(async () => {
+            let isActive = Customer.isActive.equal(true);
+            let highBalance = Customer.balance.greaterThan(8000);
+            let filter = isActive.and(highBalance);
+            let customers = await Customer.getMany(filter);
+            console.log(await customers.toDto());
+        });
+    } catch (e) {
+        console.log(e.stack);
     }
-}
-
-function onOk() {
-    console.log('Success');
-    console.log('Waiting for connection pool to teardown....');
-}
-
-function onFailed(err) {
-    console.log('Rollback');
-    console.log(err);
-}
+}();

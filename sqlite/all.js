@@ -1,3 +1,5 @@
+let promise;
+
 run('./connect');
 run('./filtering/equal');
 run('./filtering/notEqual');
@@ -37,8 +39,10 @@ run('./serializable');
 run('./toJSON');
 run('./toJSONWithStrategy');
 run('./getMany');
+// run('./getManyDto');
 run('./getManyLazy');
 run('./getManyEager');
+// run('./getManyDtoEager');
 run('./manyToDto');
 run('./manyToDtoWithStrategy');
 run('./manyToJSON');
@@ -69,7 +73,6 @@ function onError(e) {
 	console.log(e);
 }
 
-let promise;
 
 function run(module) {
 	if (promise)

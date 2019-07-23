@@ -1,19 +1,16 @@
 let rdb = require('rdb');
-
+let resetDemo = require('./db/resetDemo');
 let poolOptions = {size: 20};
+
 let db = rdb.sqlite(__dirname + '/db/rdbDemo', poolOptions);
 
-module.exports = db.transaction()
-    .then(rdb.commit)
-    .then(null, rdb.rollback)
-    .then(onOk, onFailed);
-
-function onOk() {
-    console.log('Success. Created pool with max 20 connections.');
-    console.log('Waiting for connection pool to teardown....');
-}
-
-function onFailed(err) {
-    console.log('Rollback');
-    console.log(err);
-}
+module.exports = async function() {
+    try {
+        await resetDemo();
+        await db.transaction(async () => {
+            //transaction will commit after this function
+        });
+    } catch (e) {
+        console.log(e.stack);
+    }
+}();

@@ -1,5 +1,5 @@
-let rdb = require('rdb'),
-    resetDemo = require('./db/resetDemo');
+let rdb = require('rdb');
+let resetDemo = require('./db/resetDemo');
 
 let Order = rdb.table('_compositeOrder');
 let OrderLine = rdb.table('_compositeOrderLine');
@@ -17,42 +17,16 @@ Order.hasMany(line_order_relation).as('lines');
 
 let db = rdb.sqlite(__dirname + '/db/rdbDemo');
 
-module.exports = resetDemo()
-    .then(db.transaction)
-    .then(getOrder)
-    .then(printOrder)
-    .then(printLines)
-    .then(rdb.commit)
-    .then(null, rdb.rollback)
-    .then(onOk, onFailed);
-
-function getOrder() {
-    let companyId = 1,
-        orderId = 1001;
-    return Order.getById(companyId, orderId);
-}
-
-function printOrder(order) {
-    console.log('Company Id: %s, Order No: %s', order.companyId, order.orderNo)
-    return order.lines; //this is a promise
-}
-
-function printLines(lines) {
-    lines.forEach(printLine);
-
-    function printLine(line) {
-        let format = 'Company Id: %s, Order No: %s, Line No: %s, Product: %s';
-        let args = [format, line.companyId, line.orderNo, line.lineNo, line.product];
-        console.log.apply(null,args);
+module.exports = async function() {
+    try {
+        await resetDemo();
+        await db.transaction(async () => {
+            let companyId = 1;
+            let orderId = 1001;
+            let order = await Order.getById(companyId, orderId);
+            console.log(await order.toDto());
+        });
+    } catch (e) {
+        console.log(e.stack);
     }
-}
-
-function onOk() {
-    console.log('Success');
-    console.log('Waiting for connection pool to teardown....');
-}
-
-function onFailed(err) {
-    console.log('Rollback');
-    console.log(err);
-}
+}();

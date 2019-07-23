@@ -17,35 +17,15 @@ Order.hasOne(deliveryAddress_order_relation).as('deliveryAddress');
 
 let db = rdb.sqlite(__dirname + '/../db/rdbDemo');
 
-
-module.exports = resetDemo()
-    .then(db.transaction)
-    .then(getOrders)
-    .then(toJSON)
-    .then(print)
-    .then(rdb.commit)
-    .then(null, rdb.rollback)
-    .then(onOk, onFailed);
-
-function getOrders() {
-    let filter = Order.deliveryAddress.street.startsWith('Node');
-    return Order.getMany(filter);
-}
-
-function toJSON(orders) {
-    return orders.toJSON();
-}
-
-function print(json) {
-    console.log(json);
-}
-
-function onOk() {
-    console.log('Success');
-    console.log('Waiting for connection pool to teardown....');
-}
-
-function onFailed(err) {
-    console.log('Rollback');
-    console.log(err);
-}
+module.exports = async function() {
+    try {
+        await resetDemo();
+        await db.transaction(async () => {
+            let filter = Order.deliveryAddress.street.startsWith('Node');
+            let orders = await Order.getMany(filter);
+            console.log(await orders.toDto());
+        });
+    } catch (e) {
+        console.log(e.stack);
+    }
+}();

@@ -14,12 +14,11 @@ let createCompositeOrderLine = ["CREATE TABLE _compositeOrderLine (lCompanyId NU
 let createDeliveryAddress = ["CREATE TABLE _deliveryAddress (dId TEXT PRIMARY KEY, dOrderId TEXT REFERENCES _order, dName TEXT, dStreet TEXT, dPostalCode TEXT, dPostalPlace TEXT, dCountryCode TEXT, dCountry TEXT)"];
 
 let createSql = drop.concat(createCustomer, createOrder, createOrderLine, createDeliveryAddress, createCompositeOrder, createCompositeOrderLine, createUser);
-let buffer = new Buffer([1, 2, 3]);
-let buffer2 = new Buffer([4, 5]);
+let buffer;
+let buffer2;
 
 createBuffers();
 
-let insertCustomer1 = "INSERT INTO _customer VALUES ('a0000000-0000-0000-0000-000000000000','George',177,'2003-04-12 04:05:06',0,?, '[\"foo\", 1, {\"bar\": true}]')";
 let insertCustomer1 = "INSERT INTO _customer VALUES ('a0000000-0000-0000-0000-000000000000','George',177,'2003-04-12 04:05:06',0,?, '[\"foo\", 1, {\"bar\": true}]')";
 let insertCustomer2 = "INSERT INTO _customer VALUES ('b0000000-0000-0000-0000-000000000000','John',3045,'2014-05-11 06:49:40.297',1,?,null)";
 let insertCustomer3 = "INSERT INTO _customer VALUES ('12345678-0000-0000-0000-000000000000','Yoko',8765,'2012-02-10 07:00:40.297',0,?,null)";

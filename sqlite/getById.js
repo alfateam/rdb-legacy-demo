@@ -1,5 +1,5 @@
-let rdb = require('rdb'),
-    resetDemo = require('./db/resetDemo');
+let rdb = require('rdb');
+let resetDemo = require('./db/resetDemo');
 let Customer = rdb.table('_customer');
 
 Customer.primaryColumn('cId').guid().as('id');
@@ -12,30 +12,14 @@ Customer.column('cDocument').json().as('document');
 
 let db = rdb.sqlite(__dirname + '/db/rdbDemo');
 
-module.exports = resetDemo()
-    .then(db.transaction)
-    .then(getById)
-    .then(printCustomer)
-    .then(rdb.commit)
-    .then(null, rdb.rollback)
-    .then(onOk, onFailed);
-
-function getById() {
-    return Customer.getById('a0000000-0000-0000-0000-000000000000');
-}
-
-function printCustomer(customer) {
-    let format = 'Customer Id: %s, name: %s, Balance: %s, Registered Date: %s, Is Active: %s, Picture: %s, , Document: %s';
-    let args = [format, customer.id, customer.name, customer.balance, customer.registeredDate, customer.isActive, customer.picture, JSON.stringify(customer.document)];
-    console.log.apply(null,args);
-}
-
-function onOk() {
-    console.log('Success');
-    console.log('Waiting for connection pool to teardown....');
-}
-
-function onFailed(err) {
-    console.log('Rollback');
-    console.log(err.stack);
-}
+module.exports = async function() {
+    try {
+        await resetDemo();
+        await db.transaction(async () => {
+            let customer = await Customer.getById('a0000000-0000-0000-0000-000000000000');
+            console.log(await customer.toDto());
+        });
+    } catch (e) {
+        console.log(e.stack);
+    }
+}();

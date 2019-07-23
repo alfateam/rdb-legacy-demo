@@ -1,5 +1,6 @@
-let rdb = require('rdb'),
-    resetDemo = require('./db/resetDemo');
+let rdb = require('rdb');
+let resetDemo = require('./db/resetDemo');
+let inspect = require('util').inspect;
 
 let Order = rdb.table('_order');
 let OrderLine = rdb.table('_orderLine');
@@ -16,26 +17,22 @@ Order.hasMany(line_order_relation).as('lines');
 
 let db = rdb.sqlite(__dirname + '/db/rdbDemo');
 
-let emptyFilter;
-let strategy = {
-    lines: {
-        orderBy: ['product']
-    },
-    orderBy: ['orderNo']
-};
-
-module.exports = resetDemo()
-    .then(function() {
-        Order.createReadStream(db, emptyFilter, strategy).on('data', printOrder);
-    });
+module.exports = async function() {
+    try {
+        await resetDemo();
+        let emptyFilter;
+        let strategy = {
+            lines: {
+                orderBy: ['product']
+            },
+            orderBy: ['orderNo']
+        };
+        await Order.createReadStream(db, emptyFilter, strategy).on('data', printOrder);
+    } catch (e) {
+        console.log(e.stack);
+    }
+}();
 
 function printOrder(order) {
-    let format = 'Order Id: %s, Order No: %s';
-    console.log(format, order.id, order.orderNo);
-    order.lines.forEach(printLine);
-}
-
-function printLine(line) {
-    let format = 'Line Id: %s, Order Id: %s, Product: %s';
-    console.log(format, line.id, line.orderId, line.product);
+    console.log(inspect(order, false, 10));
 }

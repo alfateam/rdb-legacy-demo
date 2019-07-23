@@ -1,5 +1,5 @@
-let rdb = require('rdb'),
-    resetDemo = require('./db/resetDemo');
+let rdb = require('rdb');
+let resetDemo = require('./db/resetDemo');
 
 let Customer = rdb.table('_customer');
 
@@ -11,29 +11,15 @@ Customer.column('cIsActive').boolean().as('isActive');
 Customer.column('cPicture').binary().as('picture');
 
 let db = rdb.sqlite(__dirname + '/db/rdbDemo');
-rdb.log(console.log);
-module.exports = resetDemo()
-    .then(db.transaction)
-    .then(getById)
-    .then(deleteCustomer)
-    .then(rdb.commit)
-    .then(null, rdb.rollback)
-    .then(onOk, onFailed);
 
-function getById() {
-    return Customer.getById('87654321-0000-0000-0000-000000000000');
-}
-
-function deleteCustomer(customer) {
-    customer.delete();
-}
-
-function onOk() {
-    console.log('Success');
-    console.log('Waiting for connection pool to teardown....');
-}
-
-function onFailed(err) {
-    console.log('Rollback');
-    console.log(err.stack);
-}
+module.exports = async function() {
+    try {
+        await resetDemo();
+        await db.transaction(async () => {
+            let customer = await Customer.getById('87654321-0000-0000-0000-000000000000');
+            await customer.delete();
+        });
+    } catch (e) {
+        console.log(e.stack);
+    }
+}();

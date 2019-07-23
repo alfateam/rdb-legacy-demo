@@ -1,5 +1,5 @@
-let rdb = require('rdb'),
-    resetDemo = require('./db/resetDemo');
+let rdb = require('rdb');
+let resetDemo = require('./db/resetDemo');
 
 let Customer = rdb.table('_customer');
 let Order = rdb.table('_order');
@@ -21,31 +21,17 @@ Customer.hasMany(orderToCustomer).as('orders');
 let line_order_relation = OrderLine.join(Order).by('lOrderId').as('order');
 Order.hasMany(line_order_relation).as('lines');
 
+
 let db = rdb.sqlite(__dirname + '/db/rdbDemo');
-rdb.log(console.log);
 
-module.exports = resetDemo()
-    .then(db.transaction)
-    .then(getById)
-    .then(deleteCustomer)
-    .then(rdb.commit)
-    .then(null, rdb.rollback)
-    .then(onOk, onFailed);
-
-function getById() {
-    return Customer.getById('87654399-0000-0000-0000-000000000000');
-}
-
-function deleteCustomer(customer) {
-    customer.cascadeDelete();
-}
-
-function onOk() {
-    console.log('Success');
-    console.log('Waiting for connection pool to teardown....');
-}
-
-function onFailed(err) {
-    console.log('Rollback');
-    console.log(err.stack);
-}
+module.exports = async function() {
+    try {
+        await resetDemo();
+        await db.transaction(async () => {
+            let customer = await Customer.getById('87654399-0000-0000-0000-000000000000');
+            await customer.cascadeDelete();
+        });
+    } catch (e) {
+        console.log(e.stack);
+    }
+}();

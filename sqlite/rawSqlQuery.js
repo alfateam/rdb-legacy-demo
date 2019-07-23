@@ -1,30 +1,16 @@
-let rdb = require('rdb'),
-    resetDemo = require('./db/resetDemo');
+let rdb = require('rdb');
+let resetDemo = require('./db/resetDemo');
 
 let db = rdb.sqlite(__dirname + '/db/rdbDemo');
 
-module.exports = resetDemo()
-    .then(db.transaction)
-    .then(getUniqueCustomerIds)
-    .then(print)
-    .then(rdb.commit)
-    .then(null, rdb.rollback)
-    .then(onOk, onFailed);
-
-function getUniqueCustomerIds() {
-    return rdb.query("SELECT json_array(1,2,'3',4)");
-}
-
-function print(rows) {
-    console.log(rows);
-}
-
-function onOk() {
-    console.log('Success');
-    console.log('Waiting for connection pool to teardown....');
-}
-
-function onFailed(err) {
-    console.log('Rollback');
-    console.log(err);
-}
+module.exports = async function() {
+    try {
+        await resetDemo();
+        await db.transaction(async () => {
+            let result = await rdb.query('SELECT DISTINCT oCustomerId AS "customerId" FROM _order');
+            console.log(result);
+        });
+    } catch (e) {
+        console.log(e.stack);
+    }
+}();

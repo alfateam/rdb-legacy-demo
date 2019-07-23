@@ -1,5 +1,6 @@
-let rdb = require('rdb'),
-    resetDemo = require('./db/resetDemo');
+let rdb = require('rdb');
+let resetDemo = require('./db/resetDemo');
+let inspect = require('util').inspect;
 
 let Customer = rdb.table('_customer');
 let Order = rdb.table('_order');
@@ -14,39 +15,17 @@ Order.join(Customer).by('oCustomerId').as('customer');
 
 let db = rdb.sqlite(__dirname + '/db/rdbDemo');
 
-module.exports = resetDemo()
-    .then(db.transaction)
-    .then(getOrderWithCustomer)
-    .then(printOrder)
-    .then(printCustomer)
-    .then(rdb.commit)
-    .then(null, rdb.rollback)
-    .then(onOk, onFailed);
-
-function getOrderWithCustomer() {
-    let fetchingStrategy = {customer : null}; //alternatively: {customer : {}}
-    return Order.getById('a0000000-a000-0000-0000-000000000000', fetchingStrategy);
-}
-
-function printOrder(order) {
-    let format = 'Order Id: %s, Order No: %s, Customer Id: %s';
-    let args = [format, order.id, order.orderNo, order.customerId];
-    console.log.apply(null,args);
-    return order.customer; //this is a promise
-}
-
-function printCustomer(customer) {
-    if (!customer)
-        return;
-    console.log('Customer Id: %s, name: %s', customer.id, customer.name);
-}
-
-function onOk() {
-    console.log('Success');
-    console.log('Waiting for connection pool to teardown....');
-}
-
-function onFailed(err) {
-    console.log('Rollback');
-    console.log(err);
-}
+module.exports = async function() {
+    try {
+        await resetDemo();
+        await db.transaction(async () => {
+            let fetchingStrategy = { customer: null }; //alternatively: {customer : {}}
+            let order = await Order.getById('a0000000-a000-0000-0000-000000000000', fetchingStrategy);
+            console.log(await order.toDto());
+            let customer = await order.customer;
+            console.log(await customer.toDto());
+        });
+    } catch (e) {
+        console.log(e.stack);
+    }
+}();

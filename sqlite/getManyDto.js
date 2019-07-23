@@ -1,20 +1,18 @@
-let rdb = require('rdb');
-let resetDemo = require('../db/resetDemo');
+let rdb = require('rdb'),
+    resetDemo = require('./db/resetDemo');
 
 let Customer = rdb.table('_customer');
 
 Customer.primaryColumn('cId').guid().as('id');
 Customer.column('cName').string().as('name');
 
-let db = rdb('mysql://root@localhost/rdbDemo?multipleStatements=true');
+let db = rdb.sqlite(__dirname + '/db/rdbDemo');
 
 module.exports = async function() {
     try {
         await resetDemo();
         await db.transaction(async () => {
-            let filter = Customer.name.iContains('oHn');
-            let customers = await Customer.getMany(filter);
-            console.log(await customers.toDto());
+            console.log(await Customer.getManyDto());
         });
     } catch (e) {
         console.log(e.stack);

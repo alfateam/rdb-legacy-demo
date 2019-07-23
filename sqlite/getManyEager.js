@@ -1,6 +1,6 @@
-let rdb = require('rdb'),
-    promise = require('promise/domains'),
-    resetDemo = require('./db/resetDemo');
+let inspect = require('util').inspect;
+let rdb = require('rdb');
+let resetDemo = require('./db/resetDemo');
 
 let Order = rdb.table('_order');
 let OrderLine = rdb.table('_orderLine');
@@ -17,49 +17,19 @@ Order.hasMany(line_order_relation).as('lines');
 
 let db = rdb.sqlite(__dirname + '/db/rdbDemo');
 
-module.exports = resetDemo()
-    .then(db.transaction)
-    .then(getAllOrders)
-    .then(printOrders)
-    .then(rdb.commit)
-    .then(null, rdb.rollback)
-    .then(onOk, onFailed);
-
-function getAllOrders() {
-    let emptyFilter;
-    let strategy = {lines : null};
-    return Order.getMany(emptyFilter, strategy);
-}
-
-function printOrders(orders) {
-    let printAllLines = [];
-    orders.forEach(printOrder);
-
-    function printOrder(order) {
-        let format = 'Order Id: %s, Order No: %s';
-        let args = [format, order.id, order.orderNo];
-        console.log.apply(null,args);
-        printAllLines.push(order.lines.then(printLines));
+module.exports = async function () {
+    try {
+        await resetDemo();
+        await db.transaction(async () => {
+            let emptyFilter;
+            let strategy = {
+                lines: null
+            };
+            let orders = await Order.getMany(emptyFilter, strategy);
+            let dtos = await orders.toDto();
+            console.log(inspect(dtos, false, 10));
+        });
+    } catch (e) {
+        console.log(e.stack);
     }
-    return promise.all(printAllLines);
-}
-
-function printLines(lines) {
-    lines.forEach(printLine);
-
-    function printLine(line) {
-        let format = 'Line Id: %s, Order Id: %s, Product: %s';
-        let args = [format, line.id, line.orderId, line.product];
-        console.log.apply(null,args);
-    }
-}
-
-function onOk() {
-    console.log('Success');
-    console.log('Waiting for connection pool to teardown....');
-}
-
-function onFailed(err) {
-    console.log('Rollback');
-    console.log(err);
-}
+}();

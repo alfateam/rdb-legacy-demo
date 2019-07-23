@@ -1,6 +1,5 @@
-let inspect = require('util').inspect;
-let rdb = require('rdb'),
-    resetDemo = require('../db/resetDemo');
+let rdb = require('rdb');
+let resetDemo = require('../db/resetDemo');
 
 let Order = rdb.table('_order');
 Order.primaryColumn('oId').guid().as('id');
@@ -18,32 +17,19 @@ Customer.hasMany(orderCustomerJoin).as('orders');
 
 let db = rdb.sqlite(__dirname + '/../db/rdbDemo');
 
-
-module.exports = resetDemo()
-    .then(db.transaction)
-    .then(getOrders)
-    .then(printOrders)
-    .then(db.commit)
-    .then(null, db.rollback)
-    .then(onOk, console.log);
-
-function getOrders() {
-    let filter = {
-        sql: 'exists (select 1 from _customer where _customer.cId = oCustomerId and _customer.cBalance > 3000 and _customer.cName LIKE ?)',
-        parameters: ['%o%']
-    };
-    return Order.getMany(filter);
-}
-
-function printOrders(orders) {
-    let strategy = {customer: null}
-    return orders.toDto(strategy).then(printDtos);
-}
-
-function printDtos(dtos) {
-    console.log(inspect(dtos,false,10));
-}
-
-function onOk() {
-    console.log('Done');
-}
+module.exports = async function() {
+    try {
+        await resetDemo();
+        await db.transaction(async () => {
+            let filter = {
+                sql: 'exists (select 1 from _customer where _customer.cId = oCustomerId and _customer.cBalance > 3000 and _customer.cName LIKE ?)',
+                parameters: ['%o%']
+            };
+            let orders = await Order.getMany(filter);
+            let strategy = { customer: null }
+            console.log(await orders.toDto(strategy));
+        });
+    } catch (e) {
+        console.log(e.stack);
+    }
+}();

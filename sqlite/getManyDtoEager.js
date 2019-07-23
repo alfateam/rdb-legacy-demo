@@ -1,5 +1,5 @@
-let rdb = require('rdb');
-let resetDemo = require('./db/resetDemo');
+let rdb = require('rdb'),
+    resetDemo = require('./db/resetDemo');
 let inspect = require('util').inspect;
 
 let Order = rdb.table('_order');
@@ -21,9 +21,10 @@ module.exports = async function() {
     try {
         await resetDemo();
         await db.transaction(async () => {
-            let orders = await Order.getMany();
-            let dtos = await orders.toDto();
-            console.log(inspect(dtos, false, 10));
+            let emptyFilter;
+            let strategy = {lines : null};
+            let orders = await Order.getManyDto(emptyFilter, strategy);
+            console.log(inspect(orders, false, 10));
         });
     } catch (e) {
         console.log(e.stack);

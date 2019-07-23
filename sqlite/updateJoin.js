@@ -1,5 +1,5 @@
-let rdb = require('rdb'),
-    resetDemo = require('./db/resetDemo');
+let rdb = require('rdb');
+let resetDemo = require('./db/resetDemo');
 
 let Customer = rdb.table('_customer');
 let Order = rdb.table('_order');
@@ -15,36 +15,17 @@ Order.join(Customer).by('oCustomerId').as('customer');
 
 let db = rdb.sqlite(__dirname + '/db/rdbDemo');
 
-module.exports = resetDemo()
-    .then(db.transaction)
-    .then(getById)
-    .then(update)
-    .then(verifyUpdated)
-    .then(rdb.commit)
-    .then(null, rdb.rollback)
-    .then(onOk, onFailed);
-
-function getById() {
-    return Order.getById('b0000000-b000-0000-0000-000000000000');
-}
-
-function update(order) {
-    let yokoId = '12345678-0000-0000-0000-000000000000';
-    order.customerId = yokoId;
-    return order.customer;
-}
-
-function verifyUpdated(customer) {
-    if (customer.name !== 'Yoko')
-        throw new Error('this will not happen');
-}
-
-function onOk() {
-    console.log('Success');
-    console.log('Waiting for connection pool to teardown....');
-}
-
-function onFailed(err) {
-    console.log('Rollback');
-    console.log(err);
-}
+module.exports = async function() {
+    try {
+        await resetDemo();
+        await db.transaction(async () => {
+            let order = await Order.getById('b0000000-b000-0000-0000-000000000000');
+            let yokoId = '12345678-0000-0000-0000-000000000000';
+            order.customerId = yokoId;
+            let customer = await order.customer;
+            console.log(customer.name);
+        });
+    } catch (e) {
+        console.log(e.stack);
+    }
+}();
