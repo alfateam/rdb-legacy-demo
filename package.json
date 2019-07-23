@@ -1,6 +1,6 @@
 {
     "name": "rdb-demo",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "main": "index.js",
     "title": "rdb-demo",
     "description": "ORM examples for npmjs.org/package/rdb",
@@ -24,6 +24,7 @@
         "type": "git",
         "url": "git@github.com:alfateam/rdb-demo.git"
     },
+    "homepage": "https://github.com/alfateam/rdb/blob/master/docs/docs.md",
     "jshintConfig": {
         "asi": true,
         "eqnull": true,
