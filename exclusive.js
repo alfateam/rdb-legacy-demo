@@ -4,7 +4,6 @@ let resetDemo = require('./db/resetDemo');
 let Customer = rdb.table('_customer');
 Customer.primaryColumn('cId').guid().as('id');
 Customer.column('cBalance').numeric().as('balance');
-Customer.exclusive();
 
 let db = rdb('postgres://rdb:rdb@localhost/rdbdemo');
 
@@ -28,12 +27,12 @@ function showBalance() {
 
 function updateConcurrently() {
     let concurrent1 = db.transaction(async () => {
-        let customer = await Customer.getById('a0000000-0000-0000-0000-000000000000');
+        let customer = await Customer.getById.exclusive('a0000000-0000-0000-0000-000000000000');
         customer.balance += 100;
     });
 
     let concurrent2 = db.transaction(async () => {
-        let customer = await Customer.getById('a0000000-0000-0000-0000-000000000000');
+        let customer = await Customer.getById.exclusive('a0000000-0000-0000-0000-000000000000');
         customer.balance += 100;
     });
 
