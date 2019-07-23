@@ -4,7 +4,6 @@ let resetDemo = require('./db/resetDemo');
 let Customer = rdb.table('_customer');
 Customer.primaryColumn('cId').guid().as('id');
 Customer.column('cBalance').numeric().as('balance');
-Customer.exclusive();
 
 let db = rdb('postgres://rdb:rdb@localhost/rdbdemo');
 
