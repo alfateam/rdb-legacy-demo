@@ -27,7 +27,7 @@ module.exports = async function() {
 			orderBy: ['orderNo'],
 			limit: 5,
 		};
-		await Order.createJSONReadStream(db, emptyFilter, strategy).pipe(process.stdout);
+		Order.createJSONReadStream(db, emptyFilter, strategy).pipe(process.stdout);
 	} catch (e) {
 		console.log(e.stack);
 	}

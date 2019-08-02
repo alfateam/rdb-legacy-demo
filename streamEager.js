@@ -27,7 +27,7 @@ module.exports = async function() {
             },
             orderBy: ['orderNo']
         };
-        await Order.createReadStream(db, emptyFilter, strategy).on('data', printOrder);
+        Order.createReadStream(db, emptyFilter, strategy).on('data', printOrder);
     } catch (e) {
         console.log(e.stack);
     }
