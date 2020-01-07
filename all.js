@@ -73,6 +73,8 @@ run('./endAllPools');
 run('./streamEager');
 run('./streamJSONEager');
 run('./logging');
+run('./jsonSchema');
+run('./validate');
 
 promise.then(null,onError);
 
