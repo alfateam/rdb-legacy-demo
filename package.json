@@ -15,10 +15,14 @@
     ],
     "license": "ISC",
     "dependencies": {
+        "body-parser": "^1.19.0",
+        "express": "^4.17.1",
         "mysql": "^2.17.1",
         "pg": "^7.10.0",
+        "pg-native": "^3.0.0",
         "promise": "^8.0.3",
-        "rdb": "^2.3.0",
+        "rdb": "^2.5.0",
+        "rfc6902": "^3.0.4",
         "sqlite3": "^4.0.9"
     },
     "repository": {
