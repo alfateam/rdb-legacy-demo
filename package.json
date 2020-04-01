@@ -1,6 +1,6 @@
 {
     "name": "rdb-demo",
-    "version": "1.1.0",
+    "version": "1.2.0",
     "main": "index.js",
     "title": "rdb-demo",
     "description": "ORM examples for npmjs.org/package/rdb",
@@ -21,7 +21,7 @@
         "pg": "^7.10.0",
         "pg-native": "^3.0.0",
         "promise": "^8.0.3",
-        "rdb": "^2.5.0",
+        "rdb": "^2.5.1",
         "rfc6902": "^3.0.4",
         "sqlite3": "^4.0.9"
     },

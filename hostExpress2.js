@@ -22,5 +22,9 @@ let app = express();
 
 app.disable('x-powered-by')
     .use(json({limit:'100mb'}))
-    .use('/orders', db.express({table: Order}))
+    .use('/orders', rdb.express({table: Order, db: getDb, defaultConcurrency: 'optimistic'}))
     app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+
+function getDb() {
+    return db;
+}

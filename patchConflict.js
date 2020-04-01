@@ -20,12 +20,16 @@ module.exports = async function() {
         await db.transaction(async () => {
             let filter = Customer.id.eq('a0000000-0000-0000-0000-000000000000');
             let original = await Customer.getManyDto(filter);
-            console.log(JSON.stringify(original));
             let customers = JSON.parse(JSON.stringify(original));
             customers[0].name = 'Ringo';
             customers[0].balance = 32;
             customers[0].registeredDate = undefined;
             customers[0].document[2].bar = 'bar changed';
+
+
+            let changedCustomer = await Customer.getById('a0000000-0000-0000-0000-000000000000');
+            changedCustomer.name = 'changedName';
+
 
             let patch = createPatch(original, customers);
             console.log(patch)
