@@ -1,6 +1,7 @@
-let createPatch = require('./createPatch');
+let {createPatch} = require('rdb-client');
 let rdb = require('rdb');
 let resetDemo = require('./db/resetDemo');
+let {inspect} = require('util')
 
 let Customer = rdb.table('_customer');
 
@@ -28,11 +29,11 @@ module.exports = async function() {
             customers[0].document[2].bar = 'bar changed';
 
             let patch = createPatch(original, customers);
-            console.log(patch)
+            console.log(inspect(patch, false, 10))
             await Customer.patch(patch);
 
             customers = await Customer.getManyDto(filter);
-            console.log(customers[0])
+            console.log(inspect(customers[0], false,10))
         });
     } catch (e) {
         console.log(e.stack);

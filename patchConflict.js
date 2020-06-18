@@ -1,4 +1,4 @@
-let createPatch = require('./createPatch');
+let {createPatch} = require('rdb-client');
 let rdb = require('rdb');
 let resetDemo = require('./db/resetDemo');
 
@@ -32,7 +32,6 @@ module.exports = async function() {
 
 
             let patch = createPatch(original, customers);
-            console.log(patch)
             await Customer.patch(patch);
 
             customers = await Customer.getManyDto(filter);

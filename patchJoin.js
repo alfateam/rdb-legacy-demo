@@ -1,4 +1,4 @@
-let createPatch = require('./createPatch');
+let {createPatch} = require('rdb-client');
 let rdb = require('rdb');
 let resetDemo = require('./db/resetDemo');
 
@@ -27,7 +27,6 @@ module.exports = async function() {
             changed[0].customerId = yokoId;
 
             let patch = createPatch(orders, changed);
-            console.log(patch);
             await Order.patch(patch);
 
             orders = await Order.getManyDto(filter, {customer: null});
