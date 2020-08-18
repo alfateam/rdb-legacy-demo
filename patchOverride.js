@@ -32,7 +32,7 @@ module.exports = async function() {
 
 
             let patch = createPatch(original, customers);
-            options = {concurrency: {name: 'overwrite'}}
+            let options = {concurrency: {name: 'overwrite'}}
             await Customer.patch(patch, options);
 
             customers = await Customer.getManyDto(filter);
