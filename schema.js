@@ -7,7 +7,6 @@ let db = rdb('postgres://rdb:rdb@localhost/rdbdemo');
 module.exports = async function() {
     try {
         await resetDemo();
-        await db.transaction();
         await db.transaction({schema: ['mySchema', 'otherSchema']}, async () => {
             //or use string for single schema );
             //transaction will commit after this function
