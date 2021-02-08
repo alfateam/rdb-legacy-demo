@@ -19,21 +19,21 @@ Order.hasMany(line_order_relation).as('lines');
 let db = rdb('postgres://rdb:rdb@localhost/rdbdemo');
 
 module.exports = async function() {
+    await resetDemo();
+    let start = new Date();
     try {
-        await resetDemo();
-        await db.transaction();
-        let start = new Date();
-        insertOrders();
-        let orders = await Order.getMany(null, { lines: null });
-        await traverse(orders);
-        await rdb.commit();
-        let elapsed = new Date() - start;
-        console.info("Execution time: %dms", elapsed);
-        console.log('Waiting for connection pool to teardown....');
+        await db.transaction(async() =>{
+            insertOrders();
+            let orders = await Order.getMany(null, { lines: null });
+            await traverse(orders);
+        } );
     } catch (e) {
         console.log(e.stack);
         rdb.rollback();
     }
+    let elapsed = new Date() - start;
+    console.info("Execution time: %dms", elapsed);
+    console.log('Waiting for connection pool to teardown....');
 }();
 
 function insertOrders() {
