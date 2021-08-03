@@ -20,7 +20,7 @@ Customer.column('cName').string().as('name').JSONSchema(nameSchema);
 Customer.column('cBalance').numeric().as('balance');
 Customer.column('cDocument').json().as('document').JSONSchema(documentSchema, {allErrors: true});
 
-let db = rdb('mysql://root@localhost/rdbDemo?multipleStatements=true');
+let db = rdb('mysql://rdb:rdb@localhost/rdbDemo?multipleStatements=true');
 
 module.exports = async function() {
     try {

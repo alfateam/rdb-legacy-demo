@@ -10,7 +10,7 @@ Customer.column('cIsActive').boolean().as('isActive');
 Customer.column('cPicture').binary().as('picture');
 Customer.column('cDocument').json().as('document');
 
-let db = rdb('mysql://root@localhost/rdbDemo?multipleStatements=true');
+let db = rdb('mysql://rdb:rdb@localhost/rdbDemo?multipleStatements=true');
 
 module.exports = async function() {
     try {

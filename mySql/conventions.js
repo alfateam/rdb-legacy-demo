@@ -6,7 +6,7 @@ let Customer = rdb.table('_customer');
 Customer.primaryColumn('cId').guid(); //property name will also be cId
 Customer.column('cName').string(); //property name will also be cName
 
-let db = rdb('mysql://root@localhost/rdbDemo?multipleStatements=true');
+let db = rdb('mysql://rdb:rdb@localhost/rdbDemo?multipleStatements=true');
 
 module.exports = async function() {
     try {

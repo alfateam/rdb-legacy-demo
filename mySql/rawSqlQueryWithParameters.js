@@ -1,7 +1,7 @@
 let rdb = require('rdb');
 let resetDemo = require('./db/resetDemo');
 
-let db = rdb('mysql://root@localhost/rdbDemo?multipleStatements=true');
+let db = rdb('mysql://rdb:rdb@localhost/rdbDemo?multipleStatements=true');
 
 module.exports = async function() {
     try {

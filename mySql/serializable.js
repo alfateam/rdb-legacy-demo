@@ -7,7 +7,7 @@ User.column('uUserId').string().as('userId');
 User.column('uPassword').string().as('password').serializable(false);
 User.column('uEmail').string().as('email');
 
-let db = rdb('mysql://root@localhost/rdbDemo?multipleStatements=true');
+let db = rdb('mysql://rdb:rdb@localhost/rdbDemo?multipleStatements=true');
 
 module.exports = async function() {
     try {

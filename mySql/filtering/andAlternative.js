@@ -8,7 +8,7 @@ Customer.column('cIsActive').boolean().as('isActive');
 Customer.column('cBalance').numeric().as('balance');
 Customer.column('cName').string().as('name');
 
-let db = rdb('mysql://root@localhost/rdbDemo?multipleStatements=true');
+let db = rdb('mysql://rdb:rdb@localhost/rdbDemo?multipleStatements=true');
 
 module.exports = async function() {
     try {

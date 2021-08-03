@@ -8,7 +8,7 @@ Customer.column('cName').string().as('name');
 
 rdb.log(console.log); //will log sql and parameters
 
-let db = rdb('mysql://root@localhost/rdbDemo?multipleStatements=true');
+let db = rdb('mysql://rdb:rdb@localhost/rdbDemo?multipleStatements=true');
 
 module.exports = async function() {
     try {

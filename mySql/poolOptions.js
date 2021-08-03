@@ -2,7 +2,7 @@ let rdb = require('rdb');
 let resetDemo = require('./db/resetDemo');
 let poolOptions = {size: 20};
 
-let db = rdb('mysql://root@localhost/rdbDemo?multipleStatements=true', poolOptions);
+let db = rdb('mysql://rdb:rdb@localhost/rdbDemo?multipleStatements=true', poolOptions);
 
 module.exports = async function() {
     try {

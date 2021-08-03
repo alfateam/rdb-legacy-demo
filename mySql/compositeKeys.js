@@ -15,7 +15,7 @@ OrderLine.column('lProduct').string().as('product');
 let line_order_relation = OrderLine.join(Order).by('lCompanyId', 'lOrderNo').as('order');
 Order.hasMany(line_order_relation).as('lines');
 
-let db = rdb('mysql://root@localhost/rdbDemo?multipleStatements=true');
+let db = rdb('mysql://rdb:rdb@localhost/rdbDemo?multipleStatements=true');
 
 module.exports = async function() {
     try {

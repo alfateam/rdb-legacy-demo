@@ -15,7 +15,7 @@ Customer.column('cIsActive').boolean().as('isActive');
 let orderCustomerJoin = Order.join(Customer).by('oCustomerId').as('customer');
 Customer.hasMany(orderCustomerJoin).as('orders');
 
-let db = rdb('mysql://root@localhost/rdbDemo?multipleStatements=true');
+let db = rdb('mysql://rdb:rdb@localhost/rdbDemo?multipleStatements=true');
 
 module.exports = async function() {
     try {

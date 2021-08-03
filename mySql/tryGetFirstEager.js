@@ -13,7 +13,7 @@ Order.column('oCustomerId').guid().as('customerId');
 
 Order.join(Customer).by('oCustomerId').as('customer');
 
-let db = rdb('mysql://root@localhost/rdbDemo?multipleStatements=true');
+let db = rdb('mysql://rdb:rdb@localhost/rdbDemo?multipleStatements=true');
 
 module.exports = async function() {
     try {

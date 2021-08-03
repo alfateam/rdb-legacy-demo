@@ -15,7 +15,7 @@ DeliveryAddress.column('dStreet').string().as('street');
 let deliveryAddress_order_relation = DeliveryAddress.join(Order).by('dOrderId').as('order');
 Order.hasOne(deliveryAddress_order_relation).as('deliveryAddress');
 
-let db = rdb('mysql://root@localhost/rdbDemo?multipleStatements=true');
+let db = rdb('mysql://rdb:rdb@localhost/rdbDemo?multipleStatements=true');
 
 module.exports = async function() {
     try {
