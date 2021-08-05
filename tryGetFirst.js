@@ -14,7 +14,7 @@ module.exports = async function() {
         await db.transaction(async () => {
             let filter = Customer.name.equal('John');
             let customer = await Customer.tryGetFirst(filter);
-            console.log(await customer.toDto());
+            console.log(customer);
         });
     } catch (e) {
         console.log(e.stack);

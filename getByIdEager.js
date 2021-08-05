@@ -23,7 +23,7 @@ module.exports = async function() {
             let order = await Order.getById('a0000000-a000-0000-0000-000000000000', fetchingStrategy);
             console.log(await order.toDto());
             let customer = await order.customer;
-            console.log(await customer.toDto());
+            console.log(customer);
         });
     } catch (e) {
         console.log(e.stack);

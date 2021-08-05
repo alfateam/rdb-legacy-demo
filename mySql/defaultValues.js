@@ -30,7 +30,7 @@ module.exports = async function() {
         await resetDemo();
         await db.transaction(async () => {
             let customer = Customer.insert('abcdef02-0000-0000-0000-000000000000')
-            console.log(await customer.toDto());
+            console.log(customer);
         });
     } catch (e) {
         console.log(e.stack);
