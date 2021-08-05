@@ -3,8 +3,8 @@ let resetDemo = require('./db/resetDemo');
 
 let Customer = rdb.table('_customer');
 
-Customer.primaryColumn('cId').guid().as('id');
-Customer.column('cName').string().as('name');
+Customer.primaryColumn('id').guid();
+Customer.column('name').string();
 
 rdb.log(console.log); //will log sql and parameters
 

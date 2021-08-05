@@ -48,7 +48,6 @@ run('./rawSqlQueryWithParameters');
 run('./update');
 run('./insert');
 run('./defaultValues');
-run('./conventions');
 run('./updateJoin');
 run('./updateHasOne');
 run('./updateHasMany');

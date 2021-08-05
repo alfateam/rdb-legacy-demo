@@ -5,14 +5,14 @@ var rdb = require('rdb'),
 var Order = rdb.table('_order');
 var OrderLine = rdb.table('_orderLine');
 
-Order.primaryColumn('oId').guid().as('id');
-Order.column('oOrderNo').string().as('orderNo');
+Order.primaryColumn('id').guid();
+Order.column('orderNo').string();
 
-OrderLine.primaryColumn('lId').guid().as('id');
-OrderLine.column('lOrderId').guid().as('orderId');
-OrderLine.column('lProduct').string().as('product');
+OrderLine.primaryColumn('id').guid();
+OrderLine.column('orderId').guid();
+OrderLine.column('product').string();
 
-var line_order_relation = OrderLine.join(Order).by('lOrderId').as('order');
+var line_order_relation = OrderLine.join(Order).by('orderId').as('order');
 Order.hasMany(line_order_relation).as('lines');
 
 var db = rdb('postgres://rdb:rdb@localhost/rdbdemo');

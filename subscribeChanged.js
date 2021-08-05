@@ -3,9 +3,9 @@ let resetDemo = require('./db/resetDemo');
 
 let Customer = rdb.table('_customer');
 
-Customer.primaryColumn('cId').guid().as('id');
-Customer.column('cName').string().as('name');
-Customer.column('cDocument').json().as('document');
+Customer.primaryColumn('id').guid();
+Customer.column('name').string();
+Customer.column('document').json();
 
 Customer.subscribeChanged(({row, patch}) => {
     console.log(patch);

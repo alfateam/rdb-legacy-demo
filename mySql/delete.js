@@ -3,12 +3,12 @@ let resetDemo = require('./db/resetDemo');
 
 let Customer = rdb.table('_customer');
 
-Customer.primaryColumn('cId').guid().as('id');
-Customer.column('cName').string().as('name');
-Customer.column('cBalance').numeric().as('balance');
-Customer.column('cRegdate').date().as('registeredDate');
-Customer.column('cIsActive').boolean().as('isActive');
-Customer.column('cPicture').binary().as('picture');
+Customer.primaryColumn('id').guid();
+Customer.column('name').string();
+Customer.column('balance').numeric();
+Customer.column('regDate').date().as('registeredDate');
+Customer.column('isActive').boolean();
+Customer.column('picture').binary();
 
 let db = rdb('mysql://rdb:rdb@localhost/rdbDemo?multipleStatements=true');
 

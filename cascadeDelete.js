@@ -5,20 +5,20 @@ let Customer = rdb.table('_customer');
 let Order = rdb.table('_order');
 let OrderLine = rdb.table('_orderLine');
 
-Customer.primaryColumn('cId').guid().as('id');
-Customer.column('cName').string().as('name');
+Customer.primaryColumn('id').guid();
+Customer.column('name').string();
 
-Order.primaryColumn('oId').guid().as('id');
-Order.column('oOrderNo').string().as('orderNo');
-Order.column('oCustomerId').guid().as('customerId');
+Order.primaryColumn('id').guid();
+Order.column('orderNo').string();
+Order.column('customerId').guid();
 
-OrderLine.primaryColumn('lId').guid().as('id');
-OrderLine.column('lOrderId').guid().as('orderId');
+OrderLine.primaryColumn('id').guid();
+OrderLine.column('orderId').guid();
 
-let orderToCustomer = Order.join(Customer).by('oCustomerId').as('customer');
+let orderToCustomer = Order.join(Customer).by('customerId').as('customer');
 Customer.hasMany(orderToCustomer).as('orders');
 
-let line_order_relation = OrderLine.join(Order).by('lOrderId').as('order');
+let line_order_relation = OrderLine.join(Order).by('orderId').as('order');
 Order.hasMany(line_order_relation).as('lines');
 
 

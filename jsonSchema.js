@@ -15,10 +15,10 @@ let nameSchema = {
 
 let Customer = rdb.table('_customer');
 
-Customer.primaryColumn('cId').guid().as('id');
-Customer.column('cName').string().as('name').JSONSchema(nameSchema);
-Customer.column('cBalance').numeric().as('balance');
-Customer.column('cDocument').json().as('document').JSONSchema(documentSchema, {allErrors: true});
+Customer.primaryColumn('id').guid();
+Customer.column('name').string().JSONSchema(nameSchema);
+Customer.column('balance').numeric();
+Customer.column('document').json().JSONSchema(documentSchema, {allErrors: true});
 
 let db = rdb('postgres://rdb:rdb@localhost/rdbdemo');
 

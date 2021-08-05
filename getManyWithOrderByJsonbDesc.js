@@ -3,7 +3,7 @@ let rdb = require('rdb'),
 
 let Order = rdb.table('_jOrder');
 
-Order.primaryColumn('oId').guid().as('id');
+Order.primaryColumn('id').guid();
 Order.column('oData').json().as('data');
 
 let db = rdb('postgres://rdb:rdb@localhost/rdbdemo');

@@ -2,10 +2,10 @@ let rdb = require('rdb');
 let resetDemo = require('./db/resetDemo');
 
 let User = rdb.table('_user');
-User.primaryColumn('uId').guid().as('id');
-User.column('uUserId').string().as('userId');
-User.column('uPassword').string().as('password').serializable(false);
-User.column('uEmail').string().as('email');
+User.primaryColumn('id').guid();
+User.column('userId').string();
+User.column('password').string().serializable(false);
+User.column('email').string();
 
 let db = rdb.sqlite(__dirname + '/db/rdbDemo');
 

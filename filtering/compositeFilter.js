@@ -6,22 +6,22 @@ let Order = rdb.table('_order');
 let Customer = rdb.table('_customer');
 let OrderLine = rdb.table('_orderLine');
 
-Order.primaryColumn('oId').guid().as('id');
-Order.column('oCustomerId').guid().as('customerId');
-Order.column('oOrderNo').string().as('orderNo');
+Order.primaryColumn('id').guid();
+Order.column('customerId').guid();
+Order.column('orderNo').string();
 
-Customer.primaryColumn('cId').guid().as('id');
-Customer.column('cIsActive').boolean().as('isActive');
-Customer.column('cBalance').numeric().as('balance');
-Customer.column('cName').string().as('name');
+Customer.primaryColumn('id').guid();
+Customer.column('isActive').boolean();
+Customer.column('balance').numeric();
+Customer.column('name').string();
 
-OrderLine.primaryColumn('lId').guid().as('id');
-OrderLine.column('lOrderId').guid().as('orderId');
-OrderLine.column('lProduct').string().as('product');
+OrderLine.primaryColumn('id').guid();
+OrderLine.column('orderId').guid();
+OrderLine.column('product').string();
 
-Order.join(Customer).by('oCustomerId').as('customer');
+Order.join(Customer).by('customerId').as('customer');
 
-let line_order_relation = OrderLine.join(Order).by('lOrderId').as('order');
+let line_order_relation = OrderLine.join(Order).by('orderId').as('order');
 Order.hasMany(line_order_relation).as('lines');
 
 let db = rdb('postgres://rdb:rdb@localhost/rdbdemo');

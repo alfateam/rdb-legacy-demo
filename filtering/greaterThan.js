@@ -3,9 +3,9 @@ let resetDemo = require('../db/resetDemo');
 
 let Customer = rdb.table('_customer');
 
-Customer.primaryColumn('cId').guid().as('id');
-Customer.column('cBalance').numeric().as('balance');
-Customer.column('cName').string().as('name');
+Customer.primaryColumn('id').guid();
+Customer.column('balance').numeric();
+Customer.column('name').string();
 
 let db = rdb('postgres://rdb:rdb@localhost/rdbdemo');
 

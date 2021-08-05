@@ -3,8 +3,8 @@ var rdb = require('rdb'),
 
 var Customer = rdb.table('_customer');
 
-Customer.primaryColumn('cId').guid().as('id');
-Customer.column('cName').string().as('name');
+Customer.primaryColumn('id').guid();
+Customer.column('name').string();
 
 var db = rdb('postgres://rdb:rdb@localhost/rdbdemo');
 

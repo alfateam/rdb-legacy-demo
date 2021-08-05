@@ -7,28 +7,28 @@ let Customer = rdb.table('_customer');
 let OrderLine = rdb.table('_orderLine');
 let DeliveryAddress = rdb.table('_deliveryAddress');
 
-Order.primaryColumn('oId').guid().as('id');
-Order.column('oOrderNo').string().as('orderNo');
-Order.column('oCustomerId').string().as('customerId');
+Order.primaryColumn('id').guid();
+Order.column('orderNo').string();
+Order.column('customerId').string();
 
-Customer.primaryColumn('cId').guid().as('id');
-Customer.column('cName').string().as('name');
+Customer.primaryColumn('id').guid();
+Customer.column('name').string();
 
-OrderLine.primaryColumn('lId').guid().as('id');
-OrderLine.column('lOrderId').guid().as('orderId');
-OrderLine.column('lProduct').string().as('product');
+OrderLine.primaryColumn('id').guid();
+OrderLine.column('orderId').guid();
+OrderLine.column('product').string();
 
-DeliveryAddress.primaryColumn('dId').guid().as('id');
-DeliveryAddress.column('dOrderId').string().as('orderId');
-DeliveryAddress.column('dName').string().as('name');
-DeliveryAddress.column('dStreet').string().as('street');
+DeliveryAddress.primaryColumn('id').guid();
+DeliveryAddress.column('orderId').string();
+DeliveryAddress.column('name').string();
+DeliveryAddress.column('street').string();
 
-Order.join(Customer).by('oCustomerId').as('customer');
+Order.join(Customer).by('customerId').as('customer');
 
-let line_order_relation = OrderLine.join(Order).by('lOrderId').as('order');
+let line_order_relation = OrderLine.join(Order).by('orderId').as('order');
 Order.hasMany(line_order_relation).as('lines');
 
-let deliveryAddress_order_relation = DeliveryAddress.join(Order).by('dOrderId').as('order');
+let deliveryAddress_order_relation = DeliveryAddress.join(Order).by('orderId').as('order');
 Order.hasOne(deliveryAddress_order_relation).as('deliveryAddress');
 
 let db = rdb('mysql://rdb:rdb@localhost/rdbDemo?multipleStatements=true');

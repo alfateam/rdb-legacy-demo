@@ -8,7 +8,7 @@ module.exports = async function() {
         await resetDemo();
         await db.transaction(async () => {
             let result = await rdb.query({
-                sql: 'SELECT oOrderNo AS "orderNo" FROM _order WHERE oOrderNo LIKE ?',
+                sql: 'SELECT orderNo FROM _order WHERE orderNo LIKE ?',
                 parameters: ['%04']
             });
             console.log(result);

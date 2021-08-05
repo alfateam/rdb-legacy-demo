@@ -1,0 +1,883 @@
+[ { id: 'b0000000-0000-0000-0000-000000000000', name: 'John' } ]
+[
+  { id: '12345678-0000-0000-0000-000000000000', name: 'Yoko' },
+  { id: '87654321-0000-0000-0000-000000000000', name: 'Johnny' },
+  { id: '87654399-0000-0000-0000-000000000000', name: 'Paul' },
+  { id: 'a0000000-0000-0000-0000-000000000000', name: 'George' }
+]
+[
+  { id: '12345678-0000-0000-0000-000000000000', name: 'Yoko' },
+  { id: '87654321-0000-0000-0000-000000000000', name: 'Johnny' },
+  { id: '87654399-0000-0000-0000-000000000000', name: 'Paul' },
+  { id: 'a0000000-0000-0000-0000-000000000000', name: 'George' }
+]
+[
+  {
+    id: 'a0000000-0000-0000-0000-000000000000',
+    balance: 177,
+    name: 'George'
+  },
+  {
+    id: 'b0000000-0000-0000-0000-000000000000',
+    balance: 3045,
+    name: 'John'
+  }
+]
+[
+  {
+    id: '87654321-0000-0000-0000-000000000000',
+    balance: 8123,
+    name: 'Johnny'
+  },
+  {
+    id: 'a0000000-0000-0000-0000-000000000000',
+    balance: 177,
+    name: 'George'
+  },
+  {
+    id: 'b0000000-0000-0000-0000-000000000000',
+    balance: 3045,
+    name: 'John'
+  }
+]
+[
+  {
+    id: '12345678-0000-0000-0000-000000000000',
+    balance: 8765,
+    name: 'Yoko'
+  },
+  {
+    id: '87654321-0000-0000-0000-000000000000',
+    balance: 8123,
+    name: 'Johnny'
+  },
+  {
+    id: '87654399-0000-0000-0000-000000000000',
+    balance: 8125,
+    name: 'Paul'
+  }
+]
+[
+  {
+    id: '12345678-0000-0000-0000-000000000000',
+    balance: 8765,
+    name: 'Yoko'
+  },
+  {
+    id: '87654321-0000-0000-0000-000000000000',
+    balance: 8123,
+    name: 'Johnny'
+  },
+  {
+    id: '87654399-0000-0000-0000-000000000000',
+    balance: 8125,
+    name: 'Paul'
+  }
+]
+[
+  {
+    id: '87654321-0000-0000-0000-000000000000',
+    isActive: true,
+    balance: 8123,
+    name: 'Johnny'
+  },
+  {
+    id: 'b0000000-0000-0000-0000-000000000000',
+    isActive: true,
+    balance: 3045,
+    name: 'John'
+  }
+]
+[
+  { id: '12345678-0000-0000-0000-000000000000', name: 'Yoko' },
+  { id: 'b0000000-0000-0000-0000-000000000000', name: 'John' }
+]
+[
+  { id: '87654321-0000-0000-0000-000000000000', name: 'Johnny' },
+  { id: 'b0000000-0000-0000-0000-000000000000', name: 'John' }
+]
+[ { id: '87654321-0000-0000-0000-000000000000', name: 'Johnny' } ]
+[
+  { id: '87654321-0000-0000-0000-000000000000', name: 'Johnny' },
+  { id: 'b0000000-0000-0000-0000-000000000000', name: 'John' }
+]
+[
+  {
+    deliveryAddress: {
+      id: 'dddddddd-0000-0000-0000-000000000000',
+      orderId: 'b0000000-b000-0000-0000-000000000000',
+      name: 'Lars-Erik Roald',
+      street: 'Node Street 1'
+    },
+    id: 'b0000000-b000-0000-0000-000000000000',
+    orderNo: '1001'
+  }
+]
+[
+  { id: '12345678-0000-0000-0000-000000000000', name: 'Yoko' },
+  { id: 'b0000000-0000-0000-0000-000000000000', name: 'John' }
+]
+[
+  {
+    id: '87654321-0000-0000-0000-000000000000',
+    isActive: true,
+    balance: 8123,
+    name: 'Johnny'
+  },
+  {
+    id: '87654399-0000-0000-0000-000000000000',
+    isActive: true,
+    balance: 8125,
+    name: 'Paul'
+  }
+]
+[
+  { id: '12345678-0000-0000-0000-000000000000', name: 'Yoko' },
+  { id: 'b0000000-0000-0000-0000-000000000000', name: 'John' }
+]
+[
+  {
+    id: '87654321-0000-0000-0000-000000000000',
+    isActive: true,
+    balance: 8123,
+    name: 'Johnny'
+  },
+  {
+    id: '87654399-0000-0000-0000-000000000000',
+    isActive: true,
+    balance: 8125,
+    name: 'Paul'
+  }
+]
+[
+  {
+    deliveryAddress: {
+      id: 'dddddddd-0000-0000-0000-000000000000',
+      orderId: 'b0000000-b000-0000-0000-000000000000',
+      name: 'Lars-Erik Roald',
+      street: 'Node Street 1'
+    },
+    id: 'b0000000-b000-0000-0000-000000000000',
+    orderNo: '1001'
+  }
+]
+[
+  {
+    lines: [
+      {
+        id: 'b0000000-b000-1000-0000-000000000000',
+        orderId: 'b0000000-b000-0000-0000-000000000000',
+        product: 'Climbing gear'
+      },
+      {
+        id: 'b0000000-b000-2000-0000-000000000000',
+        orderId: 'b0000000-b000-0000-0000-000000000000',
+        product: 'Hiking shoes'
+      },
+      {
+        id: 'b0000000-b000-3000-0000-000000000000',
+        orderId: 'b0000000-b000-0000-0000-000000000000',
+        product: 'A big car'
+      }
+    ],
+    id: 'b0000000-b000-0000-0000-000000000000',
+    customerId: 'b0000000-0000-0000-0000-000000000000',
+    orderNo: '1001'
+  }
+]
+[
+  {
+    customer: {
+      id: 'b0000000-0000-0000-0000-000000000000',
+      name: 'John',
+      balance: '3045.00',
+      isActive: true
+    },
+    id: 'b0000000-b000-0000-0000-000000000000',
+    orderNo: '1001',
+    customerId: 'b0000000-0000-0000-0000-000000000000'
+  }
+]
+{
+  id: 'a0000000-0000-0000-0000-000000000000',
+  name: 'George',
+  balance: 177,
+  registeredDate: 2003-04-12T02:05:06.000Z,
+  isActive: false,
+  picture: <Buffer 01 02 03>,
+  document: [ 'foo', 1, { bar: true } ]
+}
+{
+  id: 'a0000000-0000-0000-0000-000000000000',
+  name: 'George',
+  balance: 177,
+  registeredDate: 2003-04-12T02:05:06.000Z,
+  isActive: false,
+  picture: <Buffer 01 02 03>
+}
+{ id: 'b0000000-0000-0000-0000-000000000000', name: 'John' }
+{
+  id: 'a0000000-a000-0000-0000-000000000000',
+  orderNo: '1000',
+  customerId: 'a0000000-0000-0000-0000-000000000000'
+}
+{
+  lines: [
+    {
+      id: 'b0000000-b000-1000-0000-000000000000',
+      orderId: 'b0000000-b000-0000-0000-000000000000',
+      product: 'Climbing gear'
+    },
+    {
+      id: 'b0000000-b000-2000-0000-000000000000',
+      orderId: 'b0000000-b000-0000-0000-000000000000',
+      product: 'Hiking shoes'
+    },
+    {
+      id: 'b0000000-b000-3000-0000-000000000000',
+      orderId: 'b0000000-b000-0000-0000-000000000000',
+      product: 'A big car'
+    }
+  ],
+  id: 'b0000000-b000-0000-0000-000000000000',
+  orderNo: '1001'
+}
+{
+  deliveryAddress: {
+    id: 'dddddddd-0000-0000-0000-000000000000',
+    orderId: 'b0000000-b000-0000-0000-000000000000',
+    name: 'Lars-Erik Roald',
+    street: 'Node Street 1'
+  },
+  id: 'b0000000-b000-0000-0000-000000000000',
+  orderNo: '1001'
+}
+{
+  lines: [
+    { companyId: 1, orderNo: 1001, lineNo: 1, product: 'Free lunch' },
+    {
+      companyId: 1,
+      orderNo: 1001,
+      lineNo: 2,
+      product: 'Guide to the galaxy'
+    }
+  ],
+  companyId: 1,
+  orderNo: 1001
+}
+{
+  id: 'a0000000-a000-0000-0000-000000000000',
+  orderNo: '1000',
+  customerId: 'a0000000-0000-0000-0000-000000000000'
+}
+{ id: 'a0000000-0000-0000-0000-000000000000', name: 'George' }
+{
+  id: 'b0000000-b000-0000-0000-000000000000',
+  orderNo: '1001',
+  customerId: 'b0000000-0000-0000-0000-000000000000'
+}
+{
+  lines: [
+    {
+      id: 'b0000000-b000-1000-0000-000000000000',
+      orderId: 'b0000000-b000-0000-0000-000000000000',
+      product: 'Climbing gear'
+    },
+    {
+      id: 'b0000000-b000-2000-0000-000000000000',
+      orderId: 'b0000000-b000-0000-0000-000000000000',
+      product: 'Hiking shoes'
+    },
+    {
+      id: 'b0000000-b000-3000-0000-000000000000',
+      orderId: 'b0000000-b000-0000-0000-000000000000',
+      product: 'A big car'
+    }
+  ],
+  deliveryAddress: {
+    id: 'dddddddd-0000-0000-0000-000000000000',
+    orderId: 'b0000000-b000-0000-0000-000000000000',
+    name: 'Lars-Erik Roald',
+    street: 'Node Street 1'
+  },
+  id: 'b0000000-b000-0000-0000-000000000000',
+  orderNo: '1001',
+  customerId: 'b0000000-0000-0000-0000-000000000000'
+}
+{
+  customer: { id: 'b0000000-0000-0000-0000-000000000000', name: 'John' },
+  lines: [
+    {
+      id: 'b0000000-b000-1000-0000-000000000000',
+      orderId: 'b0000000-b000-0000-0000-000000000000',
+      product: 'Climbing gear'
+    },
+    {
+      id: 'b0000000-b000-2000-0000-000000000000',
+      orderId: 'b0000000-b000-0000-0000-000000000000',
+      product: 'Hiking shoes'
+    },
+    {
+      id: 'b0000000-b000-3000-0000-000000000000',
+      orderId: 'b0000000-b000-0000-0000-000000000000',
+      product: 'A big car'
+    }
+  ],
+  deliveryAddress: {
+    id: 'dddddddd-0000-0000-0000-000000000000',
+    orderId: 'b0000000-b000-0000-0000-000000000000',
+    name: 'Lars-Erik Roald',
+    street: 'Node Street 1'
+  },
+  id: 'b0000000-b000-0000-0000-000000000000',
+  orderNo: '1001',
+  customerId: 'b0000000-0000-0000-0000-000000000000'
+}
+{
+  lines: [
+    {
+      id: 'b0000000-b000-1000-0000-000000000000',
+      orderId: 'b0000000-b000-0000-0000-000000000000',
+      product: 'Climbing gear'
+    },
+    {
+      id: 'b0000000-b000-2000-0000-000000000000',
+      orderId: 'b0000000-b000-0000-0000-000000000000',
+      product: 'Hiking shoes'
+    },
+    {
+      id: 'b0000000-b000-3000-0000-000000000000',
+      orderId: 'b0000000-b000-0000-0000-000000000000',
+      product: 'A big car'
+    }
+  ],
+  id: 'b0000000-b000-0000-0000-000000000000',
+  orderNo: '1001',
+  customerId: 'b0000000-0000-0000-0000-000000000000'
+}
+{
+  lines: [
+    {
+      id: 'b0000000-b000-1000-0000-000000000000',
+      orderId: 'b0000000-b000-0000-0000-000000000000',
+      product: 'Climbing gear'
+    },
+    {
+      id: 'b0000000-b000-2000-0000-000000000000',
+      orderId: 'b0000000-b000-0000-0000-000000000000',
+      product: 'Hiking shoes'
+    },
+    {
+      id: 'b0000000-b000-3000-0000-000000000000',
+      orderId: 'b0000000-b000-0000-0000-000000000000',
+      product: 'A big car'
+    }
+  ],
+  id: 'b0000000-b000-0000-0000-000000000000',
+  orderNo: '1001',
+  customerId: 'b0000000-0000-0000-0000-000000000000'
+}
+{
+  id: '87654400-0000-0000-0000-000000000000',
+  userId: 'paul',
+  email: 'paul@mccartney.net'
+}
+[
+  { id: '12345678-0000-0000-0000-000000000000', name: 'Yoko' },
+  { id: '87654321-0000-0000-0000-000000000000', name: 'Johnny' },
+  { id: '87654399-0000-0000-0000-000000000000', name: 'Paul' },
+  { id: 'a0000000-0000-0000-0000-000000000000', name: 'George' },
+  { id: 'b0000000-0000-0000-0000-000000000000', name: 'John' }
+]
+[
+  { id: '12345678-0000-0000-0000-000000000000', name: 'Yoko' },
+  { id: '87654321-0000-0000-0000-000000000000', name: 'Johnny' },
+  { id: '87654399-0000-0000-0000-000000000000', name: 'Paul' },
+  { id: 'a0000000-0000-0000-0000-000000000000', name: 'George' },
+  { id: 'b0000000-0000-0000-0000-000000000000', name: 'John' }
+]
+[
+  {
+    lines: [
+      {
+        id: 'a0000000-a000-1000-0000-000000000000',
+        orderId: 'a0000000-a000-0000-0000-000000000000',
+        product: 'Bicycle'
+      },
+      {
+        id: 'a0000000-a000-1001-0000-000000000000',
+        orderId: 'a0000000-a000-0000-0000-000000000000',
+        product: 'A small car'
+      },
+      {
+        id: 'a0000000-a000-2000-0000-000000000000',
+        orderId: 'a0000000-a000-0000-0000-000000000000',
+        product: 'Skateboard'
+      }
+    ],
+    id: 'a0000000-a000-0000-0000-000000000000',
+    orderNo: '1000'
+  },
+  {
+    lines: [
+      {
+        id: 'b0000000-b000-1000-0000-000000000000',
+        orderId: 'b0000000-b000-0000-0000-000000000000',
+        product: 'Climbing gear'
+      },
+      {
+        id: 'b0000000-b000-2000-0000-000000000000',
+        orderId: 'b0000000-b000-0000-0000-000000000000',
+        product: 'Hiking shoes'
+      },
+      {
+        id: 'b0000000-b000-3000-0000-000000000000',
+        orderId: 'b0000000-b000-0000-0000-000000000000',
+        product: 'A big car'
+      }
+    ],
+    id: 'b0000000-b000-0000-0000-000000000000',
+    orderNo: '1001'
+  },
+  {
+    lines: [
+      {
+        id: 'b0000000-b000-3100-0000-000000000000',
+        orderId: 'b0000000-d000-0000-0000-000000000000',
+        product: 'A yellow submarine'
+      }
+    ],
+    id: 'b0000000-d000-0000-0000-000000000000',
+    orderNo: '1003'
+  },
+  {
+    lines: [],
+    id: 'c0000000-c000-0000-0000-000000000000',
+    orderNo: '1002'
+  }
+]
+[
+  {
+    lines: [
+      {
+        id: 'a0000000-a000-1000-0000-000000000000',
+        orderId: 'a0000000-a000-0000-0000-000000000000',
+        product: 'Bicycle'
+      },
+      {
+        id: 'a0000000-a000-1001-0000-000000000000',
+        orderId: 'a0000000-a000-0000-0000-000000000000',
+        product: 'A small car'
+      },
+      {
+        id: 'a0000000-a000-2000-0000-000000000000',
+        orderId: 'a0000000-a000-0000-0000-000000000000',
+        product: 'Skateboard'
+      }
+    ],
+    id: 'a0000000-a000-0000-0000-000000000000',
+    orderNo: '1000'
+  },
+  {
+    lines: [
+      {
+        id: 'b0000000-b000-1000-0000-000000000000',
+        orderId: 'b0000000-b000-0000-0000-000000000000',
+        product: 'Climbing gear'
+      },
+      {
+        id: 'b0000000-b000-2000-0000-000000000000',
+        orderId: 'b0000000-b000-0000-0000-000000000000',
+        product: 'Hiking shoes'
+      },
+      {
+        id: 'b0000000-b000-3000-0000-000000000000',
+        orderId: 'b0000000-b000-0000-0000-000000000000',
+        product: 'A big car'
+      }
+    ],
+    id: 'b0000000-b000-0000-0000-000000000000',
+    orderNo: '1001'
+  },
+  {
+    lines: [
+      {
+        id: 'b0000000-b000-3100-0000-000000000000',
+        orderId: 'b0000000-d000-0000-0000-000000000000',
+        product: 'A yellow submarine'
+      }
+    ],
+    id: 'b0000000-d000-0000-0000-000000000000',
+    orderNo: '1003'
+  },
+  {
+    lines: [],
+    id: 'c0000000-c000-0000-0000-000000000000',
+    orderNo: '1002'
+  }
+]
+[
+  {
+    lines: [
+      {
+        id: 'a0000000-a000-1000-0000-000000000000',
+        orderId: 'a0000000-a000-0000-0000-000000000000',
+        product: 'Bicycle'
+      },
+      {
+        id: 'a0000000-a000-1001-0000-000000000000',
+        orderId: 'a0000000-a000-0000-0000-000000000000',
+        product: 'A small car'
+      },
+      {
+        id: 'a0000000-a000-2000-0000-000000000000',
+        orderId: 'a0000000-a000-0000-0000-000000000000',
+        product: 'Skateboard'
+      }
+    ],
+    id: 'a0000000-a000-0000-0000-000000000000',
+    orderNo: '1000'
+  },
+  {
+    lines: [
+      {
+        id: 'b0000000-b000-1000-0000-000000000000',
+        orderId: 'b0000000-b000-0000-0000-000000000000',
+        product: 'Climbing gear'
+      },
+      {
+        id: 'b0000000-b000-2000-0000-000000000000',
+        orderId: 'b0000000-b000-0000-0000-000000000000',
+        product: 'Hiking shoes'
+      },
+      {
+        id: 'b0000000-b000-3000-0000-000000000000',
+        orderId: 'b0000000-b000-0000-0000-000000000000',
+        product: 'A big car'
+      }
+    ],
+    id: 'b0000000-b000-0000-0000-000000000000',
+    orderNo: '1001'
+  },
+  {
+    lines: [
+      {
+        id: 'b0000000-b000-3100-0000-000000000000',
+        orderId: 'b0000000-d000-0000-0000-000000000000',
+        product: 'A yellow submarine'
+      }
+    ],
+    id: 'b0000000-d000-0000-0000-000000000000',
+    orderNo: '1003'
+  },
+  {
+    lines: [],
+    id: 'c0000000-c000-0000-0000-000000000000',
+    orderNo: '1002'
+  }
+]
+[
+  {
+    lines: [
+      {
+        id: 'a0000000-a000-1000-0000-000000000000',
+        orderId: 'a0000000-a000-0000-0000-000000000000',
+        product: 'Bicycle'
+      },
+      {
+        id: 'a0000000-a000-1001-0000-000000000000',
+        orderId: 'a0000000-a000-0000-0000-000000000000',
+        product: 'A small car'
+      },
+      {
+        id: 'a0000000-a000-2000-0000-000000000000',
+        orderId: 'a0000000-a000-0000-0000-000000000000',
+        product: 'Skateboard'
+      }
+    ],
+    deliveryAddress: null,
+    id: 'a0000000-a000-0000-0000-000000000000',
+    orderNo: '1000',
+    customerId: 'a0000000-0000-0000-0000-000000000000'
+  },
+  {
+    lines: [
+      {
+        id: 'b0000000-b000-1000-0000-000000000000',
+        orderId: 'b0000000-b000-0000-0000-000000000000',
+        product: 'Climbing gear'
+      },
+      {
+        id: 'b0000000-b000-2000-0000-000000000000',
+        orderId: 'b0000000-b000-0000-0000-000000000000',
+        product: 'Hiking shoes'
+      },
+      {
+        id: 'b0000000-b000-3000-0000-000000000000',
+        orderId: 'b0000000-b000-0000-0000-000000000000',
+        product: 'A big car'
+      }
+    ],
+    deliveryAddress: {
+      id: 'dddddddd-0000-0000-0000-000000000000',
+      orderId: 'b0000000-b000-0000-0000-000000000000',
+      name: 'Lars-Erik Roald',
+      street: 'Node Street 1'
+    },
+    id: 'b0000000-b000-0000-0000-000000000000',
+    orderNo: '1001',
+    customerId: 'b0000000-0000-0000-0000-000000000000'
+  },
+  {
+    lines: [
+      {
+        id: 'b0000000-b000-3100-0000-000000000000',
+        orderId: 'b0000000-d000-0000-0000-000000000000',
+        product: 'A yellow submarine'
+      }
+    ],
+    deliveryAddress: null,
+    id: 'b0000000-d000-0000-0000-000000000000',
+    orderNo: '1003',
+    customerId: '87654399-0000-0000-0000-000000000000'
+  },
+  {
+    lines: [],
+    deliveryAddress: null,
+    id: 'c0000000-c000-0000-0000-000000000000',
+    orderNo: '1002',
+    customerId: null
+  }
+]
+[
+  {
+    customer: { id: 'a0000000-0000-0000-0000-000000000000', name: 'George' },
+    lines: [
+      {
+        id: 'a0000000-a000-1000-0000-000000000000',
+        orderId: 'a0000000-a000-0000-0000-000000000000',
+        product: 'Bicycle'
+      },
+      {
+        id: 'a0000000-a000-1001-0000-000000000000',
+        orderId: 'a0000000-a000-0000-0000-000000000000',
+        product: 'A small car'
+      },
+      {
+        id: 'a0000000-a000-2000-0000-000000000000',
+        orderId: 'a0000000-a000-0000-0000-000000000000',
+        product: 'Skateboard'
+      }
+    ],
+    deliveryAddress: null,
+    id: 'a0000000-a000-0000-0000-000000000000',
+    orderNo: '1000',
+    customerId: 'a0000000-0000-0000-0000-000000000000'
+  },
+  {
+    customer: { id: 'b0000000-0000-0000-0000-000000000000', name: 'John' },
+    lines: [
+      {
+        id: 'b0000000-b000-1000-0000-000000000000',
+        orderId: 'b0000000-b000-0000-0000-000000000000',
+        product: 'Climbing gear'
+      },
+      {
+        id: 'b0000000-b000-2000-0000-000000000000',
+        orderId: 'b0000000-b000-0000-0000-000000000000',
+        product: 'Hiking shoes'
+      },
+      {
+        id: 'b0000000-b000-3000-0000-000000000000',
+        orderId: 'b0000000-b000-0000-0000-000000000000',
+        product: 'A big car'
+      }
+    ],
+    deliveryAddress: {
+      id: 'dddddddd-0000-0000-0000-000000000000',
+      orderId: 'b0000000-b000-0000-0000-000000000000',
+      name: 'Lars-Erik Roald',
+      street: 'Node Street 1'
+    },
+    id: 'b0000000-b000-0000-0000-000000000000',
+    orderNo: '1001',
+    customerId: 'b0000000-0000-0000-0000-000000000000'
+  },
+  {
+    customer: { id: '87654399-0000-0000-0000-000000000000', name: 'Paul' },
+    lines: [
+      {
+        id: 'b0000000-b000-3100-0000-000000000000',
+        orderId: 'b0000000-d000-0000-0000-000000000000',
+        product: 'A yellow submarine'
+      }
+    ],
+    deliveryAddress: null,
+    id: 'b0000000-d000-0000-0000-000000000000',
+    orderNo: '1003',
+    customerId: '87654399-0000-0000-0000-000000000000'
+  },
+  {
+    customer: null,
+    lines: [],
+    deliveryAddress: null,
+    id: 'c0000000-c000-0000-0000-000000000000',
+    orderNo: '1002',
+    customerId: null
+  }
+]
+[
+  TextRow { customerId: null },
+  TextRow { customerId: '87654399-0000-0000-0000-000000000000' },
+  TextRow { customerId: 'a0000000-0000-0000-0000-000000000000' },
+  TextRow { customerId: 'b0000000-0000-0000-0000-000000000000' }
+]
+[]
+Ringo
+Paul
+Balance: 177
+Balance: 277
+{
+  id: 'abcdef02-0000-0000-0000-000000000000',
+  name: 'default name',
+  balance: 2000,
+  registeredDate: 2021-08-05T05:24:04.591Z,
+  isActive: true,
+  picture: <Buffer c2 bd 20 2b 20 c2 bc 20 3d 20>,
+  document: { foo: true }
+}
+Yoko
+L18 Penny Lane
+Number of lines: 2
+Pool ended.
+Pools ended.
+BEGIN
+parameters: 
+select json_object('id',_order.id,'orderNo',_order.orderNo,'lines',(select cast(concat('[',ifnull(group_concat(json_object('id',_order_0.id,'orderId',_order_0.orderId,'product',_order_0.product) order by _order_0.product),''),']') as json) from _orderLine _order_0 where _order_0.orderId=_order.id)) as result from _order _order order by _order.orderNo
+parameters: 
+BEGIN
+parameters: 
+{
+  id: 'a0000000-a000-0000-0000-000000000000',
+  lines: [
+    {
+      id: 'a0000000-a000-1001-0000-000000000000',
+      orderId: 'a0000000-a000-0000-0000-000000000000',
+      product: 'A small car'
+    },
+    {
+      id: 'a0000000-a000-1000-0000-000000000000',
+      orderId: 'a0000000-a000-0000-0000-000000000000',
+      product: 'Bicycle'
+    },
+    {
+      id: 'a0000000-a000-2000-0000-000000000000',
+      orderId: 'a0000000-a000-0000-0000-000000000000',
+      product: 'Skateboard'
+    }
+  ],
+  orderNo: '1000'
+}
+{
+  id: 'b0000000-b000-0000-0000-000000000000',
+  lines: [
+    {
+      id: 'b0000000-b000-3000-0000-000000000000',
+      orderId: 'b0000000-b000-0000-0000-000000000000',
+      product: 'A big car'
+    },
+    {
+      id: 'b0000000-b000-1000-0000-000000000000',
+      orderId: 'b0000000-b000-0000-0000-000000000000',
+      product: 'Climbing gear'
+    },
+    {
+      id: 'b0000000-b000-2000-0000-000000000000',
+      orderId: 'b0000000-b000-0000-0000-000000000000',
+      product: 'Hiking shoes'
+    }
+  ],
+  orderNo: '1001'
+}
+{
+  id: 'c0000000-c000-0000-0000-000000000000',
+  lines: [
+    {
+      id: 'eeeeeeee-0002-0000-0000-000000000000',
+      orderId: 'c0000000-c000-0000-0000-000000000000',
+      product: 'Helmet'
+    },
+    {
+      id: 'eeeeeeee-0001-0000-0000-000000000000',
+      orderId: 'c0000000-c000-0000-0000-000000000000',
+      product: 'Roller blades'
+    }
+  ],
+  orderNo: '1002'
+}
+COMMIT
+parameters: 
+BEGIN
+parameters: 
+select json_object('id',_order.id,'orderNo',_order.orderNo,'lines',(select cast(concat('[',ifnull(group_concat(json_object('id',_order_0.id,'orderId',_order_0.orderId,'product',_order_0.product) order by _order_0.product),''),']') as json) from _orderLine _order_0 where _order_0.orderId=_order.id)) as result from _order _order order by _order.orderNo limit 5
+parameters: 
+select _customer.id as s_customer0,_customer.name as s_customer1 from _customer _customer where _customer.id='a0000000-0000-0000-0000-000000000000' order by _customer.id limit 1
+parameters: 
+[{"id":"a0000000-a000-0000-0000-000000000000","lines":[{"id":"a0000000-a000-1001-0000-000000000000","orderId":"a0000000-a000-0000-0000-000000000000","product":"A small car"},{"id":"a0000000-a000-1000-0000-000000000000","orderId":"a0000000-a000-0000-0000-000000000000","product":"Bicycle"},{"id":"a0000000-a000-2000-0000-000000000000","orderId":"a0000000-a000-0000-0000-000000000000","product":"Skateboard"}],"orderNo":"1000"},[object Object],[object Object]]COMMIT
+parameters: 
+UPDATE _customer SET name=? WHERE id='a0000000-0000-0000-0000-000000000000'
+parameters: Ringo
+COMMIT
+parameters: 
+BEGIN
+parameters: 
+select _customer.id as s_customer0,_customer.name as s_customer1,_customer.balance as s_customer2,_customer.document as s_customer3 from _customer _customer where _customer.id='a0000000-0000-0000-0000-000000000000' order by _customer.id limit 1
+parameters: 
+ROLLBACK
+parameters: 
+Error: Column _customer.document violates JSON Schema: [
+  {
+    keyword: 'type',
+    dataPath: '.foo',
+    schemaPath: '#/properties/foo/type',
+    params: { type: 'number' },
+    message: 'should be number'
+  },
+  {
+    keyword: 'type',
+    dataPath: '.bar',
+    schemaPath: '#/properties/bar/type',
+    params: { type: 'number' },
+    message: 'should be number'
+  }
+]
+    at Object._validate [as validate] (/mnt/c/devel-linux/rdb/src/table/column.js:80:13)
+    at Proxy.set (/mnt/c/devel-linux/rdb/src/table/resultToRows/newDecodeDbRow.js:54:13)
+    at Proxy.set (/mnt/c/devel-linux/rdb/src/table/resultToRows/newDecodeDbRow.js:92:19)
+    at /mnt/c/devel-linux/rdb-demo/mySql/jsonSchema.js:31:31
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+    at async Domain.runInTransaction (/mnt/c/devel-linux/rdb/src/mySql/newDatabase.js:40:4)
+    at async /mnt/c/devel-linux/rdb-demo/mySql/jsonSchema.js:28:9
+[
+  {
+    keyword: 'type',
+    dataPath: '.foo',
+    schemaPath: '#/properties/foo/type',
+    params: { type: 'number' },
+    message: 'should be number'
+  },
+  {
+    keyword: 'type',
+    dataPath: '.bar',
+    schemaPath: '#/properties/bar/type',
+    params: { type: 'number' },
+    message: 'should be number'
+  }
+]
+BEGIN
+parameters: 
+select _customer.id as s_customer0,_customer.name as s_customer1 from _customer _customer where _customer.id='a0000000-0000-0000-0000-000000000000' order by _customer.id limit 1
+parameters: 
+ROLLBACK
+parameters: 
+Length cannot exceed 10 characters

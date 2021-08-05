@@ -8,14 +8,14 @@ let pg = require('pg');
 //psql
 //alter role rdb with superuser;
 var drop = 'drop schema public cascade;create schema public;'
-var createCustomer = "CREATE TABLE _customer (cId uuid PRIMARY KEY, cName varchar(40), cBalance numeric, cRegdate timestamp with time zone, cIsActive boolean, cPicture bytea, cDocument JSON);"
-var createUser = "CREATE TABLE _user (uId uuid PRIMARY KEY, uUserId varchar(40), uPassword varchar(40), uEmail varchar(100));"
-var createOrder = "CREATE TABLE _order (oId uuid PRIMARY KEY, oOrderNo varchar(20), oCustomerId uuid  REFERENCES _customer);"
-var createOrderLine = "CREATE TABLE _orderLine (lId uuid PRIMARY KEY, lOrderId uuid REFERENCES _order, lProduct varchar(40));"
-var createCompositeOrder = "CREATE TABLE _compositeOrder (oCompanyId numeric, oOrderNo numeric, oCustomerId uuid  REFERENCES _customer, PRIMARY KEY (oCompanyId,oOrderNo));";
-var createCompositeOrderLine = "CREATE TABLE _compositeOrderLine (lCompanyId numeric, lOrderNo numeric, lLineNo numeric, lProduct varchar(40), PRIMARY KEY (lCompanyId,lOrderNo, lLineNo));";
-var createDeliveryAddress = "CREATE TABLE _deliveryAddress (dId uuid PRIMARY KEY, dOrderId uuid REFERENCES _order, dName varchar(100), dStreet varchar(200), dPostalCode varchar(50), dPostalPlace varchar(200), dCountryCode varchar(2), dCountry varchar(100));";
-var createJsonOrder = "CREATE TABLE _jOrder (oId uuid PRIMARY KEY, oData jsonb);"
+var createCustomer = "CREATE TABLE _customer (id uuid PRIMARY KEY, name varchar(40), balance numeric, regDate timestamp with time zone, isActive boolean, picture bytea, document JSON);"
+var createUser = "CREATE TABLE _user (id uuid PRIMARY KEY, userId varchar(40), password varchar(40), email varchar(100));"
+var createOrder = "CREATE TABLE _order (id uuid PRIMARY KEY, orderNo varchar(20), customerId uuid  REFERENCES _customer);"
+var createOrderLine = "CREATE TABLE _orderLine (id uuid PRIMARY KEY, orderId uuid REFERENCES _order, product varchar(40));"
+var createCompositeOrder = "CREATE TABLE _compositeOrder (companyId numeric, orderNo numeric, customerId uuid  REFERENCES _customer, PRIMARY KEY (companyId,orderNo));";
+var createCompositeOrderLine = "CREATE TABLE _compositeOrderLine (companyId numeric, orderNo numeric, lineNo numeric, product varchar(40), PRIMARY KEY (companyId,orderNo, lineNo));";
+var createDeliveryAddress = "CREATE TABLE _deliveryAddress (id uuid PRIMARY KEY, orderId uuid REFERENCES _order, name varchar(100), street varchar(200), postalCode varchar(50), postalPlace varchar(200), countryCode varchar(2), country varchar(100));";
+var createJsonOrder = "CREATE TABLE _jOrder (id uuid PRIMARY KEY, oData jsonb);"
 
 var createSql = drop + createCustomer + createOrder + createOrderLine + createDeliveryAddress + createCompositeOrder +  createCompositeOrderLine + createUser + createJsonOrder;
 var buffer;

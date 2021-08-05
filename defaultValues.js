@@ -15,13 +15,13 @@ boolean is default false,
 json is default null
 */
 
-Customer.primaryColumn('cId').guid().as('id').default(null);
-Customer.column('cName').string().as('name').default('default name');
-Customer.column('cBalance').numeric().as('balance').default(2000);
-Customer.column('cRegdate').date().as('registeredDate').default(() => new Date());
-Customer.column('cIsActive').boolean().as('isActive').default(true);
-Customer.column('cPicture').binary().as('picture').default(buf);
-Customer.column('cDocument').json().as('document').default({foo: true});
+Customer.primaryColumn('id').guid().default(null);
+Customer.column('name').string().default('default name');
+Customer.column('balance').numeric().default(2000);
+Customer.column('regDate').date().as('registeredDate').default(() => new Date());
+Customer.column('isActive').boolean().default(true);
+Customer.column('picture').binary().default(buf);
+Customer.column('document').json().default({foo: true});
 
 let db = rdb('postgres://rdb:rdb@localhost/rdbdemo');
 

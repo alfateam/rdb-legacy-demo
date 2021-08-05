@@ -479,7 +479,7 @@
 		"regex": false,
 		"replace_history":
 		[
-			"by('oCustomerId')"
+			"by('customerId')"
 		],
 		"reverse": false,
 		"show_context": true,

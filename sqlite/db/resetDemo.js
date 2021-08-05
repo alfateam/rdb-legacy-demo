@@ -5,13 +5,13 @@ let conString = require('./connectionString');
 let sqlite = require('sqlite3');
 
 let drop = ["DROP TABLE IF EXISTS _compositeOrderLine", "DROP TABLE IF EXISTS _compositeOrder", "DROP TABLE IF EXISTS _deliveryAddress", "DROP TABLE IF EXISTS _orderLine", "DROP TABLE IF EXISTS _order", "DROP TABLE IF EXISTS _customer", "DROP TABLE IF EXISTS _user"]
-let createCustomer = ["CREATE TABLE _customer (cId TEXT PRIMARY KEY, cName TEXT, cBalance NUMERIC, cRegdate TEXT, cIsActive INTEGER, cPicture BLOB, cDocument TEXT)"]
-let createUser = ["CREATE TABLE _user (uId TEXT PRIMARY KEY, uUserId TEXT, uPassword TEXT, uEmail TEXT)"]
-let createOrder = ["CREATE TABLE _order (oId TEXT PRIMARY KEY, oOrderNo TEXT, oCustomerId TEXT  REFERENCES _customer)"]
-let createOrderLine = ["CREATE TABLE _orderLine (lId TEXT PRIMARY KEY, lOrderId TEXT REFERENCES _order, lProduct TEXT)"]
-let createCompositeOrder = ["CREATE TABLE _compositeOrder (oCompanyId NUMERIC, oOrderNo NUMERIC, oCustomerId TEXT  REFERENCES _customer, PRIMARY KEY (oCompanyId,oOrderNo))"];
-let createCompositeOrderLine = ["CREATE TABLE _compositeOrderLine (lCompanyId NUMERIC, lOrderNo NUMERIC, lLineNo NUMERIC, lProduct TEXT, PRIMARY KEY (lCompanyId,lOrderNo, lLineNo))"];
-let createDeliveryAddress = ["CREATE TABLE _deliveryAddress (dId TEXT PRIMARY KEY, dOrderId TEXT REFERENCES _order, dName TEXT, dStreet TEXT, dPostalCode TEXT, dPostalPlace TEXT, dCountryCode TEXT, dCountry TEXT)"];
+let createCustomer = ["CREATE TABLE _customer (id TEXT PRIMARY KEY, name TEXT, balance NUMERIC, regdate TEXT, isActive INTEGER, picture BLOB, document TEXT)"]
+let createUser = ["CREATE TABLE _user (id TEXT PRIMARY KEY, userId TEXT, password TEXT, email TEXT)"]
+let createOrder = ["CREATE TABLE _order (id TEXT PRIMARY KEY, orderNo TEXT, customerId TEXT  REFERENCES _customer)"]
+let createOrderLine = ["CREATE TABLE _orderLine (id TEXT PRIMARY KEY, orderId TEXT REFERENCES _order, product TEXT)"]
+let createCompositeOrder = ["CREATE TABLE _compositeOrder (companyId NUMERIC, orderNo NUMERIC, customerId TEXT  REFERENCES _customer, PRIMARY KEY (companyId,orderNo))"];
+let createCompositeOrderLine = ["CREATE TABLE _compositeOrderLine (companyId NUMERIC, orderNo NUMERIC, lineNo NUMERIC, product TEXT, PRIMARY KEY (companyId,orderNo, lineNo))"];
+let createDeliveryAddress = ["CREATE TABLE _deliveryAddress (id TEXT PRIMARY KEY, orderId TEXT REFERENCES _order, name TEXT, street TEXT, postalCode TEXT, postalPlace TEXT, countryCode TEXT, country TEXT)"];
 
 let createSql = drop.concat(createCustomer, createOrder, createOrderLine, createDeliveryAddress, createCompositeOrder, createCompositeOrderLine, createUser);
 let buffer;
@@ -76,12 +76,12 @@ function insert(onSuccess, onFailed) {
         for (let i = 0; i < insertSql.length; i++) {
             if (i === insertSql.length - 1)
                 // client.run(insertSql[i], onLastQueryDone);
-                client.run("select order_0.lId as sorder_00,order_0.lproduct as sorder_01,order_0.lOrderId as sorder_02 from _orderLine order_0 where order_0.lOrderId IN (select * from (select _order.oid as sorder0 from _order _order where _order.oorderno like '%00%' order by _order.oCustomerId desc limit 3) sub);", onLastQueryDone);
+                client.run("select order_0.id as sorder_00,order_0.product as sorder_01,order_0.orderId as sorder_02 from _orderLine order_0 where order_0.orderId IN (select * from (select _order.id as sorder0 from _order _order where _order.orderNo like '%00%' order by _order.customerId desc limit 3) sub);", onLastQueryDone);
 
             else
                 client.run(insertSql[i]);
         }
-        // client.run("delete from _orderLine where _orderLine.rowId in (SELECT _2.rowId FROM _orderLine _2 where EXISTS (SELECT _1.oId FROM _order AS _1 INNER JOIN _customer _customer ON (_1.oCustomerId=_customer.cId) WHERE _2.lOrderId=_1.oId AND _customer.cId='87654399-0000-0000-0000-000000000000'))", onLastQueryDone)
+        // client.run("delete from _orderLine where _orderLine.rowId in (SELECT _2.rowId FROM _orderLine _2 where EXISTS (SELECT _1.oId FROM _order AS _1 INNER JOIN _customer _customer ON (_1.customerId=_customer.id) WHERE _2.orderId=_1.oId AND _customer.id='87654399-0000-0000-0000-000000000000'))", onLastQueryDone)
     });
 
     function onLastQueryDone(e,e2) {

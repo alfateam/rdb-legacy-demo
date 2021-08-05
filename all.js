@@ -55,7 +55,6 @@ run('./update');
 run('./insert');
 run('./exclusive');
 run('./defaultValues');
-run('./conventions');
 run('./updateJoin');
 run('./updateHasOne');
 run('./updateHasMany');

@@ -4,13 +4,13 @@ let resetDemo = require('./db/resetDemo');
 let Customer = rdb.table('_customer');
 let Order = rdb.table('_order');
 
-Customer.primaryColumn('cId').guid().as('id');
-Customer.column('cName').string().as('name');
+Customer.primaryColumn('id').guid();
+Customer.column('name').string();
 
-Order.primaryColumn('oId').guid().as('id');
-Order.column('oOrderNo').string().as('orderNo');
-Order.column('oCustomerId').guid().as('customerId');
-Order.join(Customer).by('oCustomerId').as('customer');
+Order.primaryColumn('id').guid();
+Order.column('orderNo').string();
+Order.column('customerId').guid();
+Order.join(Customer).by('customerId').as('customer');
 
 let db = rdb.sqlite(__dirname + '/db/rdbDemo');
 

@@ -4,15 +4,15 @@ let resetDemo = require('./db/resetDemo');
 let Order = rdb.table('_compositeOrder');
 let OrderLine = rdb.table('_compositeOrderLine');
 
-Order.primaryColumn('oCompanyId').numeric().as('companyId');
-Order.primaryColumn('oOrderNo').numeric().as('orderNo');
+Order.primaryColumn('companyId').numeric();
+Order.primaryColumn('orderNo').numeric();
 
-OrderLine.primaryColumn('lCompanyId').numeric().as('companyId');
-OrderLine.primaryColumn('lOrderNo').numeric().as('orderNo');
-OrderLine.primaryColumn('lLineNo').numeric().as('lineNo');
-OrderLine.column('lProduct').string().as('product');
+OrderLine.primaryColumn('companyId').numeric();
+OrderLine.primaryColumn('orderNo').numeric();
+OrderLine.primaryColumn('lineNo').numeric();
+OrderLine.column('product').string();
 
-let line_order_relation = OrderLine.join(Order).by('lCompanyId', 'lOrderNo').as('order');
+let line_order_relation = OrderLine.join(Order).by('companyId', 'orderNo').as('order');
 Order.hasMany(line_order_relation).as('lines');
 
 let db = rdb.sqlite(__dirname + '/db/rdbDemo');

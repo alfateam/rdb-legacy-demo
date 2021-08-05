@@ -4,17 +4,17 @@ let conString = require('./connectionString');
 let mySql = require('mysql');
 
 let drop = "DROP TABLE IF EXISTS _compositeOrderLine;DROP TABLE IF EXISTS _compositeOrder;DROP TABLE IF EXISTS _deliveryAddress;DROP TABLE IF EXISTS _orderLine;DROP TABLE IF EXISTS _order;DROP TABLE IF EXISTS _customer;DROP TABLE IF EXISTS _user;";
-let createCustomer = "CREATE TABLE _customer (cId varchar(36) PRIMARY KEY, cName varchar(40), cBalance decimal(10,2), cRegdate timestamp, cIsActive boolean, cPicture blob, cDocument JSON);";
-let createUser = "CREATE TABLE _user (uId varchar(36) PRIMARY KEY, uUserId varchar(40), uPassword varchar(40), uEmail varchar(100));"
-let createOrder = "CREATE TABLE _order (oId varchar(36) PRIMARY KEY, oOrderNo varchar(20), oCustomerId varchar(36));";
-createOrder+= "ALTER TABLE _order ADD CONSTRAINT FOREIGN KEY(oCustomerId) REFERENCES _customer(cId);";
-let createOrderLine = "CREATE TABLE _orderLine (lId varchar(36) PRIMARY KEY, lOrderId varchar(36) REFERENCES _order, lProduct varchar(40));";
-createOrderLine+= "ALTER TABLE _orderLine ADD CONSTRAINT FOREIGN KEY(lOrderId) REFERENCES _order(oId);";
-let createCompositeOrder = "CREATE TABLE _compositeOrder (oCompanyId decimal(10,2), oOrderNo decimal(10,2), oCustomerId varchar(36), PRIMARY KEY (oCompanyId,oOrderNo));";
-createCompositeOrder+= "ALTER TABLE _compositeOrder ADD CONSTRAINT FOREIGN KEY(oCustomerId) REFERENCES _customer(cId);";
-let createCompositeOrderLine = "CREATE TABLE _compositeOrderLine (lCompanyId decimal(10,2), lOrderNo decimal(10,2), lLineNo decimal(10,2), lProduct varchar(40), PRIMARY KEY (lCompanyId,lOrderNo, lLineNo));";
-let createDeliveryAddress = "CREATE TABLE _deliveryAddress (dId varchar(36) PRIMARY KEY, dOrderId varchar(36), dName varchar(100), dStreet varchar(200), dPostalCode varchar(50), dPostalPlace varchar(200), dCountryCode varchar(2), dCountry varchar(100));";
-createDeliveryAddress+= "ALTER TABLE _deliveryAddress ADD CONSTRAINT FOREIGN KEY(dOrderId) REFERENCES _order(oId);";
+let createCustomer = "CREATE TABLE _customer (id varchar(36) PRIMARY KEY, name varchar(40), balance decimal(10,2), regdate timestamp, isActive boolean, picture blob, document JSON);";
+let createUser = "CREATE TABLE _user (id varchar(36) PRIMARY KEY, userId varchar(40), password varchar(40), email varchar(100));"
+let createOrder = "CREATE TABLE _order (id varchar(36) PRIMARY KEY, orderNo varchar(20), customerId varchar(36));";
+createOrder+= "ALTER TABLE _order ADD CONSTRAINT FOREIGN KEY(customerId) REFERENCES _customer(id);";
+let createOrderLine = "CREATE TABLE _orderLine (id varchar(36) PRIMARY KEY, orderId varchar(36) REFERENCES _order, product varchar(40));";
+createOrderLine+= "ALTER TABLE _orderLine ADD CONSTRAINT FOREIGN KEY(orderId) REFERENCES _order(id);";
+let createCompositeOrder = "CREATE TABLE _compositeOrder (companyId decimal(10,2), orderNo decimal(10,2), customerId varchar(36), PRIMARY KEY (companyId,orderNo));";
+createCompositeOrder+= "ALTER TABLE _compositeOrder ADD CONSTRAINT FOREIGN KEY(customerId) REFERENCES _customer(id);";
+let createCompositeOrderLine = "CREATE TABLE _compositeOrderLine (companyId decimal(10,2), orderNo decimal(10,2), lineNo decimal(10,2), product varchar(40), PRIMARY KEY (companyId,orderNo, lineNo));";
+let createDeliveryAddress = "CREATE TABLE _deliveryAddress (id varchar(36) PRIMARY KEY, orderId varchar(36), name varchar(100), street varchar(200), postalCode varchar(50), postalPlace varchar(200), countryCode varchar(2), country varchar(100));";
+createDeliveryAddress+= "ALTER TABLE _deliveryAddress ADD CONSTRAINT FOREIGN KEY(orderId) REFERENCES _order(id);";
 
 let createSql = drop + createCustomer + createOrder + createOrderLine + createDeliveryAddress + createCompositeOrder +  createCompositeOrderLine + createUser;
 let buffer;

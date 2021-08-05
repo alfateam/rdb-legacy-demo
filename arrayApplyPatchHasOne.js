@@ -4,15 +4,15 @@ var rdb = require('rdb'),
 var Order = rdb.table('_order');
 var DeliveryAddress = rdb.table('_deliveryAddress');
 
-Order.primaryColumn('oId').guid().as('id');
-Order.column('oOrderNo').string().as('orderNo');
+Order.primaryColumn('id').guid();
+Order.column('orderNo').string();
 
-DeliveryAddress.primaryColumn('dId').guid().as('id');
-DeliveryAddress.column('dOrderId').string().as('orderId');
-DeliveryAddress.column('dName').string().as('name');
-DeliveryAddress.column('dStreet').string().as('street');
+DeliveryAddress.primaryColumn('id').guid();
+DeliveryAddress.column('orderId').string();
+DeliveryAddress.column('name').string();
+DeliveryAddress.column('street').string();
 
-var deliveryAddress_order_relation = DeliveryAddress.join(Order).by('dOrderId').as('order');
+var deliveryAddress_order_relation = DeliveryAddress.join(Order).by('orderId').as('order');
 Order.hasOne(deliveryAddress_order_relation).as('deliveryAddress');
 
 var db = rdb('postgres://rdb:rdb@localhost/rdbdemo');

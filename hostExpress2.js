@@ -4,15 +4,15 @@ let {json} = require('body-parser');
 let rdb = require('rdb');
 
 let Order = rdb.table('_order');
-Order.primaryColumn('oId').guid().as('id');
-Order.column('oOrderNo').string().as('orderNo');
+Order.primaryColumn('id').guid();
+Order.column('orderNo').string();
 
 let OrderLine = rdb.table('_orderLine');
-OrderLine.primaryColumn('lId').guid().as('id');
-OrderLine.column('lOrderId').guid().as('orderId');
-OrderLine.column('lProduct').string().as('product');
+OrderLine.primaryColumn('id').guid();
+OrderLine.column('orderId').guid();
+OrderLine.column('product').string();
 
-let line_order_relation = OrderLine.join(Order).by('lOrderId').as('order');
+let line_order_relation = OrderLine.join(Order).by('orderId').as('order');
 Order.hasMany(line_order_relation).as('lines');
 
 let db = rdb('postgres://rdb:rdb@localhost/rdbdemo');

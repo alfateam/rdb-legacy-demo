@@ -3,8 +3,8 @@ let resetDemo = require('./db/resetDemo');
 
 let Customer = rdb.table('_customer');
 
-Customer.primaryColumn('cId').guid().as('id');
-Customer.column('cName').string().as('name').validate(validateName);
+Customer.primaryColumn('id').guid();
+Customer.column('name').string().validate(validateName);
 
 function validateName(value, row) {
     if (value && value.length > 10)
