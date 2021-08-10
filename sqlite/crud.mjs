@@ -1,6 +1,5 @@
-import {OrderTable} from "../models"
-import * as rdb from 'rdb-client'
-let Order = rdb.table<OrderTable>('http://localhost:8080/order');
+import rdb from 'rdb-client'
+let Order = rdb.table('http://localhost:8080/order');
 
 run();
 
