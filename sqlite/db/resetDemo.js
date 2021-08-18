@@ -4,16 +4,18 @@ let conString = require('./connectionString');
 // let conString = ':memory:';
 let sqlite = require('sqlite3');
 
-let drop = ["DROP TABLE IF EXISTS _compositeOrderLine", "DROP TABLE IF EXISTS _compositeOrder", "DROP TABLE IF EXISTS _deliveryAddress", "DROP TABLE IF EXISTS _orderLine", "DROP TABLE IF EXISTS _order", "DROP TABLE IF EXISTS _customer", "DROP TABLE IF EXISTS _user"]
+let drop = ["DROP TABLE IF EXISTS _compositeOrderLine", "DROP TABLE IF EXISTS _compositeOrder", "DROP TABLE IF EXISTS _deliveryAddress", "DROP TABLE IF EXISTS _orderLine", "DROP TABLE IF EXISTS _orderLineauto", "DROP TABLE IF EXISTS _order","DROP TABLE IF EXISTS _orderauto", "DROP TABLE IF EXISTS _customer", "DROP TABLE IF EXISTS _user"]
 let createCustomer = ["CREATE TABLE _customer (id TEXT PRIMARY KEY, name TEXT, balance NUMERIC, regdate TEXT, isActive INTEGER, picture BLOB, document TEXT)"]
 let createUser = ["CREATE TABLE _user (id TEXT PRIMARY KEY, userId TEXT, password TEXT, email TEXT)"]
 let createOrder = ["CREATE TABLE _order (id TEXT PRIMARY KEY, orderNo TEXT, customerId TEXT  REFERENCES _customer)"]
+let createOrderAuto = ["CREATE TABLE _orderauto (id INTEGER PRIMARY KEY AUTOINCREMENT, orderNo TEXT, customerId TEXT  REFERENCES _customer)"]
+let createOrderLineAuto = ["CREATE TABLE _orderLineauto (id INTEGER PRIMARY KEY AUTOINCREMENT, orderId INTEGER REFERENCES _orderauto, product TEXT)"]
 let createOrderLine = ["CREATE TABLE _orderLine (id TEXT PRIMARY KEY, orderId TEXT REFERENCES _order, product TEXT)"]
 let createCompositeOrder = ["CREATE TABLE _compositeOrder (companyId NUMERIC, orderNo NUMERIC, customerId TEXT  REFERENCES _customer, PRIMARY KEY (companyId,orderNo))"];
 let createCompositeOrderLine = ["CREATE TABLE _compositeOrderLine (companyId NUMERIC, orderNo NUMERIC, lineNo NUMERIC, product TEXT, PRIMARY KEY (companyId,orderNo, lineNo))"];
 let createDeliveryAddress = ["CREATE TABLE _deliveryAddress (id TEXT PRIMARY KEY, orderId TEXT REFERENCES _order, name TEXT, street TEXT, postalCode TEXT, postalPlace TEXT, countryCode TEXT, country TEXT)"];
 
-let createSql = drop.concat(createCustomer, createOrder, createOrderLine, createDeliveryAddress, createCompositeOrder, createCompositeOrderLine, createUser);
+let createSql = drop.concat(createCustomer, createOrder,createOrderAuto, createOrderLine, createOrderLineAuto, createDeliveryAddress, createCompositeOrder, createCompositeOrderLine, createUser);
 let buffer;
 let buffer2;
 
