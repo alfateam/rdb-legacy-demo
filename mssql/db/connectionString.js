@@ -1,0 +1,1 @@
+module.exports = 'server=.;Database=rdbDemo;UID=test;PWD=test;Driver={ODBC Driver 17 for SQL Server}';
