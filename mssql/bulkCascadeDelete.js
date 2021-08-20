@@ -1,29 +1,34 @@
 let rdb = require('rdb');
 let resetDemo = require('./db/resetDemo');
-let inspect = require('util').inspect;
 
+let Customer = rdb.table('_customer');
 let Order = rdb.table('_order');
 let OrderLine = rdb.table('_orderLine');
 
+Customer.primaryColumn('id').guid();
+Customer.column('name').string();
+
 Order.primaryColumn('id').guid();
 Order.column('orderNo').string();
+Order.column('customerId').guid();
 
 OrderLine.primaryColumn('id').guid();
 OrderLine.column('orderId').guid();
-OrderLine.column('product').string();
+
+let orderToCustomer = Order.join(Customer).by('customerId').as('customer');
+Customer.hasMany(orderToCustomer).as('orders');
 
 let line_order_relation = OrderLine.join(Order).by('orderId').as('order');
 Order.hasMany(line_order_relation).as('lines');
 
-let db = rdb.sqlite(__dirname + '/db/rdbDemo');
-rdb.log(console.log)
+let db = rdb.mssql('server=.;Database=rdbDemo;Trusted_Connection=Yes;Driver={ODBC Driver 17 for SQL Server}');
+
 module.exports = async function() {
     try {
         await resetDemo();
         await db.transaction(async () => {
-            let order = await Order.getById('b0000000-b000-0000-0000-000000000000');
-            let dtos = await order.toDto();
-            console.log(inspect(dtos, false, 10));
+            let filter = Customer.id.eq('87654399-0000-0000-0000-000000000000');
+            await Customer.cascadeDelete(filter);
         });
     } catch (e) {
         console.log(e.stack);
