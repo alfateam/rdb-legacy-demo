@@ -2,7 +2,6 @@ let rdbClient = require('rdb-client');
 let rdb = require('rdb');
 let resetDemo = require('./db/resetDemo');
 
-rdb.log(console.log);
 let OrderDef = rdb.table('_orderauto');
 OrderDef.primaryColumn('id').numeric();
 OrderDef.column('orderNo').string();
@@ -15,7 +14,7 @@ OrderLineDef.column('product').string();
 let line_order_relation = OrderLineDef.join(OrderDef).by('orderId').as('order');
 OrderDef.hasMany(line_order_relation).as('lines');
 
-let db = rdb.sqlite(__dirname + '/db/rdbDemo');
+let db = rdb.mssql('server=.;Database=rdbDemo;Trusted_Connection=Yes;Driver={ODBC Driver 17 for SQL Server}');
 
 let Order = rdbClient.table(OrderDef, {db});
 
